@@ -389,7 +389,21 @@ static void render(Layer *layer, GContext *ctx) {
 }
 
 // ---- ticking ---------------------------------------------------------------
+// The timer only runs while something on screen actually moves: the flip, the
+// feedback countdown, or the summary's sparkles. The front/back faces are
+// static, and that's where a thinking learner spends most of the session — so
+// most of the time the app is fully asleep between button presses.
+static void tick(void *data);
+
+static bool anim_needed(void) {
+  return s_flip || s_phase == ST_FEEDBACK || s_phase == ST_SUMMARY;
+}
+static void schedule_tick(void) {
+  if (!s_timer && anim_needed()) s_timer = app_timer_register(TICK_MS, tick, NULL);
+}
+
 static void tick(void *data) {
+  s_timer = NULL;
   s_anim++;
   if (s_flip) {
     s_flip++;
@@ -398,7 +412,7 @@ static void tick(void *data) {
   }
   if (s_phase == ST_FEEDBACK && ++s_fb_frame >= FB_FRAMES) advance();
   layer_mark_dirty(s_layer);
-  s_timer = app_timer_register(TICK_MS, tick, NULL);
+  schedule_tick();
 }
 
 // ---- input -----------------------------------------------------------------
@@ -409,16 +423,19 @@ static void sel_click(ClickRecognizerRef r, void *ctx) {
     case ST_FEEDBACK: advance(); break;
     case ST_SUMMARY:  start_session(); break;
   }
+  schedule_tick();
   layer_mark_dirty(s_layer);
 }
 static void up_click(ClickRecognizerRef r, void *ctx) {
   if (s_phase == ST_BACK) grade(true);
   else if (s_phase == ST_FEEDBACK) advance();
+  schedule_tick();
   layer_mark_dirty(s_layer);
 }
 static void down_click(ClickRecognizerRef r, void *ctx) {
   if (s_phase == ST_BACK) grade(false);
   else if (s_phase == ST_FEEDBACK) advance();
+  schedule_tick();
   layer_mark_dirty(s_layer);
 }
 static void click_config(void *ctx) {
@@ -436,7 +453,8 @@ static void win_load(Window *window) {
   start_session();
 }
 static void win_appear(Window *window) {
-  s_timer = app_timer_register(TICK_MS, tick, NULL);
+  layer_mark_dirty(s_layer);
+  schedule_tick();              // no-op while the card just sits there
 }
 static void win_disappear(Window *window) {
   if (s_timer) { app_timer_cancel(s_timer); s_timer = NULL; }

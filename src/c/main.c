@@ -230,8 +230,15 @@ static void menu_update(Layer *layer, GContext *ctx) {
 }
 
 // ---- animation / smooth scroll ----
+// A fast tick is only needed while the scroll animation settles; once still,
+// drop to a slow heartbeat (the cat keeps blinking, the battery keeps living).
+// s_anim advances by the same wall-clock amount either way, so the blink and
+// mood cadence don't depend on the tick rate.
+#define TICK_FAST_MS 60
+#define TICK_IDLE_MS 240
+
 static void tick(void *data) {
-  s_anim++;
+  bool scrolling = false;
   if (s_view != VIEW_STATS) {
     GRect b = layer_get_bounds(s_layer);
     int top = list_top(), list_h = b.size.h - top;
@@ -242,9 +249,17 @@ static void tick(void *data) {
     if (target > max_scroll) target = max_scroll;
     int diff = target - s_scroll;
     if (diff > -3 && diff < 3) s_scroll = target; else s_scroll += diff / 3;
+    scrolling = (s_scroll != target);
   }
+  int interval = scrolling ? TICK_FAST_MS : TICK_IDLE_MS;
+  s_anim += interval / TICK_FAST_MS;
   layer_mark_dirty(s_layer);
-  s_timer = app_timer_register(60, tick, NULL);
+  s_timer = app_timer_register(interval, tick, NULL);
+}
+
+// Input landed: make sure the next tick comes quickly so the scroll reacts.
+static void wake_tick(void) {
+  if (s_timer) app_timer_reschedule(s_timer, TICK_FAST_MS);
 }
 
 // ---- input ----
@@ -252,12 +267,14 @@ static void up_click(ClickRecognizerRef r, void *c) {
   if (s_view == VIEW_STATS) return;
   int n = list_count();
   s_sel = (s_sel - 1 + n) % n;
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void down_click(ClickRecognizerRef r, void *c) {
   if (s_view == VIEW_STATS) return;
   int n = list_count();
   s_sel = (s_sel + 1) % n;
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void select_click(ClickRecognizerRef r, void *c) {
@@ -275,12 +292,14 @@ static void select_click(ClickRecognizerRef r, void *c) {
   } else {                       // STATS
     s_view = VIEW_HOME; s_sel = HOME_STATS; s_scroll = 0;
   }
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void back_click(ClickRecognizerRef r, void *c) {
   if (s_view == VIEW_DECKS) { s_view = VIEW_HOME; s_sel = HOME_TIER0 + s_tier; s_scroll = 0; }
   else if (s_view == VIEW_STATS) { s_view = VIEW_HOME; s_sel = HOME_STATS; s_scroll = 0; }
   else { window_stack_pop(true); }    // HOME → exit to watchface
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void click_config(void *ctx) {
@@ -291,20 +310,24 @@ static void click_config(void *ctx) {
 }
 
 // ---- window ----
+// The UI atlas (~14 KB decoded, the largest bitmap in the app) is only held
+// while the menu is actually visible: `disappear` releases it so a study
+// session underneath gets the heap, `appear` decodes it again.
 static void win_load(Window *window) {
   s_layer = window_get_root_layer(window);
   layer_set_update_proc(s_layer, menu_update);
-  han_load(&s_ui, &ATLAS_UI);
 }
 static void win_appear(Window *window) {
+  han_load(&s_ui, &ATLAS_UI);
   layer_mark_dirty(s_layer);
-  s_timer = app_timer_register(60, tick, NULL);
+  s_timer = app_timer_register(TICK_FAST_MS, tick, NULL);
 }
 static void win_disappear(Window *window) {
   if (s_timer) { app_timer_cancel(s_timer); s_timer = NULL; }
+  han_unload(&s_ui);
 }
 static void win_unload(Window *window) {
-  han_unload(&s_ui);
+  han_unload(&s_ui);    // idempotent; disappear normally already released it
 }
 
 static void init(void) {
