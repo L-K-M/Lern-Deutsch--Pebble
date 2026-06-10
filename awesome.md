@@ -8,7 +8,18 @@ cat has more personality than most production apps. The findings below are
 polish on something already good.
 
 Items marked **[implemented]** have a companion PR; the rest are written up so
-they're ready to pick up later.
+they're ready to pick up later. Every companion PR was verified with a local
+`pebble build` for emery before being opened.
+
+| PR | What it carries |
+|---|---|
+| [#2](../../pull/2) | Stroke-colour bug fixes (1.2) |
+| [#3](../../pull/3) | The `T恤` atlas fix (1.1) |
+| [#4](../../pull/4) | Honest „Gelernt" counting, daily streak, „Rekord!" badge (1.3, 3.1, 3.2, 4.3) |
+| [#5](../../pull/5) | Idle timers + released menu atlas (2.1, 2.2) |
+| [#6](../../pull/6) | Wrist-flick flip, wrong-answer haptic, backlight, came-back badge (3.3, 3.4, 4.1) |
+| [#7](../../pull/7) | Vocabulary validator + CI step + `build.sh` fixes (1.6, 2.4, 2.7, 2.8) |
+| [#8](../../pull/8) | Pet the cat (4.2) |
 
 ---
 
@@ -120,7 +131,9 @@ non-BMP codepoints (the `uint16_t` tables silently can't hold them), decks
 larger than `MAXCARDS` (64 — `start_session` silently truncates!), phrases
 longer than the card box… Bug 1.1 shipped precisely because no tool was
 looking. Fix: `tools/validate_vocab.py`, dependency-free, run by
-`gen_assets.py` before generating and by CI before building.
+`gen_assets.py` before generating and by CI before building. Its first run on
+the real data already surfaced something: `gross` and `klein` each live in two
+decks (*Alltag* and *Aussehen*) — flagged as warnings in case it's deliberate.
 
 ### 2.5 CI can't see vocab drift
 
@@ -269,9 +282,9 @@ regeneration.
 * Deck order in `GROUPS` is a persistence contract (best-star slots) — none of
   the changes above may reorder it. New persist keys used: 3 (streak length)
   and 4 (streak day); best-star keys start at 100, so keys 5–99 remain free.
-* The PRs were cut to minimise overlap, but #4/#5/#6 all touch `study.c` in
-  different regions; if two of them race to merge, the loser needs a trivial
-  rebase, not thought.
+* The PRs were cut to minimise overlap, but #2/#4/#5/#6 all touch `study.c`
+  (and #2/#4/#5/#8 touch `main.c`) in different regions; most pairs merge
+  cleanly, and where they don't the loser needs a trivial rebase, not thought.
 * Everything was reviewed against SDK behaviour (stroke vs fill semantics,
   `gbitmap_create_as_sub_bitmap` alignment, persist limits); the CI build on
   each PR is the final word on compilation for the emery target.
