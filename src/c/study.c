@@ -83,7 +83,10 @@ static void grade(bool correct) {
     q_push(s_cur);            // see it again later
     s_fb_kind = 2;
     s_msg_i = rand() % UIZH_NUDGE_N;
+    static const uint32_t ticks[] = { 40, 70, 40 };   // soft "uh-oh", unlike the ✓ buzz
+    vibes_enqueue_custom_pattern((VibePattern){ .durations = ticks, .num_segments = 3 });
   }
+  light_enable_interaction();  // make sure the verdict is readable
   s_phase = ST_FEEDBACK; s_fb_frame = 0;
 }
 
@@ -144,7 +147,7 @@ static void draw_flip(GContext *ctx, GPoint p, GColor c) {  // ⇄ "turn the car
 static void draw_btn_hint(GContext *ctx, GRect b, int cy, const char *word, GColor col, int kind) {
   int rx = b.size.w - STRIP;              // left edge of the rail
   int ex = b.size.w - 3;                  // screen edge (arrow tip)
-  graphics_context_set_fill_color(ctx, col);
+  graphics_context_set_stroke_color(ctx, col);
   for (int i = 0; i <= 6; i++)            // ▶ pointing at the button
     graphics_draw_line(ctx, GPoint(ex - 6 + i, cy - (6 - i)), GPoint(ex - 6 + i, cy + (6 - i)));
 
@@ -156,6 +159,18 @@ static void draw_btn_hint(GContext *ctx, GRect b, int cy, const char *word, GCol
   graphics_context_set_text_color(ctx, col);
   lg_text(ctx, word, fonts_get_system_font(FONT_KEY_GOTHIC_14),
           GRect(rx, cy + 9, STRIP - 2, 16), GTextAlignmentCenter);
+}
+
+// ↻ "this card came back": a small circular arrow in the card's corner, so a
+// returning miss is distinguishable from a fresh card.
+static void draw_again_badge(GContext *ctx, GPoint c, GColor col) {
+  graphics_context_set_stroke_color(ctx, col);
+  graphics_context_set_stroke_width(ctx, 2);
+  graphics_draw_arc(ctx, GRect(c.x - 6, c.y - 6, 13, 13), GOvalScaleModeFitCircle,
+                    0, DEG_TO_TRIGANGLE(290));
+  graphics_draw_line(ctx, GPoint(c.x + 1, c.y - 9), GPoint(c.x + 4, c.y - 6));  // arrowhead
+  graphics_draw_line(ctx, GPoint(c.x + 4, c.y - 6), GPoint(c.x + 1, c.y - 3));
+  graphics_context_set_stroke_width(ctx, 1);
 }
 
 // ---- German with a colour-coded article chip -------------------------------
@@ -318,7 +333,7 @@ static void render(Layer *layer, GContext *ctx) {
     // hints: BACK is on the left, SELECT on the right — point at each
     int hy = b.size.h - 20;
     GFont hf = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_context_set_stroke_color(ctx, GColorWhite);    // chevrons are lines
     graphics_context_set_text_color(ctx, GColorWhite);
     for (int i = 0; i <= 4; i++)                                  // ◀ BACK
       graphics_draw_line(ctx, GPoint(8 + (4 - i), hy + 9 - i), GPoint(8 + (4 - i), hy + 9 + i));
@@ -372,6 +387,9 @@ static void render(Layer *layer, GContext *ctx) {
 
   if (!showing_back) {
     draw_face(ctx, c, german_face, content, on_dark);            // front: the prompt
+    if (!s_flip && s_attempts[s_cur] > 0)                        // a card that came back
+      draw_again_badge(ctx, GPoint(p.origin.x + 14, p.origin.y + 14),
+                       on_dark ? GColorLightGray : GColorDarkGray);
   } else {
     // back: the big answer + an English gloss. For a Chinese answer we also show
     // the German prompt as a small reminder; a Chinese prompt is skipped (our
@@ -408,7 +426,21 @@ static void render(Layer *layer, GContext *ctx) {
 }
 
 // ---- ticking ---------------------------------------------------------------
+// The timer only runs while something on screen actually moves: the flip, the
+// feedback countdown, or the summary's sparkles. The front/back faces are
+// static, and that's where a thinking learner spends most of the session — so
+// most of the time the app is fully asleep between button presses.
+static void tick(void *data);
+
+static bool anim_needed(void) {
+  return s_flip || s_phase == ST_FEEDBACK || s_phase == ST_SUMMARY;
+}
+static void schedule_tick(void) {
+  if (!s_timer && anim_needed()) s_timer = app_timer_register(TICK_MS, tick, NULL);
+}
+
 static void tick(void *data) {
+  s_timer = NULL;
   s_anim++;
   if (s_flip) {
     s_flip++;
@@ -417,7 +449,7 @@ static void tick(void *data) {
   }
   if (s_phase == ST_FEEDBACK && ++s_fb_frame >= FB_FRAMES) advance();
   layer_mark_dirty(s_layer);
-  s_timer = app_timer_register(TICK_MS, tick, NULL);
+  schedule_tick();
 }
 
 // ---- input -----------------------------------------------------------------
@@ -428,16 +460,19 @@ static void sel_click(ClickRecognizerRef r, void *ctx) {
     case ST_FEEDBACK: advance(); break;
     case ST_SUMMARY:  start_session(); break;
   }
+  schedule_tick();
   layer_mark_dirty(s_layer);
 }
 static void up_click(ClickRecognizerRef r, void *ctx) {
   if (s_phase == ST_BACK) grade(true);
   else if (s_phase == ST_FEEDBACK) advance();
+  schedule_tick();
   layer_mark_dirty(s_layer);
 }
 static void down_click(ClickRecognizerRef r, void *ctx) {
   if (s_phase == ST_BACK) grade(false);
   else if (s_phase == ST_FEEDBACK) advance();
+  schedule_tick();
   layer_mark_dirty(s_layer);
 }
 static void click_config(void *ctx) {
@@ -446,21 +481,33 @@ static void click_config(void *ctx) {
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click);
 }
 
+// A wrist flick is the physical metaphor for turning a card over, so the
+// accelerometer's tap event acts like SELECT — but only for flipping. Grading
+// stays on the buttons, where a stray shake can't misfire it.
+static void tap_handler(AccelAxisType axis, int32_t direction) {
+  if (s_phase != ST_FRONT && s_phase != ST_BACK) return;
+  light_enable_interaction();         // flicking usually means "I'm looking now"
+  sel_click(NULL, NULL);
+}
+
 // ---- window ----------------------------------------------------------------
 static void win_load(Window *window) {
   s_layer = window_get_root_layer(window);
   layer_set_update_proc(s_layer, render);
   han_load(&s_ui, &ATLAS_UI);
   han_load(&s_grp, s_g->atlas);
+  accel_tap_service_subscribe(tap_handler);   // flick the wrist to flip the card
   start_session();
 }
 static void win_appear(Window *window) {
-  s_timer = app_timer_register(TICK_MS, tick, NULL);
+  layer_mark_dirty(s_layer);
+  schedule_tick();              // no-op while the card just sits there
 }
 static void win_disappear(Window *window) {
   if (s_timer) { app_timer_cancel(s_timer); s_timer = NULL; }
 }
 static void win_unload(Window *window) {
+  accel_tap_service_unsubscribe();
   han_unload(&s_ui);
   han_unload(&s_grp);
   window_destroy(s_window);

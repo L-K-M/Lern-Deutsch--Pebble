@@ -128,6 +128,11 @@ void  lg_draw_icon(GContext *ctx, IconId id, GRect box, GColor fg);
 // The mascot: a little cat that reacts. mood: 0 neutral, 1 happy, 2 sad.
 void  lg_draw_cat(GContext *ctx, GPoint center, int r, int mood, int frame, GColor fur);
 
+// Elfie, a real tortoiseshell Devon Rex (an easter-egg guest, not the mascot):
+// a wide wedge face, huge ears, a black mask around her right eye, chartreuse
+// slit-pupil eyes, a white chin. Same moods as the mascot.
+void  lg_draw_elfie(GContext *ctx, GPoint center, int r, int mood, int frame);
+
 // A row of `total` stars with `filled` lit.
 void  lg_draw_stars(GContext *ctx, GRect box, int filled, int total);
 

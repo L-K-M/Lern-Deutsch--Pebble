@@ -28,6 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import vocab  # noqa: E402
+import validate_vocab  # noqa: E402
 
 FONT_PATH = os.path.join(HERE, "fonts", "NotoSansSC-Regular.otf")
 
@@ -59,8 +60,14 @@ PKG = os.path.join(ROOT, "package.json")
 
 
 def han_codepoints(s):
-    """Codepoints in `s` that need a custom glyph (anything non-ASCII)."""
-    return [ord(c) for c in s if ord(c) > 0x7F]
+    """Codepoints in `s` that need a custom glyph.
+
+    Everything printable, *including* ASCII: the watch renderer only draws
+    glyphs that exist in the atlas, so a Latin letter inside a Chinese string
+    (like the T in T恤) must be baked too or it silently disappears. Noto
+    renders it nicely fullwidth inside the 32px cell.
+    """
+    return [ord(c) for c in s if ord(c) > 0x20]
 
 
 def collect(strings):
@@ -137,6 +144,7 @@ def write_package_json(atlases):
 
 
 def main():
+    validate_vocab.run_or_die(vocab)   # bad data fails loudly, not silently on the watch
     if not os.path.exists(FONT_PATH):
         sys.exit("Missing %s — see tools/fonts/README" % FONT_PATH)
     os.makedirs(IMG_DIR, exist_ok=True)

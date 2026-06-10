@@ -30,6 +30,8 @@ static int  s_sel    = HOME_TIER0;   // start on the first tier
 static int  s_anim   = 0;
 static int  s_scroll = 0;
 static int  s_streak = 0;           // cached for the banner (refreshed on appear)
+static time_t s_pet_until = 0;       // while now < this, the stats cat is being petted
+static int    s_pets = 0;            // consecutive pets; enough summons Elfie
 
 static int home_count(void) { return HOME_TIER0 + g_tier_count; }
 static int list_count(void) { return s_view == VIEW_DECKS ? g_tiers[s_tier].deck_count : home_count(); }
@@ -72,7 +74,7 @@ static void draw_bars(GContext *ctx, GRect box, int filled, int total, GColor fg
 static void draw_dir_chip(GContext *ctx, int x, int y, GColor ink) {
   Direction d = lg_dir_get();
   han_draw(ctx, &s_ui, d == DIR_DE_ZH ? UIZH_DE : UIZH_ZH, GPoint(x, y), ink);
-  graphics_context_set_fill_color(ctx, ink);
+  graphics_context_set_stroke_color(ctx, ink);   // the ▶ is drawn with lines
   int ax = x + 36;
   for (int i = 0; i <= 5; i++)
     graphics_draw_line(ctx, GPoint(ax + i, y + 11 - (5 - i)), GPoint(ax + i, y + 21 + (5 - i)));
@@ -167,7 +169,7 @@ static void draw_header(GContext *ctx, int w) {
   const Tier *t = &g_tiers[s_tier];
   graphics_context_set_fill_color(ctx, t->accent);
   graphics_fill_rect(ctx, GRect(0, 0, w, HEADER_H), 0, GCornerNone);
-  graphics_context_set_fill_color(ctx, GColorBlack);            // ◀ back chevron (points left)
+  graphics_context_set_stroke_color(ctx, GColorBlack);          // ◀ back chevron (points left)
   for (int i = 0; i <= 5; i++)
     graphics_draw_line(ctx, GPoint(8 + i, HEADER_H / 2 - i), GPoint(8 + i, HEADER_H / 2 + i));
   graphics_context_set_text_color(ctx, GColorBlack);
@@ -184,12 +186,36 @@ static void stat_line(GContext *ctx, int y, int w, const char *label, const char
   lg_text(ctx, value, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD), GRect(w - 86, y - 3, 72, 26), GTextAlignmentRight);
 }
 
+// A tiny heart for the petting ring.
+static void draw_mini_heart(GContext *ctx, GPoint c, GColor col) {
+  graphics_context_set_fill_color(ctx, col);
+  graphics_fill_circle(ctx, GPoint(c.x - 2, c.y - 1), 2);
+  graphics_fill_circle(ctx, GPoint(c.x + 2, c.y - 1), 2);
+  graphics_context_set_stroke_color(ctx, col);
+  for (int i = 0; i <= 3; i++)
+    graphics_draw_line(ctx, GPoint(c.x - 4 + i, c.y + i), GPoint(c.x + 4 - i, c.y + i));
+}
+
 static void draw_stats(GContext *ctx, GRect b) {
   int learned = lg_learned_total();
   int done = 0, total = g_group_count, stars = 0, smax = g_group_count * 3;
   for (int i = 0; i < g_group_count; i++) { int s = lg_best_stars(i); stars += s; if (s > 0) done++; }
 
-  lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
+  // pet the mascot three times in a row and Elfie — a real cat — pads in to
+  // claim the rest of the pets; she leaves again when the petting stops
+  bool petting = time(NULL) < s_pet_until;
+  if (petting && s_pets >= 3)
+    lg_draw_elfie(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim);
+  else
+    lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
+  if (petting) {                        // being petted: a slow orbit of hearts
+    for (int a = 0; a < 360; a += 60) {
+      int32_t t = DEG_TO_TRIGANGLE((a + s_anim * 4) % 360);
+      int hx = b.size.w / 2 + sin_lookup(t) * 32 / TRIG_MAX_RATIO;
+      int hy = 34 - cos_lookup(t) * 24 / TRIG_MAX_RATIO;
+      draw_mini_heart(ctx, GPoint(hx, hy), GColorBrilliantRose);
+    }
+  }
   graphics_context_set_text_color(ctx, GColorWhite);
   lg_text(ctx, "Statistik", fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD),
           GRect(0, 56, b.size.w, 26), GTextAlignmentCenter);
@@ -210,7 +236,7 @@ static void draw_stats(GContext *ctx, GRect b) {
   lg_draw_stars(ctx, GRect(64, 192, 22, 20), 1, 1);     // one gold star as a cue
 
   int by = b.size.h - 10;
-  graphics_context_set_fill_color(ctx, GColorLightGray);
+  graphics_context_set_stroke_color(ctx, GColorLightGray);
   for (int i = 0; i <= 4; i++)                              // ◀ vector chevron (points left)
     graphics_draw_line(ctx, GPoint(10 + i, by - i), GPoint(10 + i, by + i));
   graphics_context_set_text_color(ctx, GColorLightGray);
@@ -238,8 +264,15 @@ static void menu_update(Layer *layer, GContext *ctx) {
 }
 
 // ---- animation / smooth scroll ----
+// A fast tick is only needed while the scroll animation settles; once still,
+// drop to a slow heartbeat (the cat keeps blinking, the battery keeps living).
+// s_anim advances by the same wall-clock amount either way, so the blink and
+// mood cadence don't depend on the tick rate.
+#define TICK_FAST_MS 60
+#define TICK_IDLE_MS 240
+
 static void tick(void *data) {
-  s_anim++;
+  bool scrolling = false;
   if (s_view != VIEW_STATS) {
     GRect b = layer_get_bounds(s_layer);
     int top = list_top(), list_h = b.size.h - top;
@@ -250,9 +283,17 @@ static void tick(void *data) {
     if (target > max_scroll) target = max_scroll;
     int diff = target - s_scroll;
     if (diff > -3 && diff < 3) s_scroll = target; else s_scroll += diff / 3;
+    scrolling = (s_scroll != target);
   }
+  int interval = scrolling ? TICK_FAST_MS : TICK_IDLE_MS;
+  s_anim += interval / TICK_FAST_MS;
   layer_mark_dirty(s_layer);
-  s_timer = app_timer_register(60, tick, NULL);
+  s_timer = app_timer_register(interval, tick, NULL);
+}
+
+// Input landed: make sure the next tick comes quickly so the scroll reacts.
+static void wake_tick(void) {
+  if (s_timer) app_timer_reschedule(s_timer, TICK_FAST_MS);
 }
 
 // ---- input ----
@@ -260,12 +301,14 @@ static void up_click(ClickRecognizerRef r, void *c) {
   if (s_view == VIEW_STATS) return;
   int n = list_count();
   s_sel = (s_sel - 1 + n) % n;
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void down_click(ClickRecognizerRef r, void *c) {
   if (s_view == VIEW_STATS) return;
   int n = list_count();
   s_sel = (s_sel + 1) % n;
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void select_click(ClickRecognizerRef r, void *c) {
@@ -280,15 +323,20 @@ static void select_click(ClickRecognizerRef r, void *c) {
     }
   } else if (s_view == VIEW_DECKS) {
     study_push(g_tiers[s_tier].decks[s_sel]);
-  } else {                       // STATS
-    s_view = VIEW_HOME; s_sel = HOME_STATS; s_scroll = 0;
+  } else {                       // STATS: SELECT pets the cat (BACK still exits)
+    s_pets = (time(NULL) < s_pet_until) ? s_pets + 1 : 1;   // keep petting...
+    s_pet_until = time(NULL) + 2;
+    static const uint32_t purr[] = { 30, 60, 30, 60, 30 };
+    vibes_enqueue_custom_pattern((VibePattern){ .durations = purr, .num_segments = 5 });
   }
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void back_click(ClickRecognizerRef r, void *c) {
   if (s_view == VIEW_DECKS) { s_view = VIEW_HOME; s_sel = HOME_TIER0 + s_tier; s_scroll = 0; }
   else if (s_view == VIEW_STATS) { s_view = VIEW_HOME; s_sel = HOME_STATS; s_scroll = 0; }
   else { window_stack_pop(true); }    // HOME → exit to watchface
+  wake_tick();
   layer_mark_dirty(s_layer);
 }
 static void click_config(void *ctx) {
@@ -299,21 +347,25 @@ static void click_config(void *ctx) {
 }
 
 // ---- window ----
+// The UI atlas (~14 KB decoded, the largest bitmap in the app) is only held
+// while the menu is actually visible: `disappear` releases it so a study
+// session underneath gets the heap, `appear` decodes it again.
 static void win_load(Window *window) {
   s_layer = window_get_root_layer(window);
   layer_set_update_proc(s_layer, menu_update);
-  han_load(&s_ui, &ATLAS_UI);
 }
 static void win_appear(Window *window) {
+  han_load(&s_ui, &ATLAS_UI);
   s_streak = lg_streak_days();      // a study session may have fed the flame
   layer_mark_dirty(s_layer);
-  s_timer = app_timer_register(60, tick, NULL);
+  s_timer = app_timer_register(TICK_FAST_MS, tick, NULL);
 }
 static void win_disappear(Window *window) {
   if (s_timer) { app_timer_cancel(s_timer); s_timer = NULL; }
+  han_unload(&s_ui);
 }
 static void win_unload(Window *window) {
-  han_unload(&s_ui);
+  han_unload(&s_ui);    // idempotent; disappear normally already released it
 }
 
 static void init(void) {
