@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: "20"
 
+      # Fail fast on word-list mistakes (wrong gender/article, oversize decks,
+      # characters the renderer can't draw) before spending minutes on the SDK.
+      - name: Validate vocabulary
+        run: python3 tools/validate_vocab.py
+
       - name: Install pebble-tool
         run: |
           python3 -m venv "$HOME/pebble-venv"
