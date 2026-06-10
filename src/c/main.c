@@ -197,7 +197,7 @@ static void draw_stats(GContext *ctx, GRect b) {
   // claim the rest of the pets; she leaves again when the petting stops
   bool petting = time(NULL) < s_pet_until;
   if (petting && s_pets >= 3)
-    lg_draw_elfie(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorPurple);
+    lg_draw_elfie(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim);
   else
     lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
   if (petting) {                        // being petted: a slow orbit of hearts
