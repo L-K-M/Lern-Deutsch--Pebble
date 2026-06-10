@@ -24,9 +24,13 @@ selbst bewerten — und eine kleine Katze feuert dich an.
    Bewerte dich selbst: **UP = ✓ gewusst**, **DOWN = ✗ noch nicht**.
 4. 没记住的卡片还会再来，全部记住这一轮才结束。
    Nicht gewusste Karten kommen wieder, bis du alle kannst — dann ist die Runde fertig.
-5. **第一次**就答对的越多，星星越多（最多 ⭐⭐⭐）。每组单词都记住你的最好成绩。
+5. **第一次**就答对的越多，星星越多（最多 ⭐⭐⭐）。每组单词都记住你的最好成绩，
+   打破自己的纪录还会看到 **«Rekord!»**。
    Sterne gibt es für Karten, die du beim **ersten Versuch** kannst — bis zu ⭐⭐⭐.
-   Jedes Set speichert deine beste Wertung.
+   Jedes Set speichert deine beste Wertung, und wer sie schlägt, sieht ein **«Rekord!»**.
+6. 每天至少学完一轮，主页右上角的小火焰 🔥 就会数你连续学习的天数。
+   Lerne jeden Tag mindestens eine Runde — die kleine Flamme 🔥 oben rechts
+   zählt deine Tage-Serie.
 
 * 方向随时可换：**德语 → 中文** 或 **中文 → 德语**。
   Die Lernrichtung kannst du jederzeit wechseln: **Deutsch → Chinesisch** oder
