@@ -71,7 +71,7 @@ static void draw_bars(GContext *ctx, GRect box, int filled, int total, GColor fg
 static void draw_dir_chip(GContext *ctx, int x, int y, GColor ink) {
   Direction d = lg_dir_get();
   han_draw(ctx, &s_ui, d == DIR_DE_ZH ? UIZH_DE : UIZH_ZH, GPoint(x, y), ink);
-  graphics_context_set_fill_color(ctx, ink);
+  graphics_context_set_stroke_color(ctx, ink);   // the ▶ is drawn with lines
   int ax = x + 36;
   for (int i = 0; i <= 5; i++)
     graphics_draw_line(ctx, GPoint(ax + i, y + 11 - (5 - i)), GPoint(ax + i, y + 21 + (5 - i)));
@@ -159,7 +159,7 @@ static void draw_header(GContext *ctx, int w) {
   const Tier *t = &g_tiers[s_tier];
   graphics_context_set_fill_color(ctx, t->accent);
   graphics_fill_rect(ctx, GRect(0, 0, w, HEADER_H), 0, GCornerNone);
-  graphics_context_set_fill_color(ctx, GColorBlack);            // ◀ back chevron (points left)
+  graphics_context_set_stroke_color(ctx, GColorBlack);          // ◀ back chevron (points left)
   for (int i = 0; i <= 5; i++)
     graphics_draw_line(ctx, GPoint(8 + i, HEADER_H / 2 - i), GPoint(8 + i, HEADER_H / 2 + i));
   graphics_context_set_text_color(ctx, GColorBlack);
@@ -202,7 +202,7 @@ static void draw_stats(GContext *ctx, GRect b) {
   lg_draw_stars(ctx, GRect(64, 192, 22, 20), 1, 1);     // one gold star as a cue
 
   int by = b.size.h - 10;
-  graphics_context_set_fill_color(ctx, GColorLightGray);
+  graphics_context_set_stroke_color(ctx, GColorLightGray);
   for (int i = 0; i <= 4; i++)                              // ◀ vector chevron (points left)
     graphics_draw_line(ctx, GPoint(10 + i, by - i), GPoint(10 + i, by + i));
   graphics_context_set_text_color(ctx, GColorLightGray);

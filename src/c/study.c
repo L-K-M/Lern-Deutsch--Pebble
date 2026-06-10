@@ -139,7 +139,7 @@ static void draw_flip(GContext *ctx, GPoint p, GColor c) {  // ⇄ "turn the car
 static void draw_btn_hint(GContext *ctx, GRect b, int cy, const char *word, GColor col, int kind) {
   int rx = b.size.w - STRIP;              // left edge of the rail
   int ex = b.size.w - 3;                  // screen edge (arrow tip)
-  graphics_context_set_fill_color(ctx, col);
+  graphics_context_set_stroke_color(ctx, col);
   for (int i = 0; i <= 6; i++)            // ▶ pointing at the button
     graphics_draw_line(ctx, GPoint(ex - 6 + i, cy - (6 - i)), GPoint(ex - 6 + i, cy + (6 - i)));
 
@@ -299,7 +299,7 @@ static void render(Layer *layer, GContext *ctx) {
     // hints: BACK is on the left, SELECT on the right — point at each
     int hy = b.size.h - 20;
     GFont hf = fonts_get_system_font(FONT_KEY_GOTHIC_14);
-    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_context_set_stroke_color(ctx, GColorWhite);    // chevrons are lines
     graphics_context_set_text_color(ctx, GColorWhite);
     for (int i = 0; i <= 4; i++)                                  // ◀ BACK
       graphics_draw_line(ctx, GPoint(8 + (4 - i), hy + 9 - i), GPoint(8 + (4 - i), hy + 9 + i));
