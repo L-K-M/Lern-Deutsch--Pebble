@@ -3,17 +3,32 @@ name: Build Pebble app
 # Builds the .pbw on every push / PR and uploads it as a downloadable artifact,
 # so you can install Lern Deutsch without setting up the SDK locally. The Chinese
 # glyph atlases are committed, so the build needs nothing beyond the Pebble SDK.
+#
+# Pushing a version tag (v*) additionally publishes a GitHub Release with the
+# compiled .pbw attached — that's the download the README points learners at
+# (release assets need no GitHub login, unlike Actions artifacts). To backfill
+# a release for an existing tag, run this workflow manually with the tag name.
 
 on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Existing v* tag to build and publish a release for (optional)"
+        required: false
+        default: ""
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # lets the release step attach the .pbw to a release
     steps:
       - uses: actions/checkout@v4
+        with:
+          # for a manual backfill, build the tag's source, not the branch head
+          ref: ${{ github.event.inputs.release_tag || github.ref }}
 
       - uses: actions/setup-python@v5
         with:
@@ -47,3 +62,16 @@ jobs:
           name: LernDeutsch-pbw
           path: build/*.pbw
           if-no-files-found: error
+
+      # Version tags become real releases carrying the compiled app, so the
+      # Releases page offers more than GitHub's automatic source archives.
+      - name: Publish the .pbw on the GitHub release
+        if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release_tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: |
+          cp build/*.pbw "LernDeutsch-${TAG}.pbw"
+          gh release view "$TAG" >/dev/null 2>&1 || \
+            gh release create "$TAG" --verify-tag --title "Lern Deutsch $TAG" --generate-notes
+          gh release upload "$TAG" "LernDeutsch-${TAG}.pbw" --clobber

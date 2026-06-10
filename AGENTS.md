@@ -68,8 +68,10 @@ See <https://developer.repebble.com/> for SDK help.
 
 [`.github/workflows/build.yml`](.github/workflows/build.yml) builds the `.pbw`
 on every push and uploads it as the **`LernDeutsch-pbw`** artifact
-(**Actions → Build Pebble app**) — that's the download the README points
-learners at.
+(**Actions → Build Pebble app**). Pushing a `v*` tag additionally publishes a
+GitHub Release with the compiled `.pbw` attached — that's the download the
+README points learners at. To backfill a release for an already-pushed tag,
+run the workflow manually (**Run workflow**) with the tag name as input.
 
 ## Editing the vocabulary
 
