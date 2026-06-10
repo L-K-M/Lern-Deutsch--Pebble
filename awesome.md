@@ -20,6 +20,7 @@ they're ready to pick up later. Every companion PR was verified with a local
 | [#6](../../pull/6) | Wrist-flick flip, wrong-answer haptic, backlight, came-back badge (3.3, 3.4, 4.1) |
 | [#7](../../pull/7) | Vocabulary validator + CI step + `build.sh` fixes (1.6, 2.4, 2.7, 2.8) |
 | [#8](../../pull/8) | Pet the cat (4.2) |
+| [#9](../../pull/9) | Reattached, properly-coloured cat ears (1.7) |
 
 ---
 
@@ -92,6 +93,27 @@ script right after `Installed.`, and `pebble build` never runs. Re-running
 works (the install is skipped), which is exactly the kind of heisenbug that
 wastes a newcomer's first build. Fix: `{ yes || true; } | pebble sdk install`
 so the installer's own exit code is what counts.
+
+### 1.7 The cat's ears are detached — and tinted by leftovers — **[implemented → PR #9]**
+
+Found after a user report ("their ears aren't properly attached") and verified
+by replicating `lg_draw_cat`'s GContext ops in a PIL simulation. Two distinct
+problems:
+
+* **Geometry.** The ears anchor at `x = ±(r−2)` — the head's *equator* width —
+  but their base sits near the *top* of the head, where the circle has
+  narrowed to `√(6r−9)` ≈ 9–11 px. At r=15 (banner) an ear clings on by one
+  pixel; at r=17/18/22 (stats, feedback, summary) the ears float entirely
+  free, worse the bigger the cat.
+* **Colour.** The triangles are rasterised with `graphics_draw_line` — stroke
+  colour — but only the *fill* colour is set to the fur. Bug 1.2's class,
+  hiding inside the mascot itself (PR #2 missed it behind a decoy
+  `fill_circle(…, 0)`). The ears inherit leftovers: PictonBlue on the banner,
+  star-outline tan on stats, the deck accent on the feedback chip.
+
+Fix: ears rooted *inside* the head (the head circle, drawn after, swallows the
+base, so they attach at every radius), proportions scaled with `r`, pink
+inner-ear triangles instead of floating dots, stroke colour set explicitly.
 
 ---
 
