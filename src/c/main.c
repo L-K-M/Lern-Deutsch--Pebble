@@ -29,6 +29,7 @@ static int  s_tier   = 0;
 static int  s_sel    = HOME_TIER0;   // start on the first tier
 static int  s_anim   = 0;
 static int  s_scroll = 0;
+static int  s_streak = 0;           // cached for the banner (refreshed on appear)
 
 static int home_count(void) { return HOME_TIER0 + g_tier_count; }
 static int list_count(void) { return s_view == VIEW_DECKS ? g_tiers[s_tier].deck_count : home_count(); }
@@ -153,6 +154,13 @@ static void draw_banner(GContext *ctx, int w) {
   graphics_fill_rect(ctx, GRect(0, BANNER_H - 4, w, 4), 0, GCornerNone);
   lg_draw_cat(ctx, GPoint(24, BANNER_H / 2 + 2), 15, (s_anim % 70 < 8) ? 1 : 0, s_anim, GColorWhite);
   han_draw(ctx, &s_ui, UIZH_TITLE, GPoint(50, 7), GColorWhite);
+  if (s_streak > 0) {                  // the daily flame, top right
+    char n[8]; snprintf(n, sizeof(n), "%d", s_streak);
+    lg_draw_flame(ctx, GPoint(w - 44, 18), GColorOrange, GColorYellow);
+    graphics_context_set_text_color(ctx, GColorChromeYellow);
+    lg_text(ctx, n, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD),
+            GRect(w - 34, 8, 32, 22), GTextAlignmentLeft);
+  }
 }
 
 static void draw_header(GContext *ctx, int w) {
@@ -297,6 +305,7 @@ static void win_load(Window *window) {
   han_load(&s_ui, &ATLAS_UI);
 }
 static void win_appear(Window *window) {
+  s_streak = lg_streak_days();      // a study session may have fed the flame
   layer_mark_dirty(s_layer);
   s_timer = app_timer_register(60, tick, NULL);
 }

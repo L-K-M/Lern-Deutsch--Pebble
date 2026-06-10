@@ -37,6 +37,8 @@ static int   s_total, s_mastered, s_first_correct;
 static int   s_cur;
 
 static Phase s_phase;
+static int   s_prev_best;        // best stars before this round (for "Rekord!")
+static int   s_streak;           // streak length to show on the summary
 static int   s_anim;
 static int   s_flip;             // 0 = not flipping, else 1..FLIP_N
 static bool  s_show_back_face;   // which face the flip currently reveals
@@ -96,8 +98,11 @@ static int compute_stars(void) {
 static void advance(void) {
   if (q_size() == 0) {
     int stars = compute_stars();
+    s_prev_best = lg_best_stars(s_group);
     lg_best_submit(s_group, stars);
-    lg_learned_add(s_total);
+    if (s_prev_best == 0) lg_learned_add(s_total);  // words count once, on first completion
+    lg_streak_bump();
+    s_streak = lg_streak_days();
     s_phase = ST_SUMMARY;
     vibes_double_pulse();
   } else {
@@ -289,12 +294,26 @@ static void render(Layer *layer, GContext *ctx) {
     han_draw_box(ctx, &s_ui, UIZH_DONE, GRect(0, 112, b.size.w, 32), s_g->accent);
 
     lg_draw_stars(ctx, GRect(0, 146, b.size.w, 24), stars, 3);
+    if (stars > s_prev_best) {              // beat (or set) the stored best
+      graphics_context_set_text_color(ctx, GColorYellow);
+      lg_text(ctx, "Rekord!", fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD),
+              GRect(b.size.w - 64, 150, 58, 16), GTextAlignmentRight);
+    }
 
     char line[28];
     snprintf(line, sizeof(line), "%d/%d beim 1. Mal", s_first_correct, s_total);
     graphics_context_set_text_color(ctx, GColorLightGray);
     lg_text(ctx, line, fonts_get_system_font(FONT_KEY_GOTHIC_18),
             GRect(0, 170, b.size.w, 20), GTextAlignmentCenter);
+
+    if (s_streak > 0) {                     // the daily chain, fed by this round
+      char sline[24];
+      snprintf(sline, sizeof(sline), "Serie: %d %s", s_streak, s_streak == 1 ? "Tag" : "Tage");
+      lg_draw_flame(ctx, GPoint(b.size.w / 2 - 46, 197), GColorOrange, GColorYellow);
+      graphics_context_set_text_color(ctx, GColorRajah);
+      lg_text(ctx, sline, fonts_get_system_font(FONT_KEY_GOTHIC_14),
+              GRect(b.size.w / 2 - 36, 189, 90, 16), GTextAlignmentLeft);
+    }
 
     // hints: BACK is on the left, SELECT on the right — point at each
     int hy = b.size.h - 20;
