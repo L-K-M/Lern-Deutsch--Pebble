@@ -1,0 +1,25 @@
+# Pebble build output
+build/
+*.pbw
+
+# Pebble local config
+.lock-waf*
+.pebble-cache/
+.sconsign.dblite
+
+# Python / tooling
+.venv/
+.pebble-venv/
+__pycache__/
+*.pyc
+
+# Bundled font is downloaded on demand by tools (see tools/fonts/README.md)
+tools/fonts/*.otf
+tools/fonts/*.ttf
+tools/fonts/*.ttc
+
+# Editor / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/

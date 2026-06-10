@@ -1,0 +1,237 @@
+{
+  "name": "lern-deutsch",
+  "author": "L-K-M",
+  "version": "1.1.0",
+  "keywords": [
+    "pebble-app",
+    "german",
+    "chinese",
+    "flashcards",
+    "language"
+  ],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "Lern Deutsch",
+    "uuid": "7260645f-bc19-4045-864a-e0796fdbbe24",
+    "sdkVersion": "3",
+    "enableMultiJS": false,
+    "targetPlatforms": [
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [],
+    "resources": {
+      "media": [
+        {
+          "type": "png",
+          "name": "IMAGE_MENU_ICON",
+          "file": "images/menu_icon.png",
+          "menuIcon": true
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_UI",
+          "file": "images/han_ui.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_GREET",
+          "file": "images/han_greet.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_NUM",
+          "file": "images/han_num.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_PEOPLE",
+          "file": "images/han_people.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_FOOD",
+          "file": "images/han_food.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_DAILY",
+          "file": "images/han_daily.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_PHRASE",
+          "file": "images/han_phrase.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_COLOR",
+          "file": "images/han_color.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_BODY",
+          "file": "images/han_body.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_ANIMAL",
+          "file": "images/han_animal.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_CLOTHES",
+          "file": "images/han_clothes.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_HOME",
+          "file": "images/han_home.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_TIME",
+          "file": "images/han_time.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_SEASON",
+          "file": "images/han_season.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_HOBBY",
+          "file": "images/han_hobby.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_DATE",
+          "file": "images/han_date.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_WEATHER",
+          "file": "images/han_weather.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_TRAVEL",
+          "file": "images/han_travel.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_FEELING",
+          "file": "images/han_feeling.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_WORK",
+          "file": "images/han_work.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_VERB2",
+          "file": "images/han_verb2.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_SHOP",
+          "file": "images/han_shop.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_TECH",
+          "file": "images/han_tech.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_KITCHEN",
+          "file": "images/han_kitchen.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_TRANSPORT",
+          "file": "images/han_transport.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_RESTAURANT",
+          "file": "images/han_restaurant.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_HEALTH",
+          "file": "images/han_health.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_PHRASE2",
+          "file": "images/han_phrase2.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_IDIOM",
+          "file": "images/han_idiom.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_OFFICE",
+          "file": "images/han_office.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_OPINION",
+          "file": "images/han_opinion.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_EMERGENCY",
+          "file": "images/han_emergency.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_COUNTRY",
+          "file": "images/han_country.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_CITY",
+          "file": "images/han_city.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_PLAY",
+          "file": "images/han_play.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_MOVE",
+          "file": "images/han_move.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_LOOK",
+          "file": "images/han_look.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_PET",
+          "file": "images/han_pet.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_ROOM",
+          "file": "images/han_room.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "HAN_THING",
+          "file": "images/han_thing.png"
+        }
+      ]
+    }
+  }
+}

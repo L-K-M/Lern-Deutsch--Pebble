@@ -1,0 +1,44 @@
+name: Build Pebble app
+
+# Builds the .pbw on every push / PR and uploads it as a downloadable artifact,
+# so you can install Lern Deutsch without setting up the SDK locally. The Chinese
+# glyph atlases are committed, so the build needs nothing beyond the Pebble SDK.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install pebble-tool
+        run: |
+          python3 -m venv "$HOME/pebble-venv"
+          "$HOME/pebble-venv/bin/pip" install --upgrade pip setuptools wheel
+          "$HOME/pebble-venv/bin/pip" install pebble-tool
+          echo "$HOME/pebble-venv/bin" >> "$GITHUB_PATH"
+
+      - name: Install Pebble SDK
+        run: yes | pebble sdk install latest
+
+      - name: Build
+        run: pebble build
+
+      - name: Upload .pbw
+        uses: actions/upload-artifact@v4
+        with:
+          name: LernDeutsch-pbw
+          path: build/*.pbw
+          if-no-files-found: error
