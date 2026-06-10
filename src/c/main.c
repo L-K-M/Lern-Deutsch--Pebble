@@ -29,6 +29,8 @@ static int  s_tier   = 0;
 static int  s_sel    = HOME_TIER0;   // start on the first tier
 static int  s_anim   = 0;
 static int  s_scroll = 0;
+static time_t s_pet_until = 0;       // while now < this, the stats cat is being petted
+static int    s_pets = 0;            // consecutive pets; enough summons Elfie
 
 static int home_count(void) { return HOME_TIER0 + g_tier_count; }
 static int list_count(void) { return s_view == VIEW_DECKS ? g_tiers[s_tier].deck_count : home_count(); }
@@ -176,12 +178,36 @@ static void stat_line(GContext *ctx, int y, int w, const char *label, const char
   lg_text(ctx, value, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD), GRect(w - 86, y - 3, 72, 26), GTextAlignmentRight);
 }
 
+// A tiny heart for the petting ring.
+static void draw_mini_heart(GContext *ctx, GPoint c, GColor col) {
+  graphics_context_set_fill_color(ctx, col);
+  graphics_fill_circle(ctx, GPoint(c.x - 2, c.y - 1), 2);
+  graphics_fill_circle(ctx, GPoint(c.x + 2, c.y - 1), 2);
+  graphics_context_set_stroke_color(ctx, col);
+  for (int i = 0; i <= 3; i++)
+    graphics_draw_line(ctx, GPoint(c.x - 4 + i, c.y + i), GPoint(c.x + 4 - i, c.y + i));
+}
+
 static void draw_stats(GContext *ctx, GRect b) {
   int learned = lg_learned_total();
   int done = 0, total = g_group_count, stars = 0, smax = g_group_count * 3;
   for (int i = 0; i < g_group_count; i++) { int s = lg_best_stars(i); stars += s; if (s > 0) done++; }
 
-  lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
+  // pet the mascot three times in a row and Elfie — a real cat — pads in to
+  // claim the rest of the pets; she leaves again when the petting stops
+  bool petting = time(NULL) < s_pet_until;
+  if (petting && s_pets >= 3)
+    lg_draw_elfie(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim);
+  else
+    lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
+  if (petting) {                        // being petted: a slow orbit of hearts
+    for (int a = 0; a < 360; a += 60) {
+      int32_t t = DEG_TO_TRIGANGLE((a + s_anim * 4) % 360);
+      int hx = b.size.w / 2 + sin_lookup(t) * 32 / TRIG_MAX_RATIO;
+      int hy = 34 - cos_lookup(t) * 24 / TRIG_MAX_RATIO;
+      draw_mini_heart(ctx, GPoint(hx, hy), GColorBrilliantRose);
+    }
+  }
   graphics_context_set_text_color(ctx, GColorWhite);
   lg_text(ctx, "Statistik", fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD),
           GRect(0, 56, b.size.w, 26), GTextAlignmentCenter);
@@ -272,8 +298,11 @@ static void select_click(ClickRecognizerRef r, void *c) {
     }
   } else if (s_view == VIEW_DECKS) {
     study_push(g_tiers[s_tier].decks[s_sel]);
-  } else {                       // STATS
-    s_view = VIEW_HOME; s_sel = HOME_STATS; s_scroll = 0;
+  } else {                       // STATS: SELECT pets the cat (BACK still exits)
+    s_pets = (time(NULL) < s_pet_until) ? s_pets + 1 : 1;   // keep petting...
+    s_pet_until = time(NULL) + 2;
+    static const uint32_t purr[] = { 30, 60, 30, 60, 30 };
+    vibes_enqueue_custom_pattern((VibePattern){ .durations = purr, .num_segments = 5 });
   }
   layer_mark_dirty(s_layer);
 }
