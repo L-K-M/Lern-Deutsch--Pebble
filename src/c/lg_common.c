@@ -135,6 +135,137 @@ void lg_draw_cat(GContext *ctx, GPoint c, int r, int mood, int frame, GColor fur
   }
 }
 
+// --- Elfie: a real tortoiseshell Devon Rex, here as an easter-egg guest ------
+// One filled ear triangle, rasterised as horizontal lines: base centred on
+// `ax` (half-width `bw`) at row `by`, apex at (`tx`,`ty`). Lines draw in the
+// current *stroke* colour.
+static void elfie_tri(GContext *ctx, int ax, int tx, int by, int ty, int bw) {
+  int h = by - ty;
+  for (int yy = 0; yy <= h; yy++) {
+    int xl = (ax - bw) + (tx - (ax - bw)) * yy / h;
+    int xr = (ax + bw) + (tx - (ax + bw)) * yy / h;
+    graphics_draw_line(ctx, GPoint(xl, by - yy), GPoint(xr, by - yy));
+  }
+}
+
+// Drawn from life: chrome-orange tortie coat, a black blaze on the forehead,
+// a black mask around her right eye, huge chartreuse eyes with slit pupils,
+// oversized Devon-Rex ears, a white chin and a salmon nose.
+void lg_draw_elfie(GContext *ctx, GPoint c, int r, int mood, int frame, GColor collar) {
+  GColor coat = GColorChromeYellow;
+  GColor pink = GColorMelon;
+  bool blink = (mood == 0) && ((frame % 60) < 4);
+  int wag = ((frame / 8) % 2) ? 1 : -1;
+
+  // ears: rooted inside the head (the head circle drawn after swallows the
+  // base, so they always read as attached). Devon-Rex sized; a sad Elfie
+  // flattens them ("airplane ears").
+  int eo = r / 2;                    // ear anchor, halfway out the skull
+  int bw = 4 + r / 8;                // base half-width
+  int by = c.y - r + 4 + r / 6;      // base row, buried below the silhouette
+  int poke = 7 + r / 4;              // how far the tips rise above the head
+  int lean = 1 + wag;
+  if (mood == 2) { poke = 3; lean = 8; }
+  int ty = c.y - r - poke;
+  graphics_context_set_stroke_color(ctx, coat);
+  for (int s = -1; s <= 1; s += 2)
+    elfie_tri(ctx, c.x + s * eo, c.x + s * (eo + lean), by, ty, bw);
+  graphics_context_set_stroke_color(ctx, pink);
+  for (int s = -1; s <= 1; s += 2)
+    elfie_tri(ctx, c.x + s * eo, c.x + s * (eo + lean), by - 1, ty + 3, bw - 3);
+
+  // head
+  graphics_context_set_fill_color(ctx, coat);
+  graphics_fill_circle(ctx, c, r);
+
+  // tortie markings: forehead blaze, the mask around her right eye, and a
+  // brindle fleck on the left temple
+  graphics_context_set_fill_color(ctx, GColorBlack);
+  graphics_fill_circle(ctx, GPoint(c.x - r / 5, c.y - r + r / 3), r / 4 + 1);
+  graphics_fill_circle(ctx, GPoint(c.x + r / 8, c.y - r + r / 4), r / 5);
+  graphics_fill_circle(ctx, GPoint(c.x + r / 2 + 1, c.y - r / 6 - 1), r / 3 + 1);
+  graphics_context_set_fill_color(ctx, GColorWindsorTan);
+  int fleck = r / 6; if (fleck < 2) fleck = 2;
+  graphics_fill_circle(ctx, GPoint(c.x - r / 2, c.y - r / 2 + 1), fleck);
+
+  // white muzzle + chin
+  graphics_context_set_fill_color(ctx, GColorWhite);
+  graphics_fill_circle(ctx, GPoint(c.x, c.y + r / 2 + 1), r / 3);
+
+  // collar in the screen's colour, with her bell
+  int half = r / 2;
+  graphics_context_set_fill_color(ctx, collar);
+  graphics_fill_rect(ctx, GRect(c.x - half, c.y + r - 5 - r / 8, 2 * half, 3 + r / 8),
+                     0, GCornerNone);
+  graphics_context_set_fill_color(ctx, GColorYellow);
+  graphics_fill_circle(ctx, GPoint(c.x, c.y + r - 3), 2);
+
+  // eyes: huge chartreuse irises with slit pupils. Expression strokes go
+  // white on the mask side so they still read on the black patch.
+  int ex = r / 2, ey = -r / 6;
+  int eyer = r / 5; if (eyer < 2) eyer = 2;
+  if (blink || mood == 2) {                  // closed / sad lines
+    graphics_context_set_stroke_width(ctx, 2);
+    for (int s = -1; s <= 1; s += 2) {
+      graphics_context_set_stroke_color(ctx, s > 0 ? GColorWhite : GColorBlack);
+      GPoint e = GPoint(c.x + s * ex, c.y + ey);
+      if (mood == 2)
+        graphics_draw_line(ctx, GPoint(e.x - 3, e.y + 2), GPoint(e.x + 3, e.y - 1));
+      else
+        graphics_draw_line(ctx, GPoint(e.x - 3, e.y), GPoint(e.x + 3, e.y));
+    }
+    graphics_context_set_stroke_width(ctx, 1);
+  } else if (mood == 1) {                    // happy: upward ^ ^ eyes
+    graphics_context_set_stroke_width(ctx, 2);
+    for (int s = -1; s <= 1; s += 2) {
+      graphics_context_set_stroke_color(ctx, s > 0 ? GColorWhite : GColorBlack);
+      GPoint e = GPoint(c.x + s * ex, c.y + ey + 1);
+      graphics_draw_line(ctx, GPoint(e.x - 3, e.y + 2), GPoint(e.x, e.y - 2));
+      graphics_draw_line(ctx, GPoint(e.x, e.y - 2), GPoint(e.x + 3, e.y + 2));
+    }
+    graphics_context_set_stroke_width(ctx, 1);
+  } else {                                   // neutral: the famous green stare
+    graphics_context_set_stroke_color(ctx, GColorBlack);
+    for (int s = -1; s <= 1; s += 2) {
+      GPoint e = GPoint(c.x + s * ex, c.y + ey);
+      graphics_context_set_fill_color(ctx, GColorBlack);       // eyeliner
+      graphics_fill_circle(ctx, e, eyer + 1);
+      graphics_context_set_fill_color(ctx, GColorSpringBud);   // chartreuse iris
+      graphics_fill_circle(ctx, e, eyer);
+      graphics_draw_line(ctx, GPoint(e.x, e.y - eyer + 1), GPoint(e.x, e.y + eyer - 1));
+    }
+  }
+
+  // blush on happy
+  if (mood == 1) {
+    graphics_context_set_fill_color(ctx, GColorBrilliantRose);
+    for (int s = -1; s <= 1; s += 2)
+      graphics_fill_circle(ctx, GPoint(c.x + s * (r - 2), c.y + r / 3), 2);
+  }
+
+  // salmon nose + mouth, sitting on the white muzzle
+  graphics_context_set_fill_color(ctx, pink);
+  GPoint nose = GPoint(c.x, c.y + r / 4);
+  graphics_fill_circle(ctx, nose, 2);
+  graphics_context_set_stroke_color(ctx, GColorBlack);
+  if (mood == 2) {
+    graphics_draw_line(ctx, GPoint(nose.x - 3, nose.y + 5), GPoint(nose.x, nose.y + 3));
+    graphics_draw_line(ctx, GPoint(nose.x, nose.y + 3), GPoint(nose.x + 3, nose.y + 5));
+  } else {
+    graphics_draw_line(ctx, GPoint(nose.x, nose.y), GPoint(nose.x, nose.y + 3));
+    graphics_draw_line(ctx, GPoint(nose.x, nose.y + 3), GPoint(nose.x - 3, nose.y + 5));
+    graphics_draw_line(ctx, GPoint(nose.x, nose.y + 3), GPoint(nose.x + 3, nose.y + 5));
+  }
+
+  // whiskers: white, so they read on the dark screens she visits
+  graphics_context_set_stroke_color(ctx, GColorWhite);
+  for (int s = -1; s <= 1; s += 2) {
+    int wx = c.x + s * (r - 1);
+    graphics_draw_line(ctx, GPoint(wx, c.y + r / 4), GPoint(wx + s * 8, c.y + r / 4 - 2));
+    graphics_draw_line(ctx, GPoint(wx, c.y + r / 4 + 3), GPoint(wx + s * 8, c.y + r / 4 + 3));
+  }
+}
+
 // --- Group icons (tiny vector glyphs) ---------------------------------------
 void lg_draw_icon(GContext *ctx, IconId id, GRect box, GColor fg) {
   int cx = box.origin.x + box.size.w / 2;

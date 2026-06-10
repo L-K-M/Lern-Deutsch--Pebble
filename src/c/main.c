@@ -30,6 +30,7 @@ static int  s_sel    = HOME_TIER0;   // start on the first tier
 static int  s_anim   = 0;
 static int  s_scroll = 0;
 static time_t s_pet_until = 0;       // while now < this, the stats cat is being petted
+static int    s_pets = 0;            // consecutive pets; enough summons Elfie
 
 static int home_count(void) { return HOME_TIER0 + g_tier_count; }
 static int list_count(void) { return s_view == VIEW_DECKS ? g_tiers[s_tier].deck_count : home_count(); }
@@ -192,8 +193,14 @@ static void draw_stats(GContext *ctx, GRect b) {
   int done = 0, total = g_group_count, stars = 0, smax = g_group_count * 3;
   for (int i = 0; i < g_group_count; i++) { int s = lg_best_stars(i); stars += s; if (s > 0) done++; }
 
-  lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
-  if (time(NULL) < s_pet_until) {       // being petted: a slow orbit of hearts
+  // pet the mascot three times in a row and Elfie — a real cat — pads in to
+  // claim the rest of the pets; she leaves again when the petting stops
+  bool petting = time(NULL) < s_pet_until;
+  if (petting && s_pets >= 3)
+    lg_draw_elfie(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorPurple);
+  else
+    lg_draw_cat(ctx, GPoint(b.size.w / 2, 34), 17, 1, s_anim, GColorChromeYellow);
+  if (petting) {                        // being petted: a slow orbit of hearts
     for (int a = 0; a < 360; a += 60) {
       int32_t t = DEG_TO_TRIGANGLE((a + s_anim * 4) % 360);
       int hx = b.size.w / 2 + sin_lookup(t) * 32 / TRIG_MAX_RATIO;
@@ -292,6 +299,7 @@ static void select_click(ClickRecognizerRef r, void *c) {
   } else if (s_view == VIEW_DECKS) {
     study_push(g_tiers[s_tier].decks[s_sel]);
   } else {                       // STATS: SELECT pets the cat (BACK still exits)
+    s_pets = (time(NULL) < s_pet_until) ? s_pets + 1 : 1;   // keep petting...
     s_pet_until = time(NULL) + 2;
     static const uint32_t purr[] = { 30, 60, 30, 60, 30 };
     vibes_enqueue_custom_pattern((VibePattern){ .durations = purr, .num_segments = 5 });
