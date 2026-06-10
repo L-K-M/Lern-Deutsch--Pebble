@@ -51,31 +51,38 @@ GColor lg_gender_color(uint8_t gender, bool on_dark) {
 }
 
 // --- The mascot: a little cat that reacts -----------------------------------
+// One filled ear triangle, rasterised as horizontal lines: base centred on
+// `ax` (half-width `bw`) at row `by`, apex at (`tx`,`ty`). Lines draw in the
+// current *stroke* colour.
+static void ear_tri(GContext *ctx, int ax, int tx, int by, int ty, int bw) {
+  int h = by - ty;
+  for (int yy = 0; yy <= h; yy++) {
+    int xl = (ax - bw) + (tx - (ax - bw)) * yy / h;
+    int xr = (ax + bw) + (tx - (ax + bw)) * yy / h;
+    graphics_draw_line(ctx, GPoint(xl, by - yy), GPoint(xr, by - yy));
+  }
+}
+
 void lg_draw_cat(GContext *ctx, GPoint c, int r, int mood, int frame, GColor fur) {
   GColor pink = GColorBrilliantRose;
   bool blink = (mood == 0) && ((frame % 60) < 4);   // occasional idle blink
   int wag = ((frame / 8) % 2) ? 1 : -1;             // tiny ear twitch
 
-  // ears (triangles), with pink inners
-  graphics_context_set_fill_color(ctx, fur);
-  for (int s = -1; s <= 1; s += 2) {
-    int ex = c.x + s * (r - 2);
-    GPoint a = GPoint(ex - 5, c.y - r + 3);
-    GPoint b = GPoint(ex + 5, c.y - r + 3);
-    GPoint t = GPoint(ex + s * wag, c.y - r - 6);
-    graphics_fill_circle(ctx, a, 0);
-    // draw a filled triangle via three edges + fill: approximate with lines
-    for (int yy = 0; yy <= 9; yy++) {
-      int xl = a.x + (t.x - a.x) * yy / 9;
-      int xr = b.x + (t.x - b.x) * yy / 9;
-      graphics_draw_line(ctx, GPoint(xl, a.y - yy), GPoint(xr, a.y - yy));
-    }
-  }
-  graphics_context_set_fill_color(ctx, pink);
-  for (int s = -1; s <= 1; s += 2) {
-    int ex = c.x + s * (r - 2);
-    graphics_fill_circle(ctx, GPoint(ex, c.y - r - 1), 2);
-  }
+  // ears: triangles rooted INSIDE the head — the head circle is drawn after
+  // and swallows the base, so the ears stay attached at every radius (the old
+  // anchor at ±(r-2) sat on the head's equator width but at its narrow top,
+  // leaving the ears floating). Tips lean a touch outward and twitch with
+  // `wag`; a pink inner triangle peeks out just above the silhouette.
+  int eo = r / 2;                    // ear anchor, halfway out the skull
+  int bw = 3 + r / 8;                // base half-width
+  int by = c.y - r + 4 + r / 6;      // base row, buried below the silhouette
+  int ty = c.y - r - 5 - r / 6;      // tip row, poking above it
+  graphics_context_set_stroke_color(ctx, fur);
+  for (int s = -1; s <= 1; s += 2)
+    ear_tri(ctx, c.x + s * eo, c.x + s * (eo + 1 + wag), by, ty, bw);
+  graphics_context_set_stroke_color(ctx, pink);
+  for (int s = -1; s <= 1; s += 2)
+    ear_tri(ctx, c.x + s * eo, c.x + s * (eo + 1 + wag), by - 1, ty + 3, bw - 3);
 
   // head
   graphics_context_set_fill_color(ctx, fur);
