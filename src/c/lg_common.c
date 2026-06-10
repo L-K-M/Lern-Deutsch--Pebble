@@ -5,8 +5,10 @@
 // ============================================================================
 
 // --- Persistent state -------------------------------------------------------
-#define KEY_DIR      1
-#define KEY_LEARNED  2
+#define KEY_DIR        1
+#define KEY_LEARNED    2
+#define KEY_STREAK     3    // current daily-streak length
+#define KEY_STREAK_DAY 4    // civil day the streak was last fed
 #define KEY_BEST_BASE 100   // + group index
 
 Direction lg_dir_get(void) {
@@ -26,6 +28,37 @@ int  lg_learned_total(void) {
   return persist_exists(KEY_LEARNED) ? persist_read_int(KEY_LEARNED) : 0;
 }
 void lg_learned_add(int n) { persist_write_int(KEY_LEARNED, lg_learned_total() + n); }
+
+// Days since 1970-01-01 of the *local* calendar date (days_from_civil), so a
+// "day" matches the learner's wall clock and year boundaries hold up.
+static int civil_day(void) {
+  time_t now = time(NULL);
+  struct tm *t = localtime(&now);
+  int y = t->tm_year + 1900, m = t->tm_mon + 1, d = t->tm_mday;
+  y -= m <= 2;
+  int era = y / 400;
+  int yoe = y - era * 400;
+  int doy = (153 * (m + (m > 2 ? -3 : 9)) + 2) / 5 + d - 1;
+  int doe = yoe * 365 + yoe / 4 - yoe / 100 + doy;
+  return era * 146097 + doe - 719468;
+}
+
+int lg_streak_days(void) {
+  if (!persist_exists(KEY_STREAK)) return 0;
+  int gap = civil_day() - persist_read_int(KEY_STREAK_DAY);
+  return gap > 1 ? 0 : persist_read_int(KEY_STREAK);   // >1 day idle breaks the chain
+}
+
+void lg_streak_bump(void) {
+  int today = civil_day();
+  int last  = persist_exists(KEY_STREAK_DAY) ? persist_read_int(KEY_STREAK_DAY) : -2;
+  int streak;
+  if (today == last)          streak = persist_read_int(KEY_STREAK);  // today already counted
+  else if (today - last == 1) streak = persist_read_int(KEY_STREAK) + 1;
+  else                        streak = 1;
+  persist_write_int(KEY_STREAK, streak);
+  persist_write_int(KEY_STREAK_DAY, today);
+}
 
 // --- Text + panels ----------------------------------------------------------
 void lg_text(GContext *ctx, const char *s, GFont font, GRect box, GTextAlignment a) {
@@ -519,6 +552,21 @@ static const GPathInfo MINI_STAR = {
     {0, 2}, {-3, 4}, {-2, 1}, {-5, -1}, {-1, -2}
   }
 };
+
+// --- The streak flame ---------------------------------------------------------
+void lg_draw_flame(GContext *ctx, GPoint c, GColor body, GColor core) {
+  graphics_context_set_fill_color(ctx, body);
+  graphics_fill_circle(ctx, GPoint(c.x, c.y + 3), 5);
+  graphics_context_set_stroke_color(ctx, body);
+  for (int i = 0; i <= 7; i++) {                  // tapering tip, leaning right
+    int half = 5 * (7 - i) / 7;
+    int ox = i / 3;
+    graphics_draw_line(ctx, GPoint(c.x - half + ox, c.y + 1 - i),
+                            GPoint(c.x + half + ox, c.y + 1 - i));
+  }
+  graphics_context_set_fill_color(ctx, core);
+  graphics_fill_circle(ctx, GPoint(c.x, c.y + 4), 2);
+}
 
 void lg_draw_rating(GContext *ctx, int x, int y, int filled, int total, GColor empty) {
   if (!s_mini) s_mini = gpath_create(&MINI_STAR);

@@ -111,8 +111,12 @@ void      lg_dir_set(Direction d);
 int  lg_best_stars(int group);              // best star rating earned (0..3)
 void lg_best_submit(int group, int stars);  // store if it beats the record
 
-int  lg_learned_total(void);                // lifetime cards mastered
+int  lg_learned_total(void);                // words learned (each deck counts once)
 void lg_learned_add(int n);
+
+// Daily streak: finish at least one round per day to keep the flame alive.
+int  lg_streak_days(void);                  // current streak (0 if the chain broke)
+void lg_streak_bump(void);                  // call when a round completes
 
 // --- Shared drawing helpers (lg_common.c) -----------------------------------
 #define LG_BG GColorOxfordBlue
@@ -135,6 +139,9 @@ void  lg_draw_stars(GContext *ctx, GRect box, int filled, int total);
 // A compact rating: `total` small stars left-to-right from x (centred on y),
 // `filled` of them gold; the rest are a faint outline in `empty`.
 void  lg_draw_rating(GContext *ctx, int x, int y, int filled, int total, GColor empty);
+
+// A little streak flame, centred at `c` (about 12x16 px).
+void  lg_draw_flame(GContext *ctx, GPoint c, GColor body, GColor core);
 
 // Article colour for a noun gender, tuned for light or dark backgrounds.
 GColor lg_gender_color(uint8_t gender, bool on_dark);
