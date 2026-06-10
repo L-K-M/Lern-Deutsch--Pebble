@@ -40,6 +40,7 @@ selbst bewerten — und eine kleine Katze feuert dich an.
 |------|--------|------|
 | 菜单 · Menü | UP / DOWN | 上下移动 bewegen · **SELECT** 打开 öffnen · **BACK** 返回 zurück |
 | 卡片正面 · Vorderseite | SELECT | 翻面看答案 Karte umdrehen |
+| 卡片 · Karte | 甩一下手腕 · Handgelenk schwenken | 也能翻卡片 dreht die Karte ebenfalls um |
 | 卡片背面 · Rückseite | UP / DOWN | ✓ 会了 gewusst / ✗ 没会 nicht gewusst · **SELECT** 再看正面 nochmals die Vorderseite |
 | 一轮结束 · Runde fertig | SELECT | 再来一次 nochmal spielen · **BACK** 回菜单 zurück zum Menü |
 

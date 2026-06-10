@@ -81,7 +81,10 @@ static void grade(bool correct) {
     q_push(s_cur);            // see it again later
     s_fb_kind = 2;
     s_msg_i = rand() % UIZH_NUDGE_N;
+    static const uint32_t ticks[] = { 40, 70, 40 };   // soft "uh-oh", unlike the ✓ buzz
+    vibes_enqueue_custom_pattern((VibePattern){ .durations = ticks, .num_segments = 3 });
   }
+  light_enable_interaction();  // make sure the verdict is readable
   s_phase = ST_FEEDBACK; s_fb_frame = 0;
 }
 
@@ -151,6 +154,18 @@ static void draw_btn_hint(GContext *ctx, GRect b, int cy, const char *word, GCol
   graphics_context_set_text_color(ctx, col);
   lg_text(ctx, word, fonts_get_system_font(FONT_KEY_GOTHIC_14),
           GRect(rx, cy + 9, STRIP - 2, 16), GTextAlignmentCenter);
+}
+
+// ↻ "this card came back": a small circular arrow in the card's corner, so a
+// returning miss is distinguishable from a fresh card.
+static void draw_again_badge(GContext *ctx, GPoint c, GColor col) {
+  graphics_context_set_stroke_color(ctx, col);
+  graphics_context_set_stroke_width(ctx, 2);
+  graphics_draw_arc(ctx, GRect(c.x - 6, c.y - 6, 13, 13), GOvalScaleModeFitCircle,
+                    0, DEG_TO_TRIGANGLE(290));
+  graphics_draw_line(ctx, GPoint(c.x + 1, c.y - 9), GPoint(c.x + 4, c.y - 6));  // arrowhead
+  graphics_draw_line(ctx, GPoint(c.x + 4, c.y - 6), GPoint(c.x + 1, c.y - 3));
+  graphics_context_set_stroke_width(ctx, 1);
 }
 
 // ---- German with a colour-coded article chip -------------------------------
@@ -353,6 +368,9 @@ static void render(Layer *layer, GContext *ctx) {
 
   if (!showing_back) {
     draw_face(ctx, c, german_face, content, on_dark);            // front: the prompt
+    if (!s_flip && s_attempts[s_cur] > 0)                        // a card that came back
+      draw_again_badge(ctx, GPoint(p.origin.x + 14, p.origin.y + 14),
+                       on_dark ? GColorLightGray : GColorDarkGray);
   } else {
     // back: the big answer + an English gloss. For a Chinese answer we also show
     // the German prompt as a small reminder; a Chinese prompt is skipped (our
@@ -427,12 +445,22 @@ static void click_config(void *ctx) {
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click);
 }
 
+// A wrist flick is the physical metaphor for turning a card over, so the
+// accelerometer's tap event acts like SELECT — but only for flipping. Grading
+// stays on the buttons, where a stray shake can't misfire it.
+static void tap_handler(AccelAxisType axis, int32_t direction) {
+  if (s_phase != ST_FRONT && s_phase != ST_BACK) return;
+  light_enable_interaction();         // flicking usually means "I'm looking now"
+  sel_click(NULL, NULL);
+}
+
 // ---- window ----------------------------------------------------------------
 static void win_load(Window *window) {
   s_layer = window_get_root_layer(window);
   layer_set_update_proc(s_layer, render);
   han_load(&s_ui, &ATLAS_UI);
   han_load(&s_grp, s_g->atlas);
+  accel_tap_service_subscribe(tap_handler);   // flick the wrist to flip the card
   start_session();
 }
 static void win_appear(Window *window) {
@@ -442,6 +470,7 @@ static void win_disappear(Window *window) {
   if (s_timer) { app_timer_cancel(s_timer); s_timer = NULL; }
 }
 static void win_unload(Window *window) {
+  accel_tap_service_unsubscribe();
   han_unload(&s_ui);
   han_unload(&s_grp);
   window_destroy(s_window);
