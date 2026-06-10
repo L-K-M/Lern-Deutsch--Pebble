@@ -21,6 +21,7 @@ they're ready to pick up later. Every companion PR was verified with a local
 | [#7](../../pull/7) | Vocabulary validator + CI step + `build.sh` fixes (1.6, 2.4, 2.7, 2.8) |
 | [#8](../../pull/8) | Pet the cat (4.2) |
 | [#9](../../pull/9) | Reattached, properly-coloured cat ears (1.7) |
+| [#10](../../pull/10) | Elfie, the guest cat (4.8 — stacked on #8) |
 
 ---
 
@@ -296,6 +297,18 @@ bitmap row that's mostly transparent. Sizing columns to
 alignment) trims both resource size and the decoded heap footprint of every
 small deck. A few KB across 40 atlases — worth folding into the next asset
 regeneration.
+
+### 4.8 Elfie, the guest cat — **[implemented → PR #10]**
+
+A post-review addition by owner request: Elfie is a real tortoiseshell Devon
+Rex, drawn from photo reference in the mascot's pixel style — chrome-orange
+tortie coat, a black forehead blaze, the black mask around her right eye,
+huge chartreuse slit-pupil eyes with dark eyeliner, satellite-dish Devon ears
+(airplane-flattened when sad), white chin, salmon nose, and a collar tinted
+to the screen's colour with a tiny bell. She deliberately does *not* replace
+the mascot; she deepens the petting egg of 4.2: pet the stats cat **three
+times in a row** and Elfie pads in to claim the rest of the pets — hearts and
+purr included — then slips away when the petting stops.
 
 ---
 
