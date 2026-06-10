@@ -59,8 +59,14 @@ PKG = os.path.join(ROOT, "package.json")
 
 
 def han_codepoints(s):
-    """Codepoints in `s` that need a custom glyph (anything non-ASCII)."""
-    return [ord(c) for c in s if ord(c) > 0x7F]
+    """Codepoints in `s` that need a custom glyph.
+
+    Everything printable, *including* ASCII: the watch renderer only draws
+    glyphs that exist in the atlas, so a Latin letter inside a Chinese string
+    (like the T in T恤) must be baked too or it silently disappears. Noto
+    renders it nicely fullwidth inside the 32px cell.
+    """
+    return [ord(c) for c in s if ord(c) > 0x20]
 
 
 def collect(strings):
