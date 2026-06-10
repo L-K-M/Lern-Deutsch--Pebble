@@ -79,9 +79,12 @@ Auf der Rückseite steht zusätzlich ein kleiner englischer Hinweis.
    [Google Play](https://play.google.com/store/apps/details?id=coredevices.coreapp) ·
    App Store），先和手表配对。
    Installiere die offizielle **Pebble-App** auf dem Handy und verbinde zuerst die Uhr.
-2. 下载 `.pbw` 文件：本仓库的 **Actions → Build Pebble app → `LernDeutsch-pbw`**。
-   Lade die `.pbw`-Datei herunter: in diesem Repo unter
-   **Actions → Build Pebble app → `LernDeutsch-pbw`**.
+2. 在本仓库的 **Releases** 页面下载最新的 `.pbw` 文件（不用登录 GitHub）。
+   想试最新开发版的话，也可以从 **Actions → Build Pebble app →
+   `LernDeutsch-pbw`** 下载（需要登录）。
+   Lade die neuste `.pbw`-Datei von der **Releases**-Seite herunter (kein
+   GitHub-Login nötig). Die allerneuste Entwicklungsversion liegt unter
+   **Actions → Build Pebble app → `LernDeutsch-pbw`** (Login nötig).
 3. 把 `.pbw` 传到手机，用文件管理器打开 —— 它会在 Pebble app 里打开，点 **Install** 就装到手表上了。
    Schicke die Datei aufs Handy und öffne sie mit dem Datei-Manager — sie
    öffnet sich in der Pebble-App. Dann **Install** antippen.
