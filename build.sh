@@ -71,7 +71,10 @@ sdk_installed() {
 }
 if ! sdk_installed; then
   say "Installing the Pebble SDK (one-time, downloads the toolchain)"
-  yes | pebble sdk install latest
+  # `yes` dies of SIGPIPE when the installer closes stdin; under `pipefail`
+  # that killed the whole script right here on every first run. Swallow it so
+  # the installer's own exit code is what counts.
+  { yes || true; } | pebble sdk install latest
 fi
 
 # --- 4. (optional) regenerate the Chinese glyph atlases ----------------------
@@ -87,6 +90,11 @@ if [ "$DO_ASSETS" = 1 ]; then
 fi
 
 # --- 5. build -----------------------------------------------------------------
+command -v node >/dev/null 2>&1 || {
+  echo "node not found — the Pebble SDK needs Node.js to build resources." >&2
+  echo "Install it first, e.g.  brew install node  (macOS)." >&2
+  exit 1
+}
 [ "$DO_CLEAN" = 1 ] && { say "pebble clean"; pebble clean; }
 say "pebble build"
 pebble build

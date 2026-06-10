@@ -78,7 +78,7 @@ into difficulty tiers, each card a `(german, chinese, english, gender)` tuple.
 Edit it, then regenerate the atlases and generated C:
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install pillow fonttools
+python3 -m venv .venv && .venv/bin/pip install pillow
 # fetch the font used to bake the glyphs (OFL, not committed):
 curl -fsSL -o tools/fonts/NotoSansSC-Regular.otf \
   https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf
@@ -91,6 +91,11 @@ pebble build
 `gen_assets.py` figures out exactly which Chinese characters the word list
 uses and bakes only those, so the app stays tiny no matter how big the
 dictionary feels. It also maintains the resource list in `package.json`.
+
+`tools/validate_vocab.py` sanity-checks the word list against the app's real
+constraints (gender ↔ article, deck sizes, characters the renderer can draw…).
+It runs automatically at the start of `gen_assets.py` and as a CI step, or
+standalone: `python3 tools/validate_vocab.py`.
 
 ### Rules that keep saved progress and rendering intact
 
