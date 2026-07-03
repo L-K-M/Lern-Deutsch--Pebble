@@ -2,7 +2,7 @@
 // Re-run `.venv/bin/python tools/gen_assets.py` after editing tools/vocab.py.
 #include "lg.h"
 
-static const uint16_t CP_UI[] = { 0x4e00, 0x4e2d, 0x4e50, 0x4e86, 0x4ea4, 0x4eba, 0x4f1a, 0x4f53, 0x4f5c, 0x5165, 0x516c, 0x518d, 0x521d, 0x529e, 0x52a0, 0x52a8, 0x533b, 0x5355, 0x5385, 0x5389, 0x53a8, 0x53e5, 0x54c1, 0x56fd, 0x573a, 0x57ce, 0x57fa, 0x5916, 0x5929, 0x592a, 0x597d, 0x5b50, 0x5b57, 0x5b63, 0x5b66, 0x5b8c, 0x5ba0, 0x5bb3, 0x5bb6, 0x5de5, 0x5dee, 0x5e02, 0x5e38, 0x5fb7, 0x6025, 0x611f, 0x6210, 0x623f, 0x6280, 0x6570, 0x65c5, 0x65e5, 0x65f6, 0x670d, 0x671f, 0x6765, 0x6781, 0x68d2, 0x6c14, 0x6cb9, 0x6cd5, 0x6e38, 0x70b9, 0x7231, 0x7269, 0x751f, 0x7528, 0x770b, 0x771f, 0x7840, 0x79d1, 0x7d27, 0x7ea7, 0x7ec4, 0x7edf, 0x7ffb, 0x8272, 0x8282, 0x83dc, 0x884c, 0x8863, 0x89c9, 0x8ba1, 0x8bcd, 0x8bd5, 0x8bdd, 0x8bed, 0x8c8c, 0x8d2d, 0x8eab, 0x901a, 0x95e8, 0x95f4, 0x989c, 0x98df, 0x9910, 0x996e, 0x9ad8 };
+static const uint16_t CP_UI[] = { 0x4e00, 0x4e1a, 0x4e2d, 0x4e49, 0x4e50, 0x4e86, 0x4ea4, 0x4eba, 0x4f1a, 0x4f53, 0x4f5c, 0x5019, 0x5165, 0x516c, 0x518d, 0x521d, 0x529e, 0x52a0, 0x52a1, 0x52a8, 0x533b, 0x5355, 0x5385, 0x5389, 0x53a8, 0x53cd, 0x53e5, 0x5411, 0x54c1, 0x5546, 0x5668, 0x56ed, 0x56fd, 0x573a, 0x57ce, 0x57fa, 0x5883, 0x5916, 0x5929, 0x592a, 0x597d, 0x5a92, 0x5b50, 0x5b57, 0x5b63, 0x5b66, 0x5b8c, 0x5ba0, 0x5ba2, 0x5ba4, 0x5bb3, 0x5bb6, 0x5de5, 0x5dee, 0x5e02, 0x5e38, 0x5e8f, 0x5e97, 0x5ead, 0x5f62, 0x5fb7, 0x5ff5, 0x6025, 0x6027, 0x60c5, 0x611f, 0x6210, 0x623f, 0x6280, 0x6295, 0x63cf, 0x6570, 0x6599, 0x65b9, 0x65c5, 0x65e5, 0x65f6, 0x666f, 0x670d, 0x671f, 0x672c, 0x673a, 0x6765, 0x6781, 0x679c, 0x683c, 0x68d2, 0x6c14, 0x6c34, 0x6c42, 0x6cb9, 0x6cd5, 0x6d74, 0x6e38, 0x70b9, 0x70d8, 0x7119, 0x7231, 0x7269, 0x72b6, 0x7387, 0x73af, 0x751f, 0x7528, 0x7535, 0x76ee, 0x770b, 0x771f, 0x7840, 0x79d1, 0x7d27, 0x7ea6, 0x7ea7, 0x7ec4, 0x7edf, 0x7eea, 0x7ffb, 0x804a, 0x804c, 0x80b2, 0x8272, 0x8282, 0x82b1, 0x83dc, 0x852c, 0x865a, 0x884c, 0x8863, 0x89c2, 0x89c9, 0x8ba1, 0x8bc9, 0x8bcd, 0x8bd5, 0x8bdd, 0x8bed, 0x8c8c, 0x8d2d, 0x8eab, 0x8ff0, 0x901a, 0x9152, 0x91cf, 0x94f6, 0x95e8, 0x95ee, 0x95f2, 0x95f4, 0x9891, 0x989c, 0x98ce, 0x98df, 0x9910, 0x996e, 0x9ad8 };
 static const uint16_t CP_GREET[] = { 0x4e0a, 0x4e0d, 0x4e48, 0x4ec0, 0x4f60, 0x518d, 0x5417, 0x56de, 0x5934, 0x597d, 0x5b89, 0x5ba2, 0x5bf9, 0x5e38, 0x5e72, 0x611f, 0x65e9, 0x662f, 0x665a, 0x676f, 0x6b22, 0x6c14, 0x6ca1, 0x89c1, 0x8bf4, 0x8bf7, 0x8c22, 0x8d77, 0x8fce, 0x9519, 0x975e };
 static const uint16_t CP_NUM[] = { 0x4e00, 0x4e03, 0x4e09, 0x4e5d, 0x4e8c, 0x4e94, 0x516b, 0x516d, 0x5341, 0x5343, 0x56db, 0x767e, 0x96f6 };
 static const uint16_t CP_PEOPLE[] = { 0x4eba, 0x4ed6, 0x4eec, 0x4f60, 0x53cb, 0x540d, 0x54e5, 0x5973, 0x5979, 0x5988, 0x59d0, 0x5b50, 0x5b57, 0x5b69, 0x5b9d, 0x5bb6, 0x6211, 0x670b, 0x7238, 0x7537 };
@@ -42,8 +42,50 @@ static const uint16_t CP_LOOK[] = { 0x4eae, 0x5377, 0x53d1, 0x53ef, 0x5b50, 0x5e
 static const uint16_t CP_PET[] = { 0x4e4c, 0x517d, 0x533b, 0x5582, 0x5ba0, 0x5c3e, 0x5df4, 0x629a, 0x6478, 0x6d17, 0x6fa1, 0x7269, 0x72d7, 0x7a9d, 0x7b3c, 0x7ec3, 0x7f38, 0x7fc5, 0x8180, 0x8bad, 0x91d1, 0x9c7c, 0x9e1f, 0x9e49, 0x9e66, 0x9f9f };
 static const uint16_t CP_ROOM[] = { 0x5367, 0x5385, 0x53f0, 0x5668, 0x56ed, 0x5934, 0x5b50, 0x5ba2, 0x5ba4, 0x5c49, 0x5e93, 0x62bd, 0x63a7, 0x673a, 0x6795, 0x68af, 0x697c, 0x6d17, 0x7535, 0x7a7a, 0x82b1, 0x8863, 0x89c6, 0x8c03, 0x8f66, 0x9065, 0x9501, 0x9633, 0x9662, 0x996d };
 static const uint16_t CP_THING[] = { 0x4e66, 0x4eba, 0x4f1e, 0x5177, 0x5668, 0x5730, 0x5934, 0x5a03, 0x5b50, 0x5e03, 0x5ea7, 0x5fd7, 0x62d6, 0x63d2, 0x673a, 0x6742, 0x67b6, 0x6bef, 0x718a, 0x73a9, 0x7535, 0x7761, 0x7ebf, 0x8863, 0x88ab, 0x949f, 0x95f9, 0x978b };
+static const uint16_t CP_ASK[] = { 0x4e2a, 0x4e3a, 0x4e48, 0x4ec0, 0x4ece, 0x4f55, 0x5019, 0x53bb, 0x54ea, 0x591a, 0x5c11, 0x600e, 0x65f6, 0x6837, 0x7684, 0x8c01, 0x91cc };
+static const uint16_t CP_VERB1[] = { 0x4fe1, 0x505c, 0x5230, 0x5305, 0x53d6, 0x542c, 0x547c, 0x558a, 0x5c55, 0x5e0c, 0x5e26, 0x5e73, 0x5e86, 0x611f, 0x6253, 0x627e, 0x62ff, 0x643a, 0x6446, 0x653e, 0x671b, 0x6765, 0x7559, 0x76f8, 0x793a, 0x795d, 0x89c9, 0x8bf4 };
+static const uint16_t CP_OPPOSITE[] = { 0x4e00, 0x4e0d, 0x4e48, 0x4ec0, 0x4ece, 0x5173, 0x5207, 0x58f0, 0x591a, 0x5927, 0x5b89, 0x5c11, 0x5f00, 0x603b, 0x662f, 0x6709, 0x6b63, 0x6ca1, 0x6ee1, 0x7684, 0x7740, 0x786e, 0x7a7a, 0x8bef, 0x90fd, 0x9519, 0x9759 };
+static const uint16_t CP_WORD[] = { 0x4e3a, 0x4e5f, 0x4e86, 0x4ece, 0x4f46, 0x53e5, 0x53ea, 0x540e, 0x548c, 0x56e0, 0x5df2, 0x5e38, 0x6216, 0x662f, 0x6709, 0x6ca1, 0x7136, 0x7ecf, 0x8005, 0x8bcd, 0x8ddf, 0x8fd8, 0x8fd9, 0x8fde, 0x90a3, 0x91cc, 0x975e };
+static const uint16_t CP_POLITE[] = { 0x4e00, 0x4e0b, 0x4e0d, 0x4e50, 0x4e5f, 0x4ee5, 0x4f60, 0x505a, 0x5141, 0x5148, 0x53ef, 0x5417, 0x5982, 0x5ba2, 0x5bf9, 0x5e38, 0x5f53, 0x60a8, 0x610f, 0x611f, 0x613f, 0x6211, 0x6253, 0x6270, 0x679c, 0x6837, 0x6c14, 0x7136, 0x7528, 0x8bb8, 0x8bf7, 0x8c22, 0x8d77, 0x975e };
+static const uint16_t CP_COUNTING[] = { 0x4e00, 0x4e09, 0x4e24, 0x4e4b, 0x4e8c, 0x4e94, 0x500d, 0x5206, 0x534a, 0x53cc, 0x540e, 0x56db, 0x591a, 0x5bf9, 0x6253, 0x6700, 0x6b21, 0x7b2c };
+static const uint16_t CP_FAMILY2[] = { 0x4f84, 0x5144, 0x53d4, 0x54e5, 0x592b, 0x5973, 0x59b9, 0x59d0, 0x59d1, 0x5a46, 0x5b50, 0x5b59, 0x5f1f, 0x6bcd, 0x7236, 0x7956, 0x8868, 0x8f88 };
+static const uint16_t CP_FRUIT[] = { 0x5b50, 0x65e0, 0x674e, 0x679c, 0x67da, 0x67e0, 0x6811, 0x6843, 0x68a8, 0x6a31, 0x6a59, 0x6aac, 0x7315, 0x7334, 0x74dc, 0x751c, 0x8292, 0x82b1, 0x8349, 0x8393, 0x83e0, 0x8404, 0x841d, 0x8461, 0x8549, 0x897f, 0x9999 };
+static const uint16_t CP_VEG[] = { 0x5170, 0x5357, 0x535c, 0x5377, 0x571f, 0x5927, 0x5b50, 0x5fc3, 0x67ff, 0x6912, 0x6d0b, 0x7389, 0x74dc, 0x751c, 0x751f, 0x7c73, 0x7ea2, 0x80e1, 0x82b1, 0x83c7, 0x83dc, 0x83e0, 0x841d, 0x8471, 0x849c, 0x8611, 0x897f, 0x8c46, 0x8c4c, 0x9ec4 };
+static const uint16_t CP_DRINK[] = { 0x4e50, 0x514b, 0x51b0, 0x529b, 0x53ef, 0x5c3e, 0x5de7, 0x6614, 0x679c, 0x67e0, 0x69df, 0x6a59, 0x6aac, 0x6c14, 0x6c34, 0x6c41, 0x6c7d, 0x6cc9, 0x6ce1, 0x70ed, 0x77ff, 0x8336, 0x8404, 0x8461, 0x8d77, 0x9152, 0x9999, 0x9e21 };
+static const uint16_t CP_JOB[] = { 0x4e50, 0x4e66, 0x519c, 0x5305, 0x53a8, 0x53d1, 0x53f8, 0x5458, 0x552e, 0x58eb, 0x5bb6, 0x5bdf, 0x5de5, 0x5e08, 0x5f8b, 0x62a4, 0x673a, 0x6c11, 0x6d88, 0x7406, 0x753b, 0x79d8, 0x7a0b, 0x884c, 0x8b66, 0x8d27, 0x9012, 0x90ae, 0x9632, 0x9762, 0x97f3, 0x98de };
+static const uint16_t CP_SUBJECT[] = { 0x4e1a, 0x4f11, 0x4f5c, 0x5206, 0x5316, 0x5355, 0x5386, 0x53f2, 0x5730, 0x5b66, 0x5bb6, 0x5ead, 0x606f, 0x6210, 0x6570, 0x672f, 0x7269, 0x73ed, 0x7406, 0x751f, 0x76ee, 0x79d1, 0x7ea7, 0x7ee9, 0x7f8e, 0x8003, 0x8bd5, 0x8bfe, 0x95f4 };
+static const uint16_t CP_MUSIC[] = { 0x4ed6, 0x514b, 0x5355, 0x53e3, 0x53f7, 0x5409, 0x5927, 0x5b50, 0x5c0f, 0x624b, 0x63d0, 0x65af, 0x67b6, 0x7434, 0x7ad6, 0x7b1b, 0x7ba1, 0x7c27, 0x8428, 0x94a2, 0x957f, 0x98ce, 0x9f13 };
+static const uint16_t CP_SPORTART[] = { 0x4e52, 0x4e53, 0x4f3d, 0x4f53, 0x51fb, 0x5212, 0x52a8, 0x592b, 0x5c14, 0x5ca9, 0x5e06, 0x6162, 0x624b, 0x62c9, 0x62f3, 0x6392, 0x64cd, 0x6500, 0x677e, 0x6cf3, 0x6e38, 0x6ed1, 0x7403, 0x745c, 0x7f51, 0x8239, 0x8dd1, 0x8fd0, 0x96ea, 0x9a6c, 0x9a91, 0x9ad8 };
+static const uint16_t CP_GARDEN[] = { 0x53f6, 0x575b, 0x576a, 0x58f6, 0x5b50, 0x6728, 0x679d, 0x6805, 0x680f, 0x6811, 0x6839, 0x6c34, 0x6d47, 0x704c, 0x73ab, 0x7470, 0x79cd, 0x7bf1, 0x82b1, 0x8349, 0x90c1, 0x91d1, 0x9999 };
+static const uint16_t CP_SHAPE[] = { 0x4e09, 0x4f53, 0x5706, 0x5f62, 0x65b9, 0x66f2, 0x6761, 0x692d, 0x6b63, 0x70b9, 0x73af, 0x7403, 0x7acb, 0x7ebf, 0x89d2, 0x957f };
+static const uint16_t CP_BATH[] = { 0x5200, 0x5237, 0x5243, 0x536b, 0x53d1, 0x5439, 0x5b50, 0x5dfe, 0x673a, 0x68b3, 0x6bdb, 0x6c34, 0x6d17, 0x6d74, 0x6dcb, 0x7259, 0x751f, 0x7682, 0x76c6, 0x7eb8, 0x7f38, 0x80a5, 0x8138, 0x818f, 0x955c, 0x987b, 0x98ce };
+static const uint16_t CP_BIRTHDAY[] = { 0x4e94, 0x4eba, 0x51fd, 0x52a8, 0x5361, 0x559c, 0x591c, 0x5ba2, 0x5c0f, 0x5c51, 0x5e86, 0x5f69, 0x60ca, 0x613f, 0x65e5, 0x66f2, 0x671b, 0x6c14, 0x6d3b, 0x70db, 0x7269, 0x73af, 0x7403, 0x751f, 0x793c, 0x795d, 0x7cd5, 0x7eb8, 0x8282, 0x82b1, 0x86cb, 0x8721, 0x8bf7, 0x8d3a, 0x9080 };
+static const uint16_t CP_BAKERY[] = { 0x5168, 0x5305, 0x534e, 0x5706, 0x5708, 0x592b, 0x5976, 0x5b50, 0x5c0f, 0x5e72, 0x5f0f, 0x5fb7, 0x626d, 0x68cd, 0x6cb9, 0x6cd5, 0x70b9, 0x714e, 0x725b, 0x739b, 0x751c, 0x7cd5, 0x7ed3, 0x82ac, 0x8584, 0x86cb, 0x89d2, 0x8fab, 0x9762, 0x997c, 0x9ea6 };
+static const uint16_t CP_BODY2[] = { 0x4e0b, 0x5507, 0x5634, 0x5927, 0x5934, 0x5df4, 0x6307, 0x6bdb, 0x6db2, 0x7532, 0x76ae, 0x776b, 0x7ba1, 0x8089, 0x808c, 0x809d, 0x80a4, 0x80ba, 0x80be, 0x80c3, 0x810f, 0x8111, 0x8138, 0x8840, 0x988a, 0x989d, 0x9aa8 };
+static const uint16_t CP_NATURE[] = { 0x5730, 0x5858, 0x5c0f, 0x5c71, 0x5d16, 0x5e03, 0x60ac, 0x6c34, 0x6c60, 0x6c99, 0x6cb3, 0x6cc9, 0x6d1e, 0x6d41, 0x6d77, 0x6e56, 0x6eaa, 0x6f20, 0x7011, 0x706b, 0x7a74, 0x8349, 0x8c37, 0x9876 };
+static const uint16_t CP_DIRECTION[] = { 0x4e00, 0x4e0b, 0x4e24, 0x4e2a, 0x4e48, 0x518d, 0x524d, 0x53bb, 0x53f3, 0x5411, 0x5728, 0x5904, 0x591a, 0x5bf9, 0x5c31, 0x5de6, 0x5f80, 0x600e, 0x62d0, 0x65c1, 0x6709, 0x6761, 0x6b63, 0x706b, 0x706f, 0x76f4, 0x7ad9, 0x7ea2, 0x7eff, 0x884c, 0x8857, 0x89d2, 0x8d70, 0x8f66, 0x8f6c, 0x8fb9, 0x8fc7, 0x8fd1, 0x8fdc, 0x94f6, 0x9644, 0x9762 };
+static const uint16_t CP_CHARACTER[] = { 0x4e25, 0x4eb2, 0x5207, 0x52c7, 0x52e4, 0x53cb, 0x594b, 0x597d, 0x5b89, 0x5b9e, 0x5bb3, 0x5fc3, 0x60f0, 0x611a, 0x6168, 0x6177, 0x61d2, 0x6562, 0x660e, 0x6709, 0x683c, 0x7684, 0x793c, 0x7f9e, 0x8010, 0x806a, 0x8083, 0x8822, 0x8bda, 0x8c8c, 0x8da3, 0x9759 };
+static const uint16_t CP_ENVIRON[] = { 0x4fdd, 0x5019, 0x5168, 0x5316, 0x53d8, 0x56de, 0x573e, 0x5783, 0x5851, 0x5883, 0x592a, 0x5e9f, 0x62a4, 0x6536, 0x6599, 0x6696, 0x67d3, 0x6c14, 0x6c60, 0x6c61, 0x6e90, 0x7269, 0x73af, 0x7403, 0x7535, 0x80fd, 0x9633, 0x98ce };
+static const uint16_t CP_HOTEL[] = { 0x4e00, 0x4e86, 0x4eba, 0x4eec, 0x4f4f, 0x4f60, 0x524d, 0x52a1, 0x5355, 0x53cc, 0x53f0, 0x5417, 0x5427, 0x5ba2, 0x6211, 0x623f, 0x65e9, 0x665a, 0x6709, 0x670d, 0x674e, 0x68af, 0x7535, 0x7a7a, 0x884c, 0x8ba2, 0x8ff7, 0x95f4, 0x9884, 0x9910 };
+static const uint16_t CP_AIRPORT[] = { 0x4e58, 0x516c, 0x5173, 0x51fa, 0x5230, 0x53e3, 0x53f8, 0x5b89, 0x5ba2, 0x5ef6, 0x6025, 0x624b, 0x63d0, 0x673a, 0x674e, 0x68c0, 0x6d77, 0x724c, 0x73ed, 0x767b, 0x7a7a, 0x7bb1, 0x7d27, 0x822a, 0x843d, 0x884c, 0x8bef, 0x8d77, 0x8fbe, 0x964d, 0x98de };
+static const uint16_t CP_MONEY[] = { 0x4fe1, 0x5229, 0x52a8, 0x5305, 0x5361, 0x53d6, 0x5b58, 0x5e01, 0x606f, 0x6237, 0x627e, 0x6298, 0x673a, 0x6b3e, 0x73b0, 0x7528, 0x786c, 0x7eb8, 0x81ea, 0x8d26, 0x8d27, 0x8d37, 0x8d39, 0x8f6c, 0x91d1, 0x94b1, 0x96f6 };
+static const uint16_t CP_CHORE[] = { 0x5438, 0x5668, 0x5c18, 0x5e03, 0x5e1a, 0x6253, 0x626b, 0x62b9, 0x62fe, 0x6302, 0x64e6, 0x6536, 0x6876, 0x6c34, 0x6d17, 0x6d77, 0x70eb, 0x71a8, 0x7269, 0x7684, 0x7897, 0x7ef5, 0x8863, 0x8981, 0x8d77 };
+static const uint16_t CP_MEDIA[] = { 0x4f17, 0x53f0, 0x544a, 0x5934, 0x5ba2, 0x5e7f, 0x62a5, 0x64ad, 0x6536, 0x65b0, 0x673a, 0x6761, 0x7535, 0x76ee, 0x7eb8, 0x8005, 0x8282, 0x89c2, 0x89c6, 0x8ba2, 0x8bb0, 0x8bbf, 0x9053, 0x91c7, 0x95fb, 0x9605, 0x97f3, 0x9891 };
+static const uint16_t CP_WEATHER2[] = { 0x4e91, 0x51b0, 0x51b7, 0x51bb, 0x58f0, 0x591a, 0x5bd2, 0x5e72, 0x5f69, 0x5fae, 0x65f1, 0x66b4, 0x6709, 0x6c34, 0x6d2a, 0x708e, 0x70ed, 0x7535, 0x7684, 0x8679, 0x95ea, 0x9635, 0x96e8, 0x96f7, 0x96f9, 0x96fe, 0x971c, 0x9732, 0x98ce };
+static const uint16_t CP_DESCRIBE[] = { 0x4ee3, 0x5149, 0x51c0, 0x5229, 0x5706, 0x5bbd, 0x5e72, 0x5e73, 0x5f0f, 0x65b0, 0x6709, 0x68f1, 0x6ed1, 0x73b0, 0x7684, 0x786c, 0x7a84, 0x7c97, 0x7cd9, 0x8001, 0x810f, 0x89d2, 0x8f6f, 0x949d, 0x950b, 0x9c9c };
+static const uint16_t CP_QUANTITY[] = { 0x4e00, 0x4efd, 0x513f, 0x514b, 0x516c, 0x5305, 0x5347, 0x5757, 0x591a, 0x591f, 0x5934, 0x5b50, 0x5c11, 0x6570, 0x65a4, 0x66f4, 0x70b9, 0x7247, 0x74f6, 0x7f50, 0x888b, 0x88f9, 0x8db3, 0x91cf };
+static const uint16_t CP_FEEL2[] = { 0x4e2d, 0x5174, 0x529b, 0x56f0, 0x5931, 0x594b, 0x5992, 0x5ac9, 0x5b64, 0x5c3d, 0x5f20, 0x5fe7, 0x604b, 0x60c5, 0x60ca, 0x60d1, 0x610f, 0x611f, 0x62c5, 0x65e0, 0x671b, 0x6d0b, 0x6ea2, 0x6ee1, 0x6fc0, 0x70ed, 0x7126, 0x7231, 0x72ec, 0x75b2, 0x7684, 0x7b4b, 0x7d27, 0x804a, 0x81ea, 0x8651, 0x8bb6, 0x8c6a };
+static const uint16_t CP_ADVERB[] = { 0x4e00, 0x4e0a, 0x4e8e, 0x5019, 0x5076, 0x518d, 0x521a, 0x523b, 0x5468, 0x591a, 0x5927, 0x5929, 0x5c11, 0x5c14, 0x5e38, 0x5e74, 0x5f88, 0x5feb, 0x624d, 0x6570, 0x65f6, 0x6708, 0x6709, 0x6bcf, 0x7136, 0x7a81, 0x7acb, 0x7ec8, 0x7ecf, 0x9a6c };
+static const uint16_t CP_INTERVIEW[] = { 0x4e0a, 0x4e48, 0x4e8e, 0x4ec0, 0x4ee5, 0x4f18, 0x4f4d, 0x4f5c, 0x5019, 0x52bf, 0x5386, 0x53ef, 0x5408, 0x5584, 0x56e2, 0x5728, 0x591a, 0x5927, 0x59cb, 0x5b66, 0x5c11, 0x5de5, 0x5e94, 0x5f00, 0x60a8, 0x6211, 0x627e, 0x65f6, 0x662f, 0x6709, 0x6765, 0x6c42, 0x7533, 0x7684, 0x7b80, 0x7ecf, 0x804c, 0x8058, 0x8bd5, 0x8bf7, 0x8d44, 0x8fc7, 0x961f, 0x9762, 0x9a8c };
+static const uint16_t CP_TELEFON[] = { 0x4e2a, 0x4e3a, 0x4e86, 0x4ee5, 0x4f4d, 0x5148, 0x518d, 0x522b, 0x5230, 0x5360, 0x53ef, 0x53f7, 0x540e, 0x5417, 0x542c, 0x548c, 0x54ea, 0x56de, 0x5728, 0x5a1c, 0x5b89, 0x5c14, 0x60a8, 0x6211, 0x62e8, 0x6302, 0x63a5, 0x65ad, 0x662f, 0x751f, 0x7535, 0x7559, 0x7a0d, 0x7b49, 0x7ebf, 0x80fd, 0x89c1, 0x8a00, 0x8bdd, 0x8bf7, 0x8f6c, 0x8fc8, 0x901a, 0x9519 };
+static const uint16_t CP_APPOINTMENT[] = { 0x4e00, 0x4e0b, 0x4e0d, 0x4e2a, 0x4e48, 0x4e86, 0x4e8c, 0x4ec0, 0x4ee5, 0x4eec, 0x4f1a, 0x4fbf, 0x5019, 0x516b, 0x51c6, 0x51e0, 0x5230, 0x53d6, 0x53ef, 0x5417, 0x5468, 0x5f97, 0x60a8, 0x60f3, 0x6211, 0x6539, 0x65b9, 0x65f6, 0x665a, 0x6709, 0x671f, 0x6765, 0x6d88, 0x70b9, 0x7ea6, 0x80fd, 0x89c1, 0x8fd9, 0x95f4, 0x9884 };
+static const uint16_t CP_COMPLAINT[] = { 0x4e0d, 0x4e2a, 0x4e45, 0x4e86, 0x53d7, 0x53ef, 0x5417, 0x54ea, 0x5728, 0x574f, 0x592a, 0x5bf9, 0x5f88, 0x60a8, 0x60f3, 0x610f, 0x6211, 0x6295, 0x6362, 0x63a5, 0x677f, 0x6b3e, 0x6ca1, 0x6ee1, 0x70b9, 0x7528, 0x7b49, 0x7ba1, 0x8001, 0x80fd, 0x8981, 0x8bc9, 0x8d27, 0x8d35, 0x8fd9, 0x9000, 0x91cc };
+static const uint16_t CP_SMALLTALK[] = { 0x4e00, 0x4e2a, 0x4e48, 0x4e50, 0x4ec0, 0x4eca, 0x4f11, 0x4f5c, 0x4f60, 0x5047, 0x505a, 0x5144, 0x5174, 0x5230, 0x52a8, 0x5417, 0x5468, 0x559c, 0x56de, 0x5728, 0x57ce, 0x5929, 0x5934, 0x597d, 0x59b9, 0x59d0, 0x5de5, 0x5e02, 0x5e38, 0x5f1f, 0x5f88, 0x5f97, 0x600e, 0x6709, 0x672b, 0x6765, 0x6837, 0x6b21, 0x6b22, 0x6c14, 0x771f, 0x7b2c, 0x7ecf, 0x89c1, 0x89c9, 0x8fc7, 0x8fd0, 0x8fd9, 0x91cc, 0x97f3, 0x9ad8 };
+static const uint16_t CP_TRAVEL2[] = { 0x4e00, 0x4e0b, 0x4e2a, 0x4e2d, 0x4e45, 0x4e48, 0x4e70, 0x4eba, 0x4f4d, 0x513f, 0x51e0, 0x51fa, 0x53bb, 0x53e3, 0x53eb, 0x5417, 0x54ea, 0x5728, 0x5904, 0x591a, 0x5c11, 0x5e02, 0x5ea7, 0x5f00, 0x5f20, 0x5fc3, 0x600e, 0x60a8, 0x60f3, 0x6211, 0x623f, 0x65e0, 0x6709, 0x706b, 0x70b9, 0x73ed, 0x7968, 0x79df, 0x7a0b, 0x7ebf, 0x7f51, 0x80fd, 0x8981, 0x8ba2, 0x8be2, 0x8d39, 0x8f66, 0x8f86, 0x8fd9, 0x91cc, 0x94b1, 0x95ee, 0x95f4, 0x9700 };
+static const uint16_t CP_BUSINESS[] = { 0x4e1a, 0x4e8b, 0x4ef7, 0x4f19, 0x4f1a, 0x4f34, 0x4f5c, 0x516c, 0x5224, 0x5229, 0x53f8, 0x5408, 0x552e, 0x6218, 0x6295, 0x62a5, 0x6c42, 0x6da6, 0x6f14, 0x7565, 0x793a, 0x8425, 0x8463, 0x8bae, 0x8c08, 0x8d44, 0x90e8, 0x9500, 0x95e8, 0x9700, 0x989d };
+static const uint16_t CP_ABSTRACT[] = { 0x4e49, 0x529b, 0x52c7, 0x53bb, 0x548c, 0x56de, 0x5e0c, 0x5e73, 0x5e78, 0x5fc6, 0x6050, 0x60e7, 0x610f, 0x671b, 0x672a, 0x6743, 0x6765, 0x68a6, 0x6b63, 0x6c14, 0x7075, 0x7231, 0x7406, 0x7531, 0x771f, 0x798f, 0x81ea, 0x8fc7, 0x9b42 };
 
-const HanAtlas ATLAS_UI = { RESOURCE_ID_HAN_UI, CP_UI, 98, 16, 32, 32 };
+const HanAtlas ATLAS_UI = { RESOURCE_ID_HAN_UI, CP_UI, 155, 16, 32, 32 };
 const HanAtlas ATLAS_GREET = { RESOURCE_ID_HAN_GREET, CP_GREET, 31, 16, 32, 32 };
 const HanAtlas ATLAS_NUM = { RESOURCE_ID_HAN_NUM, CP_NUM, 13, 16, 32, 32 };
 const HanAtlas ATLAS_PEOPLE = { RESOURCE_ID_HAN_PEOPLE, CP_PEOPLE, 20, 16, 32, 32 };
@@ -83,737 +125,143 @@ const HanAtlas ATLAS_LOOK = { RESOURCE_ID_HAN_LOOK, CP_LOOK, 19, 16, 32, 32 };
 const HanAtlas ATLAS_PET = { RESOURCE_ID_HAN_PET, CP_PET, 26, 16, 32, 32 };
 const HanAtlas ATLAS_ROOM = { RESOURCE_ID_HAN_ROOM, CP_ROOM, 30, 16, 32, 32 };
 const HanAtlas ATLAS_THING = { RESOURCE_ID_HAN_THING, CP_THING, 28, 16, 32, 32 };
-
-static const Card CARDS_GREET[] = {
-  { "Hallo", "\xe4" "\xbd" "\xa0" "\xe5" "\xa5" "\xbd", "hello", 0 },
-  { "Tsch" "\xc3" "\xbc" "ss", "\xe5" "\x86" "\x8d" "\xe8" "\xa7" "\x81", "bye", 0 },
-  { "Danke", "\xe8" "\xb0" "\xa2" "\xe8" "\xb0" "\xa2", "thank you", 0 },
-  { "Bitte", "\xe8" "\xaf" "\xb7", "please", 0 },
-  { "Gern geschehen", "\xe4" "\xb8" "\x8d" "\xe5" "\xae" "\xa2" "\xe6" "\xb0" "\x94", "you're welcome", 0 },
-  { "Ja", "\xe6" "\x98" "\xaf", "yes", 0 },
-  { "Nein", "\xe4" "\xb8" "\x8d", "no", 0 },
-  { "Entschuldigung", "\xe5" "\xaf" "\xb9" "\xe4" "\xb8" "\x8d" "\xe8" "\xb5" "\xb7", "sorry", 0 },
-  { "Guten Morgen", "\xe6" "\x97" "\xa9" "\xe4" "\xb8" "\x8a" "\xe5" "\xa5" "\xbd", "good morning", 0 },
-  { "Guten Abend", "\xe6" "\x99" "\x9a" "\xe4" "\xb8" "\x8a" "\xe5" "\xa5" "\xbd", "good evening", 0 },
-  { "Gute Nacht", "\xe6" "\x99" "\x9a" "\xe5" "\xae" "\x89", "good night", 0 },
-  { "Wie geht's?", "\xe4" "\xbd" "\xa0" "\xe5" "\xa5" "\xbd" "\xe5" "\x90" "\x97", "how are you?", 0 },
-  { "Danke sch" "\xc3" "\xb6" "n", "\xe9" "\x9d" "\x9e" "\xe5" "\xb8" "\xb8" "\xe6" "\x84" "\x9f" "\xe8" "\xb0" "\xa2", "thanks a lot", 0 },
-  { "Willkommen", "\xe6" "\xac" "\xa2" "\xe8" "\xbf" "\x8e", "welcome", 0 },
-  { "Prost", "\xe5" "\xb9" "\xb2" "\xe6" "\x9d" "\xaf", "cheers", 0 },
-  { "Bis bald", "\xe5" "\x9b" "\x9e" "\xe5" "\xa4" "\xb4" "\xe8" "\xa7" "\x81", "see you soon", 0 },
-  { "Genau", "\xe6" "\xb2" "\xa1" "\xe9" "\x94" "\x99", "exactly", 0 },
-  { "Wie bitte?", "\xe4" "\xbd" "\xa0" "\xe8" "\xaf" "\xb4" "\xe4" "\xbb" "\x80" "\xe4" "\xb9" "\x88", "pardon?", 0 },
-};
-static const Card CARDS_NUM[] = {
-  { "null", "\xe9" "\x9b" "\xb6", "zero", 0 },
-  { "eins", "\xe4" "\xb8" "\x80", "one", 0 },
-  { "zwei", "\xe4" "\xba" "\x8c", "two", 0 },
-  { "drei", "\xe4" "\xb8" "\x89", "three", 0 },
-  { "vier", "\xe5" "\x9b" "\x9b", "four", 0 },
-  { "f" "\xc3" "\xbc" "nf", "\xe4" "\xba" "\x94", "five", 0 },
-  { "sechs", "\xe5" "\x85" "\xad", "six", 0 },
-  { "sieben", "\xe4" "\xb8" "\x83", "seven", 0 },
-  { "acht", "\xe5" "\x85" "\xab", "eight", 0 },
-  { "neun", "\xe4" "\xb9" "\x9d", "nine", 0 },
-  { "zehn", "\xe5" "\x8d" "\x81", "ten", 0 },
-  { "elf", "\xe5" "\x8d" "\x81" "\xe4" "\xb8" "\x80", "eleven", 0 },
-  { "zw" "\xc3" "\xb6" "lf", "\xe5" "\x8d" "\x81" "\xe4" "\xba" "\x8c", "twelve", 0 },
-  { "zwanzig", "\xe4" "\xba" "\x8c" "\xe5" "\x8d" "\x81", "twenty", 0 },
-  { "dreissig", "\xe4" "\xb8" "\x89" "\xe5" "\x8d" "\x81", "thirty", 0 },
-  { "hundert", "\xe4" "\xb8" "\x80" "\xe7" "\x99" "\xbe", "hundred", 0 },
-  { "tausend", "\xe4" "\xb8" "\x80" "\xe5" "\x8d" "\x83", "thousand", 0 },
-};
-static const Card CARDS_PEOPLE[] = {
-  { "ich", "\xe6" "\x88" "\x91", "I", 0 },
-  { "du", "\xe4" "\xbd" "\xa0", "you", 0 },
-  { "er", "\xe4" "\xbb" "\x96", "he", 0 },
-  { "sie", "\xe5" "\xa5" "\xb9", "she", 0 },
-  { "wir", "\xe6" "\x88" "\x91" "\xe4" "\xbb" "\xac", "we", 0 },
-  { "der Mann", "\xe7" "\x94" "\xb7" "\xe4" "\xba" "\xba", "man", 1 },
-  { "die Frau", "\xe5" "\xa5" "\xb3" "\xe4" "\xba" "\xba", "woman", 2 },
-  { "das Kind", "\xe5" "\xad" "\xa9" "\xe5" "\xad" "\x90", "child", 3 },
-  { "der Junge", "\xe7" "\x94" "\xb7" "\xe5" "\xad" "\xa9", "boy", 1 },
-  { "das M" "\xc3" "\xa4" "dchen", "\xe5" "\xa5" "\xb3" "\xe5" "\xad" "\xa9", "girl", 3 },
-  { "die Mutter", "\xe5" "\xa6" "\x88" "\xe5" "\xa6" "\x88", "mother", 2 },
-  { "der Vater", "\xe7" "\x88" "\xb8" "\xe7" "\x88" "\xb8", "father", 1 },
-  { "die Schwester", "\xe5" "\xa7" "\x90" "\xe5" "\xa7" "\x90", "sister", 2 },
-  { "der Bruder", "\xe5" "\x93" "\xa5" "\xe5" "\x93" "\xa5", "brother", 1 },
-  { "der Freund", "\xe6" "\x9c" "\x8b" "\xe5" "\x8f" "\x8b", "friend", 1 },
-  { "die Familie", "\xe5" "\xae" "\xb6" "\xe4" "\xba" "\xba", "family", 2 },
-  { "der Name", "\xe5" "\x90" "\x8d" "\xe5" "\xad" "\x97", "name", 1 },
-  { "das Baby", "\xe5" "\xae" "\x9d" "\xe5" "\xae" "\x9d", "baby", 3 },
-};
-static const Card CARDS_FOOD[] = {
-  { "das Wasser", "\xe6" "\xb0" "\xb4", "water", 3 },
-  { "das Brot", "\xe9" "\x9d" "\xa2" "\xe5" "\x8c" "\x85", "bread", 3 },
-  { "der Kaffee", "\xe5" "\x92" "\x96" "\xe5" "\x95" "\xa1", "coffee", 1 },
-  { "der Tee", "\xe8" "\x8c" "\xb6", "tea", 1 },
-  { "das Bier", "\xe5" "\x95" "\xa4" "\xe9" "\x85" "\x92", "beer", 3 },
-  { "der Apfel", "\xe8" "\x8b" "\xb9" "\xe6" "\x9e" "\x9c", "apple", 1 },
-  { "der Reis", "\xe7" "\xb1" "\xb3" "\xe9" "\xa5" "\xad", "rice", 1 },
-  { "das Fleisch", "\xe8" "\x82" "\x89", "meat", 3 },
-  { "das Ei", "\xe9" "\xb8" "\xa1" "\xe8" "\x9b" "\x8b", "egg", 3 },
-  { "die Milch", "\xe7" "\x89" "\x9b" "\xe5" "\xa5" "\xb6", "milk", 2 },
-  { "der Fisch", "\xe9" "\xb1" "\xbc", "fish", 1 },
-  { "das Gem" "\xc3" "\xbc" "se", "\xe8" "\x94" "\xac" "\xe8" "\x8f" "\x9c", "vegetable", 3 },
-  { "das Obst", "\xe6" "\xb0" "\xb4" "\xe6" "\x9e" "\x9c", "fruit", 3 },
-  { "der Zucker", "\xe7" "\xb3" "\x96", "sugar", 1 },
-  { "die Suppe", "\xe6" "\xb1" "\xa4", "soup", 2 },
-  { "essen", "\xe5" "\x90" "\x83", "to eat", 0 },
-  { "trinken", "\xe5" "\x96" "\x9d", "to drink", 0 },
-  { "lecker", "\xe5" "\xa5" "\xbd" "\xe5" "\x90" "\x83", "tasty", 0 },
-  { "hungrig", "\xe9" "\xa5" "\xbf", "hungry", 0 },
-  { "durstig", "\xe6" "\xb8" "\xb4", "thirsty", 0 },
-};
-static const Card CARDS_DAILY[] = {
-  { "sein", "\xe6" "\x98" "\xaf", "to be", 0 },
-  { "haben", "\xe6" "\x9c" "\x89", "to have", 0 },
-  { "gehen", "\xe5" "\x8e" "\xbb", "to go", 0 },
-  { "kommen", "\xe6" "\x9d" "\xa5", "to come", 0 },
-  { "machen", "\xe5" "\x81" "\x9a", "to do", 0 },
-  { "sprechen", "\xe8" "\xaf" "\xb4", "to speak", 0 },
-  { "lernen", "\xe5" "\xad" "\xa6" "\xe4" "\xb9" "\xa0", "to learn", 0 },
-  { "lieben", "\xe7" "\x88" "\xb1", "to love", 0 },
-  { "sehen", "\xe7" "\x9c" "\x8b", "to see", 0 },
-  { "wohnen", "\xe4" "\xbd" "\x8f", "to live", 0 },
-  { "schlafen", "\xe7" "\x9d" "\xa1" "\xe8" "\xa7" "\x89", "to sleep", 0 },
-  { "arbeiten", "\xe5" "\xb7" "\xa5" "\xe4" "\xbd" "\x9c", "to work", 0 },
-  { "spielen", "\xe7" "\x8e" "\xa9", "to play", 0 },
-  { "heute", "\xe4" "\xbb" "\x8a" "\xe5" "\xa4" "\xa9", "today", 0 },
-  { "morgen", "\xe6" "\x98" "\x8e" "\xe5" "\xa4" "\xa9", "tomorrow", 0 },
-  { "gestern", "\xe6" "\x98" "\xa8" "\xe5" "\xa4" "\xa9", "yesterday", 0 },
-  { "gut", "\xe5" "\xa5" "\xbd", "good", 0 },
-  { "schlecht", "\xe4" "\xb8" "\x8d" "\xe5" "\xa5" "\xbd", "bad", 0 },
-  { "gross", "\xe5" "\xa4" "\xa7", "big", 0 },
-  { "klein", "\xe5" "\xb0" "\x8f", "small", 0 },
-  { "die Zeit", "\xe6" "\x97" "\xb6" "\xe9" "\x97" "\xb4", "time", 2 },
-};
-static const Card CARDS_PHRASE[] = {
-  { "Ich liebe dich", "\xe6" "\x88" "\x91" "\xe7" "\x88" "\xb1" "\xe4" "\xbd" "\xa0", "I love you", 0 },
-  { "Wie heisst du?", "\xe4" "\xbd" "\xa0" "\xe5" "\x8f" "\xab" "\xe4" "\xbb" "\x80" "\xe4" "\xb9" "\x88", "what's your name?", 0 },
-  { "Ich heisse ...", "\xe6" "\x88" "\x91" "\xe5" "\x8f" "\xab", "my name is ...", 0 },
-  { "Ich verstehe nicht", "\xe6" "\x88" "\x91" "\xe4" "\xb8" "\x8d" "\xe6" "\x98" "\x8e" "\xe7" "\x99" "\xbd", "I don't understand", 0 },
-  { "Sprichst du Englisch?", "\xe4" "\xbd" "\xa0" "\xe4" "\xbc" "\x9a" "\xe8" "\xaf" "\xb4" "\xe8" "\x8b" "\xb1" "\xe8" "\xaf" "\xad" "\xe5" "\x90" "\x97", "do you speak English?", 0 },
-  { "Wo ist die Toilette?", "\xe5" "\x8e" "\x95" "\xe6" "\x89" "\x80" "\xe5" "\x9c" "\xa8" "\xe5" "\x93" "\xaa" "\xe9" "\x87" "\x8c", "where is the toilet?", 0 },
-  { "Wie viel kostet das?", "\xe8" "\xbf" "\x99" "\xe4" "\xb8" "\xaa" "\xe5" "\xa4" "\x9a" "\xe5" "\xb0" "\x91" "\xe9" "\x92" "\xb1", "how much is this?", 0 },
-  { "Ich m" "\xc3" "\xb6" "chte ...", "\xe6" "\x88" "\x91" "\xe6" "\x83" "\xb3" "\xe8" "\xa6" "\x81", "I would like ...", 0 },
-  { "Freut mich", "\xe5" "\xbe" "\x88" "\xe9" "\xab" "\x98" "\xe5" "\x85" "\xb4" "\xe8" "\xae" "\xa4" "\xe8" "\xaf" "\x86" "\xe4" "\xbd" "\xa0", "nice to meet you", 0 },
-  { "Ich komme aus ...", "\xe6" "\x88" "\x91" "\xe6" "\x9d" "\xa5" "\xe8" "\x87" "\xaa", "I come from ...", 0 },
-  { "Ich bin m" "\xc3" "\xbc" "de", "\xe6" "\x88" "\x91" "\xe7" "\xb4" "\xaf" "\xe4" "\xba" "\x86", "I am tired", 0 },
-  { "Guten Appetit", "\xe8" "\xaf" "\xb7" "\xe6" "\x85" "\xa2" "\xe7" "\x94" "\xa8", "enjoy your meal", 0 },
-  { "Bis morgen", "\xe6" "\x98" "\x8e" "\xe5" "\xa4" "\xa9" "\xe8" "\xa7" "\x81", "see you tomorrow", 0 },
-  { "Alles Gute", "\xe4" "\xb8" "\x80" "\xe5" "\x88" "\x87" "\xe9" "\xa1" "\xba" "\xe5" "\x88" "\xa9", "all the best", 0 },
-  { "Keine Ahnung", "\xe4" "\xb8" "\x8d" "\xe7" "\x9f" "\xa5" "\xe9" "\x81" "\x93", "no idea", 0 },
-  { "Kein Problem", "\xe6" "\xb2" "\xa1" "\xe9" "\x97" "\xae" "\xe9" "\xa2" "\x98", "no problem", 0 },
-  { "Ich weiss nicht", "\xe6" "\x88" "\x91" "\xe4" "\xb8" "\x8d" "\xe7" "\x9f" "\xa5" "\xe9" "\x81" "\x93", "I don't know", 0 },
-  { "Was ist das?", "\xe8" "\xbf" "\x99" "\xe6" "\x98" "\xaf" "\xe4" "\xbb" "\x80" "\xe4" "\xb9" "\x88", "what is that?", 0 },
-};
-static const Card CARDS_COLOR[] = {
-  { "rot", "\xe7" "\xba" "\xa2" "\xe8" "\x89" "\xb2", "red", 0 },
-  { "blau", "\xe8" "\x93" "\x9d" "\xe8" "\x89" "\xb2", "blue", 0 },
-  { "gr" "\xc3" "\xbc" "n", "\xe7" "\xbb" "\xbf" "\xe8" "\x89" "\xb2", "green", 0 },
-  { "gelb", "\xe9" "\xbb" "\x84" "\xe8" "\x89" "\xb2", "yellow", 0 },
-  { "schwarz", "\xe9" "\xbb" "\x91" "\xe8" "\x89" "\xb2", "black", 0 },
-  { "weiss", "\xe7" "\x99" "\xbd" "\xe8" "\x89" "\xb2", "white", 0 },
-  { "orange", "\xe6" "\xa9" "\x99" "\xe8" "\x89" "\xb2", "orange", 0 },
-  { "lila", "\xe7" "\xb4" "\xab" "\xe8" "\x89" "\xb2", "purple", 0 },
-  { "rosa", "\xe7" "\xb2" "\x89" "\xe8" "\x89" "\xb2", "pink", 0 },
-  { "braun", "\xe6" "\xa3" "\x95" "\xe8" "\x89" "\xb2", "brown", 0 },
-  { "grau", "\xe7" "\x81" "\xb0" "\xe8" "\x89" "\xb2", "grey", 0 },
-  { "die Farbe", "\xe9" "\xa2" "\x9c" "\xe8" "\x89" "\xb2", "colour", 2 },
-  { "hell", "\xe6" "\xb5" "\x85", "light", 0 },
-  { "dunkel", "\xe6" "\xb7" "\xb1", "dark", 0 },
-};
-static const Card CARDS_BODY[] = {
-  { "der Kopf", "\xe5" "\xa4" "\xb4", "head", 1 },
-  { "das Auge", "\xe7" "\x9c" "\xbc" "\xe7" "\x9d" "\x9b", "eye", 3 },
-  { "die Nase", "\xe9" "\xbc" "\xbb" "\xe5" "\xad" "\x90", "nose", 2 },
-  { "der Mund", "\xe5" "\x98" "\xb4", "mouth", 1 },
-  { "das Ohr", "\xe8" "\x80" "\xb3" "\xe6" "\x9c" "\xb5", "ear", 3 },
-  { "die Hand", "\xe6" "\x89" "\x8b", "hand", 2 },
-  { "der Fuss", "\xe8" "\x84" "\x9a", "foot", 1 },
-  { "das Bein", "\xe8" "\x85" "\xbf", "leg", 3 },
-  { "der Arm", "\xe6" "\x89" "\x8b" "\xe8" "\x87" "\x82", "arm", 1 },
-  { "der Bauch", "\xe8" "\x82" "\x9a" "\xe5" "\xad" "\x90", "belly", 1 },
-  { "das Haar", "\xe5" "\xa4" "\xb4" "\xe5" "\x8f" "\x91", "hair", 3 },
-  { "der Zahn", "\xe7" "\x89" "\x99" "\xe9" "\xbd" "\xbf", "tooth", 1 },
-  { "das Herz", "\xe5" "\xbf" "\x83", "heart", 3 },
-  { "das Gesicht", "\xe8" "\x84" "\xb8", "face", 3 },
-  { "die Schulter", "\xe8" "\x82" "\xa9" "\xe8" "\x86" "\x80", "shoulder", 2 },
-  { "der R" "\xc3" "\xbc" "cken", "\xe8" "\x83" "\x8c", "back", 1 },
-  { "der Hals", "\xe8" "\x84" "\x96" "\xe5" "\xad" "\x90", "neck", 1 },
-  { "die Brust", "\xe8" "\x83" "\xb8", "chest", 2 },
-  { "der Finger", "\xe6" "\x89" "\x8b" "\xe6" "\x8c" "\x87", "finger", 1 },
-  { "das Knie", "\xe8" "\x86" "\x9d" "\xe7" "\x9b" "\x96", "knee", 3 },
-  { "die Zunge", "\xe8" "\x88" "\x8c" "\xe5" "\xa4" "\xb4", "tongue", 2 },
-  { "die Augenbraue", "\xe7" "\x9c" "\x89" "\xe6" "\xaf" "\x9b", "eyebrow", 2 },
-};
-static const Card CARDS_ANIMAL[] = {
-  { "der Hund", "\xe7" "\x8b" "\x97", "dog", 1 },
-  { "die Katze", "\xe7" "\x8c" "\xab", "cat", 2 },
-  { "der Vogel", "\xe9" "\xb8" "\x9f", "bird", 1 },
-  { "das Pferd", "\xe9" "\xa9" "\xac", "horse", 3 },
-  { "die Kuh", "\xe7" "\x89" "\x9b", "cow", 2 },
-  { "das Schwein", "\xe7" "\x8c" "\xaa", "pig", 3 },
-  { "das Schaf", "\xe7" "\xbe" "\x8a", "sheep", 3 },
-  { "der Hase", "\xe5" "\x85" "\x94" "\xe5" "\xad" "\x90", "rabbit", 1 },
-  { "der B" "\xc3" "\xa4" "r", "\xe7" "\x86" "\x8a", "bear", 1 },
-  { "der Tiger", "\xe8" "\x80" "\x81" "\xe8" "\x99" "\x8e", "tiger", 1 },
-  { "der Affe", "\xe7" "\x8c" "\xb4" "\xe5" "\xad" "\x90", "monkey", 1 },
-  { "die Maus", "\xe8" "\x80" "\x81" "\xe9" "\xbc" "\xa0", "mouse", 2 },
-  { "der Elefant", "\xe5" "\xa4" "\xa7" "\xe8" "\xb1" "\xa1", "elephant", 1 },
-  { "der L" "\xc3" "\xb6" "we", "\xe7" "\x8b" "\xae" "\xe5" "\xad" "\x90", "lion", 1 },
-  { "das Tier", "\xe5" "\x8a" "\xa8" "\xe7" "\x89" "\xa9", "animal", 3 },
-};
-static const Card CARDS_CLOTHES[] = {
-  { "das Hemd", "\xe8" "\xa1" "\xac" "\xe8" "\xa1" "\xab", "shirt", 3 },
-  { "die Hose", "\xe8" "\xa3" "\xa4" "\xe5" "\xad" "\x90", "trousers", 2 },
-  { "der Schuh", "\xe9" "\x9e" "\x8b", "shoe", 1 },
-  { "die Jacke", "\xe5" "\xa4" "\xb9" "\xe5" "\x85" "\x8b", "jacket", 2 },
-  { "der Hut", "\xe5" "\xb8" "\xbd" "\xe5" "\xad" "\x90", "hat", 1 },
-  { "das Kleid", "\xe8" "\xbf" "\x9e" "\xe8" "\xa1" "\xa3" "\xe8" "\xa3" "\x99", "dress", 3 },
-  { "der Rock", "\xe8" "\xa3" "\x99" "\xe5" "\xad" "\x90", "skirt", 1 },
-  { "die Socke", "\xe8" "\xa2" "\x9c" "\xe5" "\xad" "\x90", "sock", 2 },
-  { "der Mantel", "\xe5" "\xa4" "\xa7" "\xe8" "\xa1" "\xa3", "coat", 1 },
-  { "der Pullover", "\xe6" "\xaf" "\x9b" "\xe8" "\xa1" "\xa3", "sweater", 1 },
-  { "die Brille", "\xe7" "\x9c" "\xbc" "\xe9" "\x95" "\x9c", "glasses", 2 },
-  { "die Tasche", "\xe5" "\x8c" "\x85", "bag", 2 },
-  { "die Kleidung", "\xe8" "\xa1" "\xa3" "\xe6" "\x9c" "\x8d", "clothing", 2 },
-  { "das T-Shirt", "T" "\xe6" "\x81" "\xa4", "T-shirt", 3 },
-  { "die Shorts", "\xe7" "\x9f" "\xad" "\xe8" "\xa3" "\xa4", "shorts", 2 },
-  { "die Jeans", "\xe7" "\x89" "\x9b" "\xe4" "\xbb" "\x94" "\xe8" "\xa3" "\xa4", "jeans", 2 },
-  { "die M" "\xc3" "\xbc" "tze", "\xe5" "\xb8" "\xbd" "\xe5" "\xad" "\x90", "cap", 2 },
-  { "der Schal", "\xe5" "\x9b" "\xb4" "\xe5" "\xb7" "\xbe", "scarf", 1 },
-  { "der G" "\xc3" "\xbc" "rtel", "\xe7" "\x9a" "\xae" "\xe5" "\xb8" "\xa6", "belt", 1 },
-  { "der Handschuh", "\xe6" "\x89" "\x8b" "\xe5" "\xa5" "\x97", "glove", 1 },
-  { "der Stiefel", "\xe9" "\x9d" "\xb4" "\xe5" "\xad" "\x90", "boot", 1 },
-  { "die Unterw" "\xc3" "\xa4" "sche", "\xe5" "\x86" "\x85" "\xe8" "\xa1" "\xa3", "underwear", 2 },
-};
-static const Card CARDS_HOME[] = {
-  { "das Haus", "\xe6" "\x88" "\xbf" "\xe5" "\xad" "\x90", "house", 3 },
-  { "die Wohnung", "\xe5" "\x85" "\xac" "\xe5" "\xaf" "\x93", "flat", 2 },
-  { "die T" "\xc3" "\xbc" "r", "\xe9" "\x97" "\xa8", "door", 2 },
-  { "das Fenster", "\xe7" "\xaa" "\x97" "\xe6" "\x88" "\xb7", "window", 3 },
-  { "der Tisch", "\xe6" "\xa1" "\x8c" "\xe5" "\xad" "\x90", "table", 1 },
-  { "der Stuhl", "\xe6" "\xa4" "\x85" "\xe5" "\xad" "\x90", "chair", 1 },
-  { "das Bett", "\xe5" "\xba" "\x8a", "bed", 3 },
-  { "die K" "\xc3" "\xbc" "che", "\xe5" "\x8e" "\xa8" "\xe6" "\x88" "\xbf", "kitchen", 2 },
-  { "das Bad", "\xe6" "\xb5" "\xb4" "\xe5" "\xae" "\xa4", "bathroom", 3 },
-  { "das Zimmer", "\xe6" "\x88" "\xbf" "\xe9" "\x97" "\xb4", "room", 3 },
-  { "die Lampe", "\xe7" "\x81" "\xaf", "lamp", 2 },
-  { "der Schl" "\xc3" "\xbc" "ssel", "\xe9" "\x92" "\xa5" "\xe5" "\x8c" "\x99", "key", 1 },
-  { "das Sofa", "\xe6" "\xb2" "\x99" "\xe5" "\x8f" "\x91", "sofa", 3 },
-};
-static const Card CARDS_TIME[] = {
-  { "der Tag", "\xe5" "\xa4" "\xa9", "day", 1 },
-  { "die Woche", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f", "week", 2 },
-  { "der Monat", "\xe6" "\x9c" "\x88", "month", 1 },
-  { "das Jahr", "\xe5" "\xb9" "\xb4", "year", 3 },
-  { "die Stunde", "\xe5" "\xb0" "\x8f" "\xe6" "\x97" "\xb6", "hour", 2 },
-  { "die Minute", "\xe5" "\x88" "\x86" "\xe9" "\x92" "\x9f", "minute", 2 },
-  { "die Uhr", "\xe9" "\x92" "\x9f", "clock", 2 },
-  { "Montag", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe4" "\xb8" "\x80", "Monday", 0 },
-  { "Dienstag", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe4" "\xba" "\x8c", "Tuesday", 0 },
-  { "Mittwoch", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe4" "\xb8" "\x89", "Wednesday", 0 },
-  { "Donnerstag", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe5" "\x9b" "\x9b", "Thursday", 0 },
-  { "Freitag", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe4" "\xba" "\x94", "Friday", 0 },
-  { "Samstag", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe5" "\x85" "\xad", "Saturday", 0 },
-  { "Sonntag", "\xe6" "\x98" "\x9f" "\xe6" "\x9c" "\x9f" "\xe6" "\x97" "\xa5", "Sunday", 0 },
-  { "jetzt", "\xe7" "\x8e" "\xb0" "\xe5" "\x9c" "\xa8", "now", 0 },
-  { "fr" "\xc3" "\xbc" "h", "\xe6" "\x97" "\xa9", "early", 0 },
-  { "sp" "\xc3" "\xa4" "t", "\xe6" "\x99" "\x9a", "late", 0 },
-};
-static const Card CARDS_SEASON[] = {
-  { "der Fr" "\xc3" "\xbc" "hling", "\xe6" "\x98" "\xa5" "\xe5" "\xa4" "\xa9", "spring", 1 },
-  { "der Sommer", "\xe5" "\xa4" "\x8f" "\xe5" "\xa4" "\xa9", "summer", 1 },
-  { "der Herbst", "\xe7" "\xa7" "\x8b" "\xe5" "\xa4" "\xa9", "autumn", 1 },
-  { "der Winter", "\xe5" "\x86" "\xac" "\xe5" "\xa4" "\xa9", "winter", 1 },
-  { "die Sonne", "\xe5" "\xa4" "\xaa" "\xe9" "\x98" "\xb3", "sun", 2 },
-  { "der Mond", "\xe6" "\x9c" "\x88" "\xe4" "\xba" "\xae", "moon", 1 },
-  { "der Stern", "\xe6" "\x98" "\x9f" "\xe6" "\x98" "\x9f", "star", 1 },
-  { "der Wald", "\xe6" "\xa3" "\xae" "\xe6" "\x9e" "\x97", "forest", 1 },
-  { "der Strand", "\xe6" "\xb5" "\xb7" "\xe6" "\xbb" "\xa9", "beach", 1 },
-  { "die Insel", "\xe5" "\xb2" "\x9b", "island", 2 },
-  { "die Erde", "\xe5" "\x9c" "\xb0" "\xe7" "\x90" "\x83", "earth", 2 },
-  { "die Welt", "\xe4" "\xb8" "\x96" "\xe7" "\x95" "\x8c", "world", 2 },
-  { "die Natur", "\xe8" "\x87" "\xaa" "\xe7" "\x84" "\xb6", "nature", 2 },
-  { "das Gras", "\xe8" "\x8d" "\x89", "grass", 3 },
-};
-static const Card CARDS_HOBBY[] = {
-  { "die Musik", "\xe9" "\x9f" "\xb3" "\xe4" "\xb9" "\x90", "music", 2 },
-  { "der Sport", "\xe8" "\xbf" "\x90" "\xe5" "\x8a" "\xa8", "sport", 1 },
-  { "der Fussball", "\xe8" "\xb6" "\xb3" "\xe7" "\x90" "\x83", "football", 1 },
-  { "das Spiel", "\xe6" "\xb8" "\xb8" "\xe6" "\x88" "\x8f", "game", 3 },
-  { "der Film", "\xe7" "\x94" "\xb5" "\xe5" "\xbd" "\xb1", "film", 1 },
-  { "das Lied", "\xe6" "\xad" "\x8c", "song", 3 },
-  { "tanzen", "\xe8" "\xb7" "\xb3" "\xe8" "\x88" "\x9e", "to dance", 0 },
-  { "singen", "\xe5" "\x94" "\xb1" "\xe6" "\xad" "\x8c", "to sing", 0 },
-  { "schwimmen", "\xe6" "\xb8" "\xb8" "\xe6" "\xb3" "\xb3", "to swim", 0 },
-  { "malen", "\xe7" "\x94" "\xbb" "\xe7" "\x94" "\xbb", "to paint", 0 },
-  { "fotografieren", "\xe6" "\x8b" "\x8d" "\xe7" "\x85" "\xa7", "to photograph", 0 },
-  { "das Konzert", "\xe9" "\x9f" "\xb3" "\xe4" "\xb9" "\x90" "\xe4" "\xbc" "\x9a", "concert", 3 },
-  { "die Party", "\xe8" "\x81" "\x9a" "\xe4" "\xbc" "\x9a", "party", 2 },
-  { "das Hobby", "\xe7" "\x88" "\xb1" "\xe5" "\xa5" "\xbd", "hobby", 3 },
-  { "lesen", "\xe7" "\x9c" "\x8b" "\xe4" "\xb9" "\xa6", "to read", 0 },
-  { "fernsehen", "\xe7" "\x9c" "\x8b" "\xe7" "\x94" "\xb5" "\xe8" "\xa7" "\x86", "to watch TV", 0 },
-  { "Musik h" "\xc3" "\xb6" "ren", "\xe5" "\x90" "\xac" "\xe9" "\x9f" "\xb3" "\xe4" "\xb9" "\x90", "to listen to music", 0 },
-  { "Klavier spielen", "\xe5" "\xbc" "\xb9" "\xe9" "\x92" "\xa2" "\xe7" "\x90" "\xb4", "to play piano", 0 },
-  { "Basketball spielen", "\xe6" "\x89" "\x93" "\xe7" "\xaf" "\xae" "\xe7" "\x90" "\x83", "to play basketball", 0 },
-  { "Schach spielen", "\xe4" "\xb8" "\x8b" "\xe6" "\xa3" "\x8b", "to play chess", 0 },
-  { "reiten", "\xe9" "\xaa" "\x91" "\xe9" "\xa9" "\xac", "to ride a horse", 0 },
-  { "Videospiele spielen", "\xe7" "\x8e" "\xa9" "\xe6" "\xb8" "\xb8" "\xe6" "\x88" "\x8f", "to play video games", 0 },
-};
-static const Card CARDS_DATE[] = {
-  { "Januar", "\xe4" "\xb8" "\x80" "\xe6" "\x9c" "\x88", "January", 0 },
-  { "Februar", "\xe4" "\xba" "\x8c" "\xe6" "\x9c" "\x88", "February", 0 },
-  { "M" "\xc3" "\xa4" "rz", "\xe4" "\xb8" "\x89" "\xe6" "\x9c" "\x88", "March", 0 },
-  { "April", "\xe5" "\x9b" "\x9b" "\xe6" "\x9c" "\x88", "April", 0 },
-  { "Mai", "\xe4" "\xba" "\x94" "\xe6" "\x9c" "\x88", "May", 0 },
-  { "Juni", "\xe5" "\x85" "\xad" "\xe6" "\x9c" "\x88", "June", 0 },
-  { "Juli", "\xe4" "\xb8" "\x83" "\xe6" "\x9c" "\x88", "July", 0 },
-  { "August", "\xe5" "\x85" "\xab" "\xe6" "\x9c" "\x88", "August", 0 },
-  { "September", "\xe4" "\xb9" "\x9d" "\xe6" "\x9c" "\x88", "September", 0 },
-  { "Oktober", "\xe5" "\x8d" "\x81" "\xe6" "\x9c" "\x88", "October", 0 },
-  { "November", "\xe5" "\x8d" "\x81" "\xe4" "\xb8" "\x80" "\xe6" "\x9c" "\x88", "November", 0 },
-  { "Dezember", "\xe5" "\x8d" "\x81" "\xe4" "\xba" "\x8c" "\xe6" "\x9c" "\x88", "December", 0 },
-  { "das Datum", "\xe6" "\x97" "\xa5" "\xe6" "\x9c" "\x9f", "date", 3 },
-  { "der Geburtstag", "\xe7" "\x94" "\x9f" "\xe6" "\x97" "\xa5", "birthday", 1 },
-};
-static const Card CARDS_WEATHER[] = {
-  { "das Wetter", "\xe5" "\xa4" "\xa9" "\xe6" "\xb0" "\x94", "weather", 3 },
-  { "der Regen", "\xe9" "\x9b" "\xa8", "rain", 1 },
-  { "der Schnee", "\xe9" "\x9b" "\xaa", "snow", 1 },
-  { "der Wind", "\xe9" "\xa3" "\x8e", "wind", 1 },
-  { "die Wolke", "\xe4" "\xba" "\x91", "cloud", 2 },
-  { "der Himmel", "\xe5" "\xa4" "\xa9" "\xe7" "\xa9" "\xba", "sky", 1 },
-  { "der Nebel", "\xe9" "\x9b" "\xbe", "fog", 1 },
-  { "warm", "\xe6" "\x9a" "\x96" "\xe5" "\x92" "\x8c", "warm", 0 },
-  { "kalt", "\xe5" "\x86" "\xb7", "cold", 0 },
-  { "heiss", "\xe7" "\x83" "\xad", "hot", 0 },
-  { "nass", "\xe6" "\xb9" "\xbf", "wet", 0 },
-  { "trocken", "\xe5" "\xb9" "\xb2", "dry", 0 },
-  { "sonnig", "\xe6" "\x99" "\xb4" "\xe6" "\x9c" "\x97", "sunny", 0 },
-  { "windig", "\xe6" "\x9c" "\x89" "\xe9" "\xa3" "\x8e", "windy", 0 },
-};
-static const Card CARDS_TRAVEL[] = {
-  { "die Stadt", "\xe5" "\x9f" "\x8e" "\xe5" "\xb8" "\x82", "city", 2 },
-  { "das Dorf", "\xe6" "\x9d" "\x91" "\xe5" "\xba" "\x84", "village", 3 },
-  { "das Auto", "\xe6" "\xb1" "\xbd" "\xe8" "\xbd" "\xa6", "car", 3 },
-  { "der Zug", "\xe7" "\x81" "\xab" "\xe8" "\xbd" "\xa6", "train", 1 },
-  { "der Bus", "\xe5" "\x85" "\xac" "\xe4" "\xba" "\xa4" "\xe8" "\xbd" "\xa6", "bus", 1 },
-  { "das Flugzeug", "\xe9" "\xa3" "\x9e" "\xe6" "\x9c" "\xba", "plane", 3 },
-  { "der Bahnhof", "\xe7" "\x81" "\xab" "\xe8" "\xbd" "\xa6" "\xe7" "\xab" "\x99", "station", 1 },
-  { "der Flughafen", "\xe6" "\x9c" "\xba" "\xe5" "\x9c" "\xba", "airport", 1 },
-  { "das Hotel", "\xe9" "\x85" "\x92" "\xe5" "\xba" "\x97", "hotel", 3 },
-  { "die Strasse", "\xe8" "\xa1" "\x97" "\xe9" "\x81" "\x93", "street", 2 },
-  { "die Karte", "\xe5" "\x9c" "\xb0" "\xe5" "\x9b" "\xbe", "map", 2 },
-  { "der Pass", "\xe6" "\x8a" "\xa4" "\xe7" "\x85" "\xa7", "passport", 1 },
-  { "links", "\xe5" "\xb7" "\xa6", "left", 0 },
-  { "rechts", "\xe5" "\x8f" "\xb3", "right", 0 },
-  { "geradeaus", "\xe7" "\x9b" "\xb4" "\xe8" "\xb5" "\xb0", "straight", 0 },
-};
-static const Card CARDS_FEELING[] = {
-  { "gl" "\xc3" "\xbc" "cklich", "\xe5" "\xbc" "\x80" "\xe5" "\xbf" "\x83", "happy", 0 },
-  { "traurig", "\xe9" "\x9a" "\xbe" "\xe8" "\xbf" "\x87", "sad", 0 },
-  { "m" "\xc3" "\xbc" "de", "\xe7" "\xb4" "\xaf", "tired", 0 },
-  { "krank", "\xe7" "\x94" "\x9f" "\xe7" "\x97" "\x85", "sick", 0 },
-  { "w" "\xc3" "\xbc" "tend", "\xe7" "\x94" "\x9f" "\xe6" "\xb0" "\x94", "angry", 0 },
-  { "sch" "\xc3" "\xb6" "n", "\xe7" "\xbe" "\x8e", "beautiful", 0 },
-  { "h" "\xc3" "\xa4" "sslich", "\xe4" "\xb8" "\x91", "ugly", 0 },
-  { "neu", "\xe6" "\x96" "\xb0", "new", 0 },
-  { "alt", "\xe8" "\x80" "\x81", "old", 0 },
-  { "jung", "\xe5" "\xb9" "\xb4" "\xe8" "\xbd" "\xbb", "young", 0 },
-  { "reich", "\xe5" "\xaf" "\x8c", "rich", 0 },
-  { "arm", "\xe7" "\xa9" "\xb7", "poor", 0 },
-  { "stark", "\xe5" "\xbc" "\xba", "strong", 0 },
-  { "schwach", "\xe5" "\xbc" "\xb1", "weak", 0 },
-  { "einfach", "\xe7" "\xae" "\x80" "\xe5" "\x8d" "\x95", "easy", 0 },
-  { "schwer", "\xe9" "\x9a" "\xbe", "hard", 0 },
-};
-static const Card CARDS_WORK[] = {
-  { "die Arbeit", "\xe5" "\xb7" "\xa5" "\xe4" "\xbd" "\x9c", "work", 2 },
-  { "die Schule", "\xe5" "\xad" "\xa6" "\xe6" "\xa0" "\xa1", "school", 2 },
-  { "der Lehrer", "\xe8" "\x80" "\x81" "\xe5" "\xb8" "\x88", "teacher", 1 },
-  { "der Sch" "\xc3" "\xbc" "ler", "\xe5" "\xad" "\xa6" "\xe7" "\x94" "\x9f", "pupil", 1 },
-  { "das Buch", "\xe4" "\xb9" "\xa6", "book", 3 },
-  { "der Stift", "\xe7" "\xac" "\x94", "pen", 1 },
-  { "das Papier", "\xe7" "\xba" "\xb8", "paper", 3 },
-  { "der Computer", "\xe7" "\x94" "\xb5" "\xe8" "\x84" "\x91", "computer", 1 },
-  { "das B" "\xc3" "\xbc" "ro", "\xe5" "\x8a" "\x9e" "\xe5" "\x85" "\xac" "\xe5" "\xae" "\xa4", "office", 3 },
-  { "der Chef", "\xe8" "\x80" "\x81" "\xe6" "\x9d" "\xbf", "boss", 1 },
-  { "der Arzt", "\xe5" "\x8c" "\xbb" "\xe7" "\x94" "\x9f", "doctor", 1 },
-  { "die Frage", "\xe9" "\x97" "\xae" "\xe9" "\xa2" "\x98", "question", 2 },
-  { "die Antwort", "\xe7" "\xad" "\x94" "\xe6" "\xa1" "\x88", "answer", 2 },
-  { "das Telefon", "\xe7" "\x94" "\xb5" "\xe8" "\xaf" "\x9d", "phone", 3 },
-};
-static const Card CARDS_VERB2[] = {
-  { "denken", "\xe6" "\x83" "\xb3", "to think", 0 },
-  { "wissen", "\xe7" "\x9f" "\xa5" "\xe9" "\x81" "\x93", "to know", 0 },
-  { "verstehen", "\xe6" "\x98" "\x8e" "\xe7" "\x99" "\xbd", "to understand", 0 },
-  { "fragen", "\xe9" "\x97" "\xae", "to ask", 0 },
-  { "antworten", "\xe5" "\x9b" "\x9e" "\xe7" "\xad" "\x94", "to answer", 0 },
-  { "helfen", "\xe5" "\xb8" "\xae" "\xe5" "\x8a" "\xa9", "to help", 0 },
-  { "brauchen", "\xe9" "\x9c" "\x80" "\xe8" "\xa6" "\x81", "to need", 0 },
-  { "suchen", "\xe6" "\x89" "\xbe", "to look for", 0 },
-  { "\xc3" "\xb6" "ffnen", "\xe6" "\x89" "\x93" "\xe5" "\xbc" "\x80", "to open", 0 },
-  { "schliessen", "\xe5" "\x85" "\xb3", "to close", 0 },
-  { "beginnen", "\xe5" "\xbc" "\x80" "\xe5" "\xa7" "\x8b", "to begin", 0 },
-  { "warten", "\xe7" "\xad" "\x89", "to wait", 0 },
-  { "fahren", "\xe5" "\xbc" "\x80" "\xe8" "\xbd" "\xa6", "to drive", 0 },
-  { "kaufen", "\xe4" "\xb9" "\xb0", "to buy", 0 },
-  { "geben", "\xe7" "\xbb" "\x99", "to give", 0 },
-  { "bringen", "\xe5" "\xb8" "\xa6" "\xe6" "\x9d" "\xa5", "to bring", 0 },
-};
-static const Card CARDS_SHOP[] = {
-  { "das Geld", "\xe9" "\x92" "\xb1", "money", 3 },
-  { "der Euro", "\xe6" "\xac" "\xa7" "\xe5" "\x85" "\x83", "euro", 1 },
-  { "der Preis", "\xe4" "\xbb" "\xb7" "\xe6" "\xa0" "\xbc", "price", 1 },
-  { "teuer", "\xe8" "\xb4" "\xb5", "expensive", 0 },
-  { "billig", "\xe4" "\xbe" "\xbf" "\xe5" "\xae" "\x9c", "cheap", 0 },
-  { "bezahlen", "\xe4" "\xbb" "\x98" "\xe9" "\x92" "\xb1", "to pay", 0 },
-  { "kosten", "\xe8" "\x8a" "\xb1" "\xe8" "\xb4" "\xb9", "to cost", 0 },
-  { "der Laden", "\xe5" "\x95" "\x86" "\xe5" "\xba" "\x97", "shop", 1 },
-  { "der Markt", "\xe5" "\xb8" "\x82" "\xe5" "\x9c" "\xba", "market", 1 },
-  { "der Supermarkt", "\xe8" "\xb6" "\x85" "\xe5" "\xb8" "\x82", "supermarket", 1 },
-  { "die Rechnung", "\xe8" "\xb4" "\xa6" "\xe5" "\x8d" "\x95", "bill", 2 },
-  { "das Gesch" "\xc3" "\xa4" "ft", "\xe7" "\x94" "\x9f" "\xe6" "\x84" "\x8f", "business", 3 },
-};
-static const Card CARDS_TECH[] = {
-  { "das Handy", "\xe6" "\x89" "\x8b" "\xe6" "\x9c" "\xba", "mobile phone", 3 },
-  { "der Laptop", "\xe7" "\xac" "\x94" "\xe8" "\xae" "\xb0" "\xe6" "\x9c" "\xac", "laptop", 1 },
-  { "das Internet", "\xe7" "\xbd" "\x91" "\xe7" "\xbb" "\x9c", "internet", 3 },
-  { "die E-Mail", "\xe7" "\x94" "\xb5" "\xe5" "\xad" "\x90" "\xe9" "\x82" "\xae" "\xe4" "\xbb" "\xb6", "email", 2 },
-  { "die App", "\xe5" "\xba" "\x94" "\xe7" "\x94" "\xa8", "app", 2 },
-  { "der Bildschirm", "\xe5" "\xb1" "\x8f" "\xe5" "\xb9" "\x95", "screen", 1 },
-  { "das Passwort", "\xe5" "\xaf" "\x86" "\xe7" "\xa0" "\x81", "password", 3 },
-  { "die Tastatur", "\xe9" "\x94" "\xae" "\xe7" "\x9b" "\x98", "keyboard", 2 },
-  { "die Kopfh" "\xc3" "\xb6" "rer", "\xe8" "\x80" "\xb3" "\xe6" "\x9c" "\xba", "headphones", 2 },
-  { "der Drucker", "\xe6" "\x89" "\x93" "\xe5" "\x8d" "\xb0" "\xe6" "\x9c" "\xba", "printer", 1 },
-  { "die Datei", "\xe6" "\x96" "\x87" "\xe4" "\xbb" "\xb6", "file", 2 },
-  { "das Foto", "\xe7" "\x85" "\xa7" "\xe7" "\x89" "\x87", "photo", 3 },
-  { "das Video", "\xe8" "\xa7" "\x86" "\xe9" "\xa2" "\x91", "video", 3 },
-};
-static const Card CARDS_KITCHEN[] = {
-  { "kochen", "\xe5" "\x81" "\x9a" "\xe9" "\xa5" "\xad", "to cook", 0 },
-  { "backen", "\xe7" "\x83" "\xa4", "to bake", 0 },
-  { "schneiden", "\xe5" "\x88" "\x87", "to cut", 0 },
-  { "der Herd", "\xe7" "\x82" "\x89" "\xe5" "\xad" "\x90", "stove", 1 },
-  { "der Backofen", "\xe7" "\x83" "\xa4" "\xe7" "\xae" "\xb1", "oven", 1 },
-  { "der K" "\xc3" "\xbc" "hlschrank", "\xe5" "\x86" "\xb0" "\xe7" "\xae" "\xb1", "fridge", 1 },
-  { "der Teller", "\xe7" "\x9b" "\x98" "\xe5" "\xad" "\x90", "plate", 1 },
-  { "die Tasse", "\xe6" "\x9d" "\xaf" "\xe5" "\xad" "\x90", "cup", 2 },
-  { "das Glas", "\xe7" "\x8e" "\xbb" "\xe7" "\x92" "\x83" "\xe6" "\x9d" "\xaf", "glass", 3 },
-  { "der Topf", "\xe9" "\x94" "\x85", "pot", 1 },
-  { "die Pfanne", "\xe5" "\xb9" "\xb3" "\xe5" "\xba" "\x95" "\xe9" "\x94" "\x85", "pan", 2 },
-  { "das Salz", "\xe7" "\x9b" "\x90", "salt", 3 },
-  { "der Pfeffer", "\xe8" "\x83" "\xa1" "\xe6" "\xa4" "\x92", "pepper", 1 },
-  { "die Butter", "\xe9" "\xbb" "\x84" "\xe6" "\xb2" "\xb9", "butter", 2 },
-};
-static const Card CARDS_TRANSPORT[] = {
-  { "das Fahrrad", "\xe8" "\x87" "\xaa" "\xe8" "\xa1" "\x8c" "\xe8" "\xbd" "\xa6", "bicycle", 3 },
-  { "die U-Bahn", "\xe5" "\x9c" "\xb0" "\xe9" "\x93" "\x81", "subway", 2 },
-  { "die Strassenbahn", "\xe6" "\x9c" "\x89" "\xe8" "\xbd" "\xa8" "\xe7" "\x94" "\xb5" "\xe8" "\xbd" "\xa6", "tram", 2 },
-  { "das Schiff", "\xe8" "\x88" "\xb9", "ship", 3 },
-  { "das Motorrad", "\xe6" "\x91" "\xa9" "\xe6" "\x89" "\x98" "\xe8" "\xbd" "\xa6", "motorbike", 3 },
-  { "das Taxi", "\xe5" "\x87" "\xba" "\xe7" "\xa7" "\x9f" "\xe8" "\xbd" "\xa6", "taxi", 3 },
-  { "die Haltestelle", "\xe8" "\xbd" "\xa6" "\xe7" "\xab" "\x99", "stop", 2 },
-  { "die Ampel", "\xe7" "\xba" "\xa2" "\xe7" "\xbb" "\xbf" "\xe7" "\x81" "\xaf", "traffic light", 2 },
-  { "die Kreuzung", "\xe8" "\xb7" "\xaf" "\xe5" "\x8f" "\xa3", "crossing", 2 },
-  { "der Stau", "\xe5" "\xa0" "\xb5" "\xe8" "\xbd" "\xa6", "traffic jam", 1 },
-  { "die Fahrkarte", "\xe8" "\xbd" "\xa6" "\xe7" "\xa5" "\xa8", "ticket", 2 },
-  { "abbiegen", "\xe6" "\x8b" "\x90" "\xe5" "\xbc" "\xaf", "to turn", 0 },
-  { "parken", "\xe5" "\x81" "\x9c" "\xe8" "\xbd" "\xa6", "to park", 0 },
-  { "weit", "\xe8" "\xbf" "\x9c", "far", 0 },
-  { "nah", "\xe8" "\xbf" "\x91", "near", 0 },
-};
-static const Card CARDS_RESTAURANT[] = {
-  { "das Restaurant", "\xe9" "\xa4" "\x90" "\xe5" "\x8e" "\x85", "restaurant", 3 },
-  { "die Speisekarte, bitte", "\xe8" "\xaf" "\xb7" "\xe7" "\xbb" "\x99" "\xe6" "\x88" "\x91" "\xe8" "\x8f" "\x9c" "\xe5" "\x8d" "\x95", "menu, please", 0 },
-  { "Ich m" "\xc3" "\xb6" "chte bestellen", "\xe6" "\x88" "\x91" "\xe6" "\x83" "\xb3" "\xe7" "\x82" "\xb9" "\xe9" "\xa4" "\x90", "I'd like to order", 0 },
-  { "Was empfehlen Sie?", "\xe4" "\xbd" "\xa0" "\xe6" "\x8e" "\xa8" "\xe8" "\x8d" "\x90" "\xe4" "\xbb" "\x80" "\xe4" "\xb9" "\x88", "what do you recommend?", 0 },
-  { "Die Rechnung, bitte", "\xe8" "\xaf" "\xb7" "\xe7" "\xbb" "\x93" "\xe8" "\xb4" "\xa6", "the bill, please", 0 },
-  { "Es schmeckt gut", "\xe5" "\xbe" "\x88" "\xe5" "\xa5" "\xbd" "\xe5" "\x90" "\x83", "it tastes good", 0 },
-  { "Ich bin satt", "\xe6" "\x88" "\x91" "\xe9" "\xa5" "\xb1" "\xe4" "\xba" "\x86", "I am full", 0 },
-  { "der Kellner", "\xe6" "\x9c" "\x8d" "\xe5" "\x8a" "\xa1" "\xe5" "\x91" "\x98", "waiter", 1 },
-  { "das Trinkgeld", "\xe5" "\xb0" "\x8f" "\xe8" "\xb4" "\xb9", "tip", 3 },
-  { "die Gabel", "\xe5" "\x8f" "\x89" "\xe5" "\xad" "\x90", "fork", 2 },
-  { "der L" "\xc3" "\xb6" "ffel", "\xe5" "\x8b" "\xba" "\xe5" "\xad" "\x90", "spoon", 1 },
-  { "das Messer", "\xe5" "\x88" "\x80", "knife", 3 },
-  { "Zum Wohl!", "\xe7" "\xa5" "\x9d" "\xe5" "\x81" "\xa5" "\xe5" "\xba" "\xb7", "to your health!", 0 },
-};
-static const Card CARDS_HEALTH[] = {
-  { "Mir geht es nicht gut", "\xe6" "\x88" "\x91" "\xe4" "\xb8" "\x8d" "\xe8" "\x88" "\x92" "\xe6" "\x9c" "\x8d", "I don't feel well", 0 },
-  { "Ich bin krank", "\xe6" "\x88" "\x91" "\xe7" "\x94" "\x9f" "\xe7" "\x97" "\x85" "\xe4" "\xba" "\x86", "I am sick", 0 },
-  { "Ich habe Kopfschmerzen", "\xe6" "\x88" "\x91" "\xe5" "\xa4" "\xb4" "\xe7" "\x96" "\xbc", "I have a headache", 0 },
-  { "Ich habe Fieber", "\xe6" "\x88" "\x91" "\xe5" "\x8f" "\x91" "\xe7" "\x83" "\xa7", "I have a fever", 0 },
-  { "das Krankenhaus", "\xe5" "\x8c" "\xbb" "\xe9" "\x99" "\xa2", "hospital", 3 },
-  { "die Apotheke", "\xe8" "\x8d" "\xaf" "\xe5" "\xba" "\x97", "pharmacy", 2 },
-  { "die Medizin", "\xe8" "\x8d" "\xaf", "medicine", 2 },
-  { "der Schmerz", "\xe7" "\x96" "\xbc" "\xe7" "\x97" "\x9b", "pain", 1 },
-  { "gesund", "\xe5" "\x81" "\xa5" "\xe5" "\xba" "\xb7", "healthy", 0 },
-  { "Gute Besserung", "\xe6" "\x97" "\xa9" "\xe6" "\x97" "\xa5" "\xe5" "\xba" "\xb7" "\xe5" "\xa4" "\x8d", "get well soon", 0 },
-  { "Ich bin allergisch", "\xe6" "\x88" "\x91" "\xe8" "\xbf" "\x87" "\xe6" "\x95" "\x8f", "I'm allergic", 0 },
-  { "Ich brauche einen Arzt", "\xe6" "\x88" "\x91" "\xe9" "\x9c" "\x80" "\xe8" "\xa6" "\x81" "\xe5" "\x8c" "\xbb" "\xe7" "\x94" "\x9f", "I need a doctor", 0 },
-};
-static const Card CARDS_PHRASE2[] = {
-  { "K" "\xc3" "\xb6" "nnen Sie mir helfen?", "\xe4" "\xbd" "\xa0" "\xe8" "\x83" "\xbd" "\xe5" "\xb8" "\xae" "\xe6" "\x88" "\x91" "\xe5" "\x90" "\x97", "can you help me?", 0 },
-  { "Wie sp" "\xc3" "\xa4" "t ist es?", "\xe7" "\x8e" "\xb0" "\xe5" "\x9c" "\xa8" "\xe5" "\x87" "\xa0" "\xe7" "\x82" "\xb9", "what time is it?", 0 },
-  { "Was bedeutet das?", "\xe8" "\xbf" "\x99" "\xe6" "\x98" "\xaf" "\xe4" "\xbb" "\x80" "\xe4" "\xb9" "\x88" "\xe6" "\x84" "\x8f" "\xe6" "\x80" "\x9d", "what does that mean?", 0 },
-  { "Langsamer, bitte", "\xe8" "\xaf" "\xb7" "\xe6" "\x85" "\xa2" "\xe4" "\xb8" "\x80" "\xe7" "\x82" "\xb9", "slower, please", 0 },
-  { "Wiederholen Sie bitte", "\xe8" "\xaf" "\xb7" "\xe5" "\x86" "\x8d" "\xe8" "\xaf" "\xb4" "\xe4" "\xb8" "\x80" "\xe9" "\x81" "\x8d", "please repeat", 0 },
-  { "Einen Moment, bitte", "\xe8" "\xaf" "\xb7" "\xe7" "\xa8" "\x8d" "\xe7" "\xad" "\x89", "one moment, please", 0 },
-  { "Ich habe eine Frage", "\xe6" "\x88" "\x91" "\xe6" "\x9c" "\x89" "\xe4" "\xb8" "\x80" "\xe4" "\xb8" "\xaa" "\xe9" "\x97" "\xae" "\xe9" "\xa2" "\x98", "I have a question", 0 },
-  { "Stimmt das?", "\xe5" "\xaf" "\xb9" "\xe5" "\x90" "\x97", "is that right?", 0 },
-  { "Nat" "\xc3" "\xbc" "rlich", "\xe5" "\xbd" "\x93" "\xe7" "\x84" "\xb6", "of course", 0 },
-  { "Vielleicht", "\xe4" "\xb9" "\x9f" "\xe8" "\xae" "\xb8", "maybe", 0 },
-  { "Ich glaube ja", "\xe6" "\x88" "\x91" "\xe6" "\x83" "\xb3" "\xe6" "\x98" "\xaf" "\xe7" "\x9a" "\x84", "I think so", 0 },
-  { "Wo wohnst du?", "\xe4" "\xbd" "\xa0" "\xe4" "\xbd" "\x8f" "\xe5" "\x9c" "\xa8" "\xe5" "\x93" "\xaa", "where do you live?", 0 },
-  { "Ich brauche Hilfe", "\xe6" "\x88" "\x91" "\xe9" "\x9c" "\x80" "\xe8" "\xa6" "\x81" "\xe5" "\xb8" "\xae" "\xe5" "\x8a" "\xa9", "I need help", 0 },
-  { "Viel Gl" "\xc3" "\xbc" "ck", "\xe7" "\xa5" "\x9d" "\xe4" "\xbd" "\xa0" "\xe5" "\xa5" "\xbd" "\xe8" "\xbf" "\x90", "good luck", 0 },
-};
-static const Card CARDS_IDIOM[] = {
-  { "Viel Spass", "\xe7" "\x8e" "\xa9" "\xe5" "\xbe" "\x97" "\xe5" "\xbc" "\x80" "\xe5" "\xbf" "\x83", "have fun", 0 },
-  { "Mach's gut", "\xe4" "\xbf" "\x9d" "\xe9" "\x87" "\x8d", "take care", 0 },
-  { "Pass auf!", "\xe5" "\xb0" "\x8f" "\xe5" "\xbf" "\x83", "watch out!", 0 },
-  { "Keine Sorge", "\xe5" "\x88" "\xab" "\xe6" "\x8b" "\x85" "\xe5" "\xbf" "\x83", "no worries", 0 },
-  { "Macht nichts", "\xe6" "\xb2" "\xa1" "\xe5" "\x85" "\xb3" "\xe7" "\xb3" "\xbb", "never mind", 0 },
-  { "Schade", "\xe7" "\x9c" "\x9f" "\xe5" "\x8f" "\xaf" "\xe6" "\x83" "\x9c", "what a pity", 0 },
-  { "Gl" "\xc3" "\xbc" "ckwunsch", "\xe6" "\x81" "\xad" "\xe5" "\x96" "\x9c", "congratulations", 0 },
-  { "Frohe Weihnachten", "\xe5" "\x9c" "\xa3" "\xe8" "\xaf" "\x9e" "\xe5" "\xbf" "\xab" "\xe4" "\xb9" "\x90", "merry Christmas", 0 },
-  { "Alles Gute zum Geburtstag", "\xe7" "\x94" "\x9f" "\xe6" "\x97" "\xa5" "\xe5" "\xbf" "\xab" "\xe4" "\xb9" "\x90", "happy birthday", 0 },
-  { "Gute Reise", "\xe4" "\xb8" "\x80" "\xe8" "\xb7" "\xaf" "\xe5" "\xb9" "\xb3" "\xe5" "\xae" "\x89", "have a good trip", 0 },
-  { "Viel Erfolg", "\xe7" "\xa5" "\x9d" "\xe4" "\xbd" "\xa0" "\xe6" "\x88" "\x90" "\xe5" "\x8a" "\x9f", "much success", 0 },
-  { "Bis dann", "\xe5" "\x88" "\xb0" "\xe6" "\x97" "\xb6" "\xe8" "\xa7" "\x81", "see you then", 0 },
-};
-static const Card CARDS_OFFICE[] = {
-  { "die Besprechung", "\xe4" "\xbc" "\x9a" "\xe8" "\xae" "\xae", "meeting", 2 },
-  { "der Termin", "\xe9" "\xa2" "\x84" "\xe7" "\xba" "\xa6", "appointment", 1 },
-  { "der Kollege", "\xe5" "\x90" "\x8c" "\xe4" "\xba" "\x8b", "colleague", 1 },
-  { "der Vertrag", "\xe5" "\x90" "\x88" "\xe5" "\x90" "\x8c", "contract", 1 },
-  { "das Projekt", "\xe9" "\xa1" "\xb9" "\xe7" "\x9b" "\xae", "project", 3 },
-  { "die Aufgabe", "\xe4" "\xbb" "\xbb" "\xe5" "\x8a" "\xa1", "task", 2 },
-  { "die Frist", "\xe6" "\x88" "\xaa" "\xe6" "\xad" "\xa2" "\xe6" "\x97" "\xa5" "\xe6" "\x9c" "\x9f", "deadline", 2 },
-  { "der Kunde", "\xe5" "\xae" "\xa2" "\xe6" "\x88" "\xb7", "customer", 1 },
-  { "der Bericht", "\xe6" "\x8a" "\xa5" "\xe5" "\x91" "\x8a", "report", 1 },
-  { "das Ziel", "\xe7" "\x9b" "\xae" "\xe6" "\xa0" "\x87", "goal", 3 },
-  { "der Plan", "\xe8" "\xae" "\xa1" "\xe5" "\x88" "\x92", "plan", 1 },
-  { "die Idee", "\xe4" "\xb8" "\xbb" "\xe6" "\x84" "\x8f", "idea", 2 },
-  { "wichtig", "\xe9" "\x87" "\x8d" "\xe8" "\xa6" "\x81", "important", 0 },
-  { "besch" "\xc3" "\xa4" "ftigt", "\xe5" "\xbf" "\x99", "busy", 0 },
-};
-static const Card CARDS_OPINION[] = {
-  { "Ich denke, dass ...", "\xe6" "\x88" "\x91" "\xe6" "\x83" "\xb3", "I think that ...", 0 },
-  { "Ich glaube, dass ...", "\xe6" "\x88" "\x91" "\xe7" "\x9b" "\xb8" "\xe4" "\xbf" "\xa1", "I believe that ...", 0 },
-  { "Meiner Meinung nach", "\xe5" "\x9c" "\xa8" "\xe6" "\x88" "\x91" "\xe7" "\x9c" "\x8b" "\xe6" "\x9d" "\xa5", "in my opinion", 0 },
-  { "Ich finde das gut", "\xe6" "\x88" "\x91" "\xe8" "\xa7" "\x89" "\xe5" "\xbe" "\x97" "\xe5" "\xa5" "\xbd", "I like that", 0 },
-  { "Ich stimme zu", "\xe6" "\x88" "\x91" "\xe5" "\x90" "\x8c" "\xe6" "\x84" "\x8f", "I agree", 0 },
-  { "Das stimmt", "\xe5" "\xaf" "\xb9", "that's right", 0 },
-  { "Ich bin anderer Meinung", "\xe6" "\x88" "\x91" "\xe4" "\xb8" "\x8d" "\xe5" "\x90" "\x8c" "\xe6" "\x84" "\x8f", "I disagree", 0 },
-  { "Das sehe ich anders", "\xe6" "\x88" "\x91" "\xe7" "\x9c" "\x8b" "\xe6" "\xb3" "\x95" "\xe4" "\xb8" "\x8d" "\xe5" "\x90" "\x8c", "I see it differently", 0 },
-  { "Wirklich?", "\xe7" "\x9c" "\x9f" "\xe7" "\x9a" "\x84" "\xe5" "\x90" "\x97", "really?", 0 },
-  { "Es ist mir egal", "\xe6" "\x88" "\x91" "\xe6" "\x97" "\xa0" "\xe6" "\x89" "\x80" "\xe8" "\xb0" "\x93", "I don't mind", 0 },
-  { "Ich bin nicht sicher", "\xe6" "\x88" "\x91" "\xe4" "\xb8" "\x8d" "\xe7" "\xa1" "\xae" "\xe5" "\xae" "\x9a", "I'm not sure", 0 },
-  { "Was denkst du?", "\xe4" "\xbd" "\xa0" "\xe6" "\x80" "\x8e" "\xe4" "\xb9" "\x88" "\xe6" "\x83" "\xb3", "what do you think?", 0 },
-};
-static const Card CARDS_EMERGENCY[] = {
-  { "Hilfe!", "\xe6" "\x95" "\x91" "\xe5" "\x91" "\xbd", "help!", 0 },
-  { "die Polizei", "\xe8" "\xad" "\xa6" "\xe5" "\xaf" "\x9f", "police", 2 },
-  { "der Krankenwagen", "\xe6" "\x95" "\x91" "\xe6" "\x8a" "\xa4" "\xe8" "\xbd" "\xa6", "ambulance", 1 },
-  { "der Unfall", "\xe4" "\xba" "\x8b" "\xe6" "\x95" "\x85", "accident", 1 },
-  { "das Feuer", "\xe7" "\x81" "\xab", "fire", 3 },
-  { "die Gefahr", "\xe5" "\x8d" "\xb1" "\xe9" "\x99" "\xa9", "danger", 2 },
-  { "Vorsicht!", "\xe5" "\xbd" "\x93" "\xe5" "\xbf" "\x83", "careful!", 0 },
-  { "Es ist dringend", "\xe5" "\xbe" "\x88" "\xe7" "\xb4" "\xa7" "\xe6" "\x80" "\xa5", "it's urgent", 0 },
-  { "Rufen Sie die Polizei", "\xe8" "\xaf" "\xb7" "\xe5" "\x8f" "\xab" "\xe8" "\xad" "\xa6" "\xe5" "\xaf" "\x9f", "call the police", 0 },
-  { "Rufen Sie einen Krankenwagen", "\xe8" "\xaf" "\xb7" "\xe5" "\x8f" "\xab" "\xe6" "\x95" "\x91" "\xe6" "\x8a" "\xa4" "\xe8" "\xbd" "\xa6", "call an ambulance", 0 },
-  { "Ich habe mich verlaufen", "\xe6" "\x88" "\x91" "\xe8" "\xbf" "\xb7" "\xe8" "\xb7" "\xaf" "\xe4" "\xba" "\x86", "I'm lost", 0 },
-  { "Ich habe meinen Pass verloren", "\xe6" "\x88" "\x91" "\xe6" "\x8a" "\xa4" "\xe7" "\x85" "\xa7" "\xe4" "\xb8" "\xa2" "\xe4" "\xba" "\x86", "I lost my passport", 0 },
-};
-static const Card CARDS_COUNTRY[] = {
-  { "Deutschland", "\xe5" "\xbe" "\xb7" "\xe5" "\x9b" "\xbd", "Germany", 0 },
-  { "Deutsch", "\xe5" "\xbe" "\xb7" "\xe8" "\xaf" "\xad", "German (language)", 0 },
-  { "die Schweiz", "\xe7" "\x91" "\x9e" "\xe5" "\xa3" "\xab", "Switzerland", 2 },
-  { "China", "\xe4" "\xb8" "\xad" "\xe5" "\x9b" "\xbd", "China", 0 },
-  { "Chinesisch", "\xe6" "\xb1" "\x89" "\xe8" "\xaf" "\xad", "Chinese (language)", 0 },
-  { "Frankreich", "\xe6" "\xb3" "\x95" "\xe5" "\x9b" "\xbd", "France", 0 },
-  { "Franz" "\xc3" "\xb6" "sisch", "\xe6" "\xb3" "\x95" "\xe8" "\xaf" "\xad", "French", 0 },
-  { "Japan", "\xe6" "\x97" "\xa5" "\xe6" "\x9c" "\xac", "Japan", 0 },
-  { "Japanisch", "\xe6" "\x97" "\xa5" "\xe8" "\xaf" "\xad", "Japanese", 0 },
-  { "Russland", "\xe4" "\xbf" "\x84" "\xe7" "\xbd" "\x97" "\xe6" "\x96" "\xaf", "Russia", 0 },
-  { "Russisch", "\xe4" "\xbf" "\x84" "\xe8" "\xaf" "\xad", "Russian", 0 },
-  { "die USA", "\xe7" "\xbe" "\x8e" "\xe5" "\x9b" "\xbd", "the USA", 2 },
-  { "Englisch", "\xe8" "\x8b" "\xb1" "\xe8" "\xaf" "\xad", "English", 0 },
-  { "Spanisch", "\xe8" "\xa5" "\xbf" "\xe7" "\x8f" "\xad" "\xe7" "\x89" "\x99" "\xe8" "\xaf" "\xad", "Spanish", 0 },
-  { "Italienisch", "\xe6" "\x84" "\x8f" "\xe5" "\xa4" "\xa7" "\xe5" "\x88" "\xa9" "\xe8" "\xaf" "\xad", "Italian", 0 },
-  { "Mexiko", "\xe5" "\xa2" "\xa8" "\xe8" "\xa5" "\xbf" "\xe5" "\x93" "\xa5", "Mexico", 0 },
-};
-static const Card CARDS_CITY[] = {
-  { "das Kino", "\xe7" "\x94" "\xb5" "\xe5" "\xbd" "\xb1" "\xe9" "\x99" "\xa2", "cinema", 3 },
-  { "die Post", "\xe9" "\x82" "\xae" "\xe5" "\xb1" "\x80", "post office", 2 },
-  { "die Bank", "\xe9" "\x93" "\xb6" "\xe8" "\xa1" "\x8c", "bank", 2 },
-  { "die Feuerwache", "\xe6" "\xb6" "\x88" "\xe9" "\x98" "\xb2" "\xe7" "\xab" "\x99", "fire station", 2 },
-  { "die Polizeiwache", "\xe5" "\x85" "\xac" "\xe5" "\xae" "\x89" "\xe5" "\xb1" "\x80", "police station", 2 },
-  { "der Kindergarten", "\xe5" "\xb9" "\xbc" "\xe5" "\x84" "\xbf" "\xe5" "\x9b" "\xad", "kindergarten", 1 },
-  { "die Tankstelle", "\xe5" "\x8a" "\xa0" "\xe6" "\xb2" "\xb9" "\xe7" "\xab" "\x99", "petrol station", 2 },
-  { "die Fabrik", "\xe5" "\xb7" "\xa5" "\xe5" "\x8e" "\x82", "factory", 2 },
-  { "die Kirche", "\xe6" "\x95" "\x99" "\xe5" "\xa0" "\x82", "church", 2 },
-  { "das Museum", "\xe5" "\x8d" "\x9a" "\xe7" "\x89" "\xa9" "\xe9" "\xa6" "\x86", "museum", 3 },
-  { "der Park", "\xe5" "\x85" "\xac" "\xe5" "\x9b" "\xad", "park", 1 },
-  { "die Bibliothek", "\xe5" "\x9b" "\xbe" "\xe4" "\xb9" "\xa6" "\xe9" "\xa6" "\x86", "library", 2 },
-  { "der Zoo", "\xe5" "\x8a" "\xa8" "\xe7" "\x89" "\xa9" "\xe5" "\x9b" "\xad", "zoo", 1 },
-};
-static const Card CARDS_PLAY[] = {
-  { "das Versteckspiel", "\xe6" "\x8d" "\x89" "\xe8" "\xbf" "\xb7" "\xe8" "\x97" "\x8f", "hide-and-seek", 3 },
-  { "schaukeln", "\xe8" "\x8d" "\xa1" "\xe7" "\xa7" "\x8b" "\xe5" "\x8d" "\x83", "to swing", 0 },
-  { "die Schaukel", "\xe7" "\xa7" "\x8b" "\xe5" "\x8d" "\x83", "swing", 2 },
-  { "Seil springen", "\xe8" "\xb7" "\xb3" "\xe7" "\xbb" "\xb3", "to skip rope", 0 },
-  { "rutschen", "\xe6" "\xbb" "\x91" "\xe6" "\xbb" "\x91" "\xe6" "\xa2" "\xaf", "to go down a slide", 0 },
-  { "die Wippe", "\xe8" "\xb7" "\xb7" "\xe8" "\xb7" "\xb7" "\xe6" "\x9d" "\xbf", "seesaw", 2 },
-  { "das Puzzle", "\xe6" "\x8b" "\xbc" "\xe5" "\x9b" "\xbe", "jigsaw puzzle", 3 },
-  { "das Frisbee", "\xe9" "\xa3" "\x9e" "\xe7" "\x9b" "\x98", "frisbee", 3 },
-  { "die Wasserpistole", "\xe6" "\xb0" "\xb4" "\xe6" "\x9e" "\xaa", "water gun", 2 },
-  { "die Seifenblase", "\xe6" "\xb3" "\xa1" "\xe6" "\xb3" "\xa1", "soap bubble", 2 },
-  { "im Sand spielen", "\xe7" "\x8e" "\xa9" "\xe6" "\xb2" "\x99", "to play in the sand", 0 },
-  { "Skateboard fahren", "\xe7" "\x8e" "\xa9" "\xe6" "\xbb" "\x91" "\xe6" "\x9d" "\xbf", "to skateboard", 0 },
-  { "Rad fahren", "\xe9" "\xaa" "\x91" "\xe8" "\xbd" "\xa6", "to ride a bike", 0 },
-  { "Himmel und H" "\xc3" "\xb6" "lle", "\xe8" "\xb7" "\xb3" "\xe6" "\x88" "\xbf" "\xe5" "\xad" "\x90", "hopscotch", 0 },
-};
-static const Card CARDS_MOVE[] = {
-  { "springen", "\xe8" "\xb7" "\xb3", "to jump", 0 },
-  { "sitzen", "\xe5" "\x9d" "\x90", "to sit", 0 },
-  { "stehen", "\xe7" "\xab" "\x99", "to stand", 0 },
-  { "rennen", "\xe8" "\xb7" "\x91", "to run", 0 },
-  { "schieben", "\xe6" "\x8e" "\xa8", "to push", 0 },
-  { "ziehen", "\xe6" "\x8b" "\x89", "to pull", 0 },
-  { "klettern", "\xe7" "\x88" "\xac", "to climb", 0 },
-  { "liegen", "\xe8" "\xba" "\xba", "to lie down", 0 },
-  { "hocken", "\xe8" "\xb9" "\xb2", "to crouch", 0 },
-  { "werfen", "\xe6" "\x89" "\x94", "to throw", 0 },
-  { "fangen", "\xe6" "\x8a" "\x93", "to catch", 0 },
-  { "ber" "\xc3" "\xbc" "hren", "\xe6" "\x91" "\xb8", "to touch", 0 },
-  { "beissen", "\xe5" "\x92" "\xac", "to bite", 0 },
-  { "halten", "\xe6" "\x8b" "\xbf", "to hold", 0 },
-};
-static const Card CARDS_LOOK[] = {
-  { "gross", "\xe9" "\xab" "\x98", "tall", 0 },
-  { "klein", "\xe7" "\x9f" "\xae", "short (height)", 0 },
-  { "dick", "\xe8" "\x83" "\x96", "fat", 0 },
-  { "d" "\xc3" "\xbc" "nn", "\xe7" "\x98" "\xa6", "thin", 0 },
-  { "h" "\xc3" "\xbc" "bsch", "\xe6" "\xbc" "\x82" "\xe4" "\xba" "\xae", "pretty", 0 },
-  { "s" "\xc3" "\xbc" "ss", "\xe5" "\x8f" "\xaf" "\xe7" "\x88" "\xb1", "cute", 0 },
-  { "attraktiv", "\xe5" "\xb8" "\x85", "handsome", 0 },
-  { "kurze Haare", "\xe7" "\x9f" "\xad" "\xe5" "\x8f" "\x91", "short hair", 0 },
-  { "lange Haare", "\xe9" "\x95" "\xbf" "\xe5" "\x8f" "\x91", "long hair", 0 },
-  { "lockige Haare", "\xe5" "\x8d" "\xb7" "\xe5" "\x8f" "\x91", "curly hair", 0 },
-  { "glatte Haare", "\xe7" "\x9b" "\xb4" "\xe5" "\x8f" "\x91", "straight hair", 0 },
-  { "die Z" "\xc3" "\xb6" "pfe", "\xe8" "\xbe" "\xab" "\xe5" "\xad" "\x90", "braids", 2 },
-  { "die Figur", "\xe8" "\xba" "\xab" "\xe6" "\x9d" "\x90", "figure", 2 },
-  { "das Aussehen", "\xe9" "\x95" "\xbf" "\xe7" "\x9b" "\xb8", "appearance", 3 },
-};
-static const Card CARDS_PET[] = {
-  { "das Haustier", "\xe5" "\xae" "\xa0" "\xe7" "\x89" "\xa9", "pet", 3 },
-  { "der Papagei", "\xe9" "\xb9" "\xa6" "\xe9" "\xb9" "\x89", "parrot", 1 },
-  { "die Schildkr" "\xc3" "\xb6" "te", "\xe4" "\xb9" "\x8c" "\xe9" "\xbe" "\x9f", "turtle", 2 },
-  { "der Goldfisch", "\xe9" "\x87" "\x91" "\xe9" "\xb1" "\xbc", "goldfish", 1 },
-  { "der Fl" "\xc3" "\xbc" "gel", "\xe7" "\xbf" "\x85" "\xe8" "\x86" "\x80", "wing", 1 },
-  { "der Vogelk" "\xc3" "\xa4" "fig", "\xe9" "\xb8" "\x9f" "\xe7" "\xac" "\xbc", "birdcage", 1 },
-  { "die Hundeh" "\xc3" "\xbc" "tte", "\xe7" "\x8b" "\x97" "\xe7" "\xaa" "\x9d", "doghouse", 2 },
-  { "der Tierarzt", "\xe5" "\x85" "\xbd" "\xe5" "\x8c" "\xbb", "vet", 1 },
-  { "das Aquarium", "\xe9" "\xb1" "\xbc" "\xe7" "\xbc" "\xb8", "aquarium", 3 },
-  { "der Schwanz", "\xe5" "\xb0" "\xbe" "\xe5" "\xb7" "\xb4", "tail", 1 },
-  { "f" "\xc3" "\xbc" "ttern", "\xe5" "\x96" "\x82", "to feed", 0 },
-  { "baden", "\xe6" "\xb4" "\x97" "\xe6" "\xbe" "\xa1", "to bathe", 0 },
-  { "trainieren", "\xe8" "\xae" "\xad" "\xe7" "\xbb" "\x83", "to train", 0 },
-  { "streicheln", "\xe6" "\x8a" "\x9a" "\xe6" "\x91" "\xb8", "to stroke", 0 },
-};
-static const Card CARDS_ROOM[] = {
-  { "das Schlafzimmer", "\xe5" "\x8d" "\xa7" "\xe5" "\xae" "\xa4", "bedroom", 3 },
-  { "das Wohnzimmer", "\xe5" "\xae" "\xa2" "\xe5" "\x8e" "\x85", "living room", 3 },
-  { "das Esszimmer", "\xe9" "\xa5" "\xad" "\xe5" "\x8e" "\x85", "dining room", 3 },
-  { "der Balkon", "\xe9" "\x98" "\xb3" "\xe5" "\x8f" "\xb0", "balcony", 1 },
-  { "der Garten", "\xe8" "\x8a" "\xb1" "\xe5" "\x9b" "\xad", "garden", 1 },
-  { "die Garage", "\xe8" "\xbd" "\xa6" "\xe5" "\xba" "\x93", "garage", 2 },
-  { "der Hof", "\xe9" "\x99" "\xa2" "\xe5" "\xad" "\x90", "courtyard", 1 },
-  { "die Treppe", "\xe6" "\xa5" "\xbc" "\xe6" "\xa2" "\xaf", "stairs", 2 },
-  { "die Waschmaschine", "\xe6" "\xb4" "\x97" "\xe8" "\xa1" "\xa3" "\xe6" "\x9c" "\xba", "washing machine", 2 },
-  { "die Klimaanlage", "\xe7" "\xa9" "\xba" "\xe8" "\xb0" "\x83", "air conditioner", 2 },
-  { "der Fernseher", "\xe7" "\x94" "\xb5" "\xe8" "\xa7" "\x86", "television", 1 },
-  { "die Fernbedienung", "\xe9" "\x81" "\xa5" "\xe6" "\x8e" "\xa7" "\xe5" "\x99" "\xa8", "remote control", 2 },
-  { "das Kissen", "\xe6" "\x9e" "\x95" "\xe5" "\xa4" "\xb4", "pillow", 3 },
-  { "die Schublade", "\xe6" "\x8a" "\xbd" "\xe5" "\xb1" "\x89", "drawer", 2 },
-  { "das Schloss", "\xe9" "\x94" "\x81", "lock", 3 },
-};
-static const Card CARDS_THING[] = {
-  { "der Schlafanzug", "\xe7" "\x9d" "\xa1" "\xe8" "\xa1" "\xa3", "pyjamas", 1 },
-  { "das B" "\xc3" "\xbc" "cherregal", "\xe4" "\xb9" "\xa6" "\xe6" "\x9e" "\xb6", "bookshelf", 3 },
-  { "die Steckdose", "\xe6" "\x8f" "\x92" "\xe5" "\xba" "\xa7", "socket", 2 },
-  { "der Stecker", "\xe6" "\x8f" "\x92" "\xe5" "\xa4" "\xb4", "plug", 1 },
-  { "das Kabel", "\xe7" "\x94" "\xb5" "\xe7" "\xba" "\xbf", "cable", 3 },
-  { "die Bettdecke", "\xe8" "\xa2" "\xab" "\xe5" "\xad" "\x90", "duvet", 2 },
-  { "die Decke", "\xe6" "\xaf" "\xaf" "\xe5" "\xad" "\x90", "blanket", 2 },
-  { "der Wecker", "\xe9" "\x97" "\xb9" "\xe9" "\x92" "\x9f", "alarm clock", 1 },
-  { "die Hausschuhe", "\xe6" "\x8b" "\x96" "\xe9" "\x9e" "\x8b", "slippers", 2 },
-  { "der Teppich", "\xe5" "\x9c" "\xb0" "\xe6" "\xaf" "\xaf", "carpet", 1 },
-  { "der Regenschirm", "\xe4" "\xbc" "\x9e", "umbrella", 1 },
-  { "die Zeitschrift", "\xe6" "\x9d" "\x82" "\xe5" "\xbf" "\x97", "magazine", 2 },
-  { "das Spielzeug", "\xe7" "\x8e" "\xa9" "\xe5" "\x85" "\xb7", "toy", 3 },
-  { "die Puppe", "\xe5" "\xb8" "\x83" "\xe5" "\xa8" "\x83" "\xe5" "\xa8" "\x83", "doll", 2 },
-  { "der Teddyb" "\xc3" "\xa4" "r", "\xe7" "\x8e" "\xa9" "\xe5" "\x85" "\xb7" "\xe7" "\x86" "\x8a", "teddy bear", 1 },
-  { "der Roboter", "\xe6" "\x9c" "\xba" "\xe5" "\x99" "\xa8" "\xe4" "\xba" "\xba", "robot", 1 },
-};
+const HanAtlas ATLAS_ASK = { RESOURCE_ID_HAN_ASK, CP_ASK, 17, 16, 32, 32 };
+const HanAtlas ATLAS_VERB1 = { RESOURCE_ID_HAN_VERB1, CP_VERB1, 28, 16, 32, 32 };
+const HanAtlas ATLAS_OPPOSITE = { RESOURCE_ID_HAN_OPPOSITE, CP_OPPOSITE, 27, 16, 32, 32 };
+const HanAtlas ATLAS_WORD = { RESOURCE_ID_HAN_WORD, CP_WORD, 27, 16, 32, 32 };
+const HanAtlas ATLAS_POLITE = { RESOURCE_ID_HAN_POLITE, CP_POLITE, 34, 16, 32, 32 };
+const HanAtlas ATLAS_COUNTING = { RESOURCE_ID_HAN_COUNTING, CP_COUNTING, 18, 16, 32, 32 };
+const HanAtlas ATLAS_FAMILY2 = { RESOURCE_ID_HAN_FAMILY2, CP_FAMILY2, 18, 16, 32, 32 };
+const HanAtlas ATLAS_FRUIT = { RESOURCE_ID_HAN_FRUIT, CP_FRUIT, 27, 16, 32, 32 };
+const HanAtlas ATLAS_VEG = { RESOURCE_ID_HAN_VEG, CP_VEG, 30, 16, 32, 32 };
+const HanAtlas ATLAS_DRINK = { RESOURCE_ID_HAN_DRINK, CP_DRINK, 28, 16, 32, 32 };
+const HanAtlas ATLAS_JOB = { RESOURCE_ID_HAN_JOB, CP_JOB, 32, 16, 32, 32 };
+const HanAtlas ATLAS_SUBJECT = { RESOURCE_ID_HAN_SUBJECT, CP_SUBJECT, 29, 16, 32, 32 };
+const HanAtlas ATLAS_MUSIC = { RESOURCE_ID_HAN_MUSIC, CP_MUSIC, 23, 16, 32, 32 };
+const HanAtlas ATLAS_SPORTART = { RESOURCE_ID_HAN_SPORTART, CP_SPORTART, 32, 16, 32, 32 };
+const HanAtlas ATLAS_GARDEN = { RESOURCE_ID_HAN_GARDEN, CP_GARDEN, 23, 16, 32, 32 };
+const HanAtlas ATLAS_SHAPE = { RESOURCE_ID_HAN_SHAPE, CP_SHAPE, 16, 16, 32, 32 };
+const HanAtlas ATLAS_BATH = { RESOURCE_ID_HAN_BATH, CP_BATH, 27, 16, 32, 32 };
+const HanAtlas ATLAS_BIRTHDAY = { RESOURCE_ID_HAN_BIRTHDAY, CP_BIRTHDAY, 35, 16, 32, 32 };
+const HanAtlas ATLAS_BAKERY = { RESOURCE_ID_HAN_BAKERY, CP_BAKERY, 31, 16, 32, 32 };
+const HanAtlas ATLAS_BODY2 = { RESOURCE_ID_HAN_BODY2, CP_BODY2, 27, 16, 32, 32 };
+const HanAtlas ATLAS_NATURE = { RESOURCE_ID_HAN_NATURE, CP_NATURE, 24, 16, 32, 32 };
+const HanAtlas ATLAS_DIRECTION = { RESOURCE_ID_HAN_DIRECTION, CP_DIRECTION, 42, 16, 32, 32 };
+const HanAtlas ATLAS_CHARACTER = { RESOURCE_ID_HAN_CHARACTER, CP_CHARACTER, 32, 16, 32, 32 };
+const HanAtlas ATLAS_ENVIRON = { RESOURCE_ID_HAN_ENVIRON, CP_ENVIRON, 28, 16, 32, 32 };
+const HanAtlas ATLAS_HOTEL = { RESOURCE_ID_HAN_HOTEL, CP_HOTEL, 30, 16, 32, 32 };
+const HanAtlas ATLAS_AIRPORT = { RESOURCE_ID_HAN_AIRPORT, CP_AIRPORT, 31, 16, 32, 32 };
+const HanAtlas ATLAS_MONEY = { RESOURCE_ID_HAN_MONEY, CP_MONEY, 27, 16, 32, 32 };
+const HanAtlas ATLAS_CHORE = { RESOURCE_ID_HAN_CHORE, CP_CHORE, 25, 16, 32, 32 };
+const HanAtlas ATLAS_MEDIA = { RESOURCE_ID_HAN_MEDIA, CP_MEDIA, 28, 16, 32, 32 };
+const HanAtlas ATLAS_WEATHER2 = { RESOURCE_ID_HAN_WEATHER2, CP_WEATHER2, 29, 16, 32, 32 };
+const HanAtlas ATLAS_DESCRIBE = { RESOURCE_ID_HAN_DESCRIBE, CP_DESCRIBE, 26, 16, 32, 32 };
+const HanAtlas ATLAS_QUANTITY = { RESOURCE_ID_HAN_QUANTITY, CP_QUANTITY, 24, 16, 32, 32 };
+const HanAtlas ATLAS_FEEL2 = { RESOURCE_ID_HAN_FEEL2, CP_FEEL2, 38, 16, 32, 32 };
+const HanAtlas ATLAS_ADVERB = { RESOURCE_ID_HAN_ADVERB, CP_ADVERB, 30, 16, 32, 32 };
+const HanAtlas ATLAS_INTERVIEW = { RESOURCE_ID_HAN_INTERVIEW, CP_INTERVIEW, 45, 16, 32, 32 };
+const HanAtlas ATLAS_TELEFON = { RESOURCE_ID_HAN_TELEFON, CP_TELEFON, 44, 16, 32, 32 };
+const HanAtlas ATLAS_APPOINTMENT = { RESOURCE_ID_HAN_APPOINTMENT, CP_APPOINTMENT, 40, 16, 32, 32 };
+const HanAtlas ATLAS_COMPLAINT = { RESOURCE_ID_HAN_COMPLAINT, CP_COMPLAINT, 37, 16, 32, 32 };
+const HanAtlas ATLAS_SMALLTALK = { RESOURCE_ID_HAN_SMALLTALK, CP_SMALLTALK, 51, 16, 32, 32 };
+const HanAtlas ATLAS_TRAVEL2 = { RESOURCE_ID_HAN_TRAVEL2, CP_TRAVEL2, 54, 16, 32, 32 };
+const HanAtlas ATLAS_BUSINESS = { RESOURCE_ID_HAN_BUSINESS, CP_BUSINESS, 31, 16, 32, 32 };
+const HanAtlas ATLAS_ABSTRACT = { RESOURCE_ID_HAN_ABSTRACT, CP_ABSTRACT, 29, 16, 32, 32 };
 
 const Group g_groups[] = {
-  { "Erste Worte", "\xe5" "\x85" "\xa5" "\xe9" "\x97" "\xa8", "First Words", GColorYellow, ICON_WAVE, CARDS_GREET, 18, &ATLAS_GREET },
-  { "Zahlen", "\xe6" "\x95" "\xb0" "\xe5" "\xad" "\x97", "Numbers", GColorVividCerulean, ICON_NUM, CARDS_NUM, 17, &ATLAS_NUM },
-  { "Menschen", "\xe4" "\xba" "\xba", "People", GColorBrilliantRose, ICON_PEOPLE, CARDS_PEOPLE, 18, &ATLAS_PEOPLE },
-  { "Essen & Trinken", "\xe9" "\xa5" "\xae" "\xe9" "\xa3" "\x9f", "Food & Drink", GColorOrange, ICON_CUP, CARDS_FOOD, 20, &ATLAS_FOOD },
-  { "Alltag", "\xe6" "\x97" "\xa5" "\xe5" "\xb8" "\xb8", "Everyday", GColorGreen, ICON_SUN, CARDS_DAILY, 21, &ATLAS_DAILY },
-  { "S" "\xc3" "\xa4" "tze", "\xe5" "\x8f" "\xa5" "\xe5" "\xad" "\x90", "Phrases", GColorPurple, ICON_SPEECH, CARDS_PHRASE, 18, &ATLAS_PHRASE },
-  { "Farben", "\xe9" "\xa2" "\x9c" "\xe8" "\x89" "\xb2", "Colours", GColorMagenta, ICON_PALETTE, CARDS_COLOR, 14, &ATLAS_COLOR },
-  { "K" "\xc3" "\xb6" "rper", "\xe8" "\xba" "\xab" "\xe4" "\xbd" "\x93", "Body", GColorFolly, ICON_PEOPLE, CARDS_BODY, 22, &ATLAS_BODY },
-  { "Tiere", "\xe5" "\x8a" "\xa8" "\xe7" "\x89" "\xa9", "Animals", GColorChromeYellow, ICON_PAW, CARDS_ANIMAL, 15, &ATLAS_ANIMAL },
-  { "Kleidung", "\xe8" "\xa1" "\xa3" "\xe6" "\x9c" "\x8d", "Clothes", GColorCyan, ICON_SHIRT, CARDS_CLOTHES, 22, &ATLAS_CLOTHES },
-  { "Zuhause", "\xe5" "\xae" "\xb6", "Home", GColorSpringBud, ICON_HOUSE, CARDS_HOME, 13, &ATLAS_HOME },
-  { "Zeit & Tag", "\xe6" "\x97" "\xb6" "\xe9" "\x97" "\xb4", "Time & Day", GColorMintGreen, ICON_CLOCK, CARDS_TIME, 17, &ATLAS_TIME },
-  { "Jahreszeiten", "\xe5" "\xad" "\xa3" "\xe8" "\x8a" "\x82", "Seasons & Nature", GColorSpringBud, ICON_LEAF, CARDS_SEASON, 14, &ATLAS_SEASON },
-  { "Hobbys & Sport", "\xe7" "\x88" "\xb1" "\xe5" "\xa5" "\xbd", "Hobbies & Sport", GColorBrilliantRose, ICON_BALL, CARDS_HOBBY, 22, &ATLAS_HOBBY },
-  { "Datum & Monate", "\xe6" "\x97" "\xa5" "\xe6" "\x9c" "\x9f", "Dates & Months", GColorVividCerulean, ICON_CALENDAR, CARDS_DATE, 14, &ATLAS_DATE },
-  { "Wetter", "\xe5" "\xa4" "\xa9" "\xe6" "\xb0" "\x94", "Weather", GColorPictonBlue, ICON_CLOUD, CARDS_WEATHER, 14, &ATLAS_WEATHER },
-  { "Stadt & Reisen", "\xe6" "\x97" "\x85" "\xe8" "\xa1" "\x8c", "City & Travel", GColorRajah, ICON_PLANE, CARDS_TRAVEL, 15, &ATLAS_TRAVEL },
-  { "Gef" "\xc3" "\xbc" "hle", "\xe6" "\x84" "\x9f" "\xe8" "\xa7" "\x89", "Feelings", GColorBrilliantRose, ICON_HEART, CARDS_FEELING, 16, &ATLAS_FEELING },
-  { "Arbeit & Schule", "\xe5" "\xb7" "\xa5" "\xe4" "\xbd" "\x9c", "Work & School", GColorKellyGreen, ICON_BOOK, CARDS_WORK, 14, &ATLAS_WORK },
-  { "Verben 2", "\xe5" "\x8a" "\xa8" "\xe8" "\xaf" "\x8d", "More Verbs", GColorCyan, ICON_SUN, CARDS_VERB2, 16, &ATLAS_VERB2 },
-  { "Einkaufen & Geld", "\xe8" "\xb4" "\xad" "\xe7" "\x89" "\xa9", "Shopping & Money", GColorMelon, ICON_BAG, CARDS_SHOP, 12, &ATLAS_SHOP },
-  { "Technik", "\xe7" "\xa7" "\x91" "\xe6" "\x8a" "\x80", "Technology", GColorVividCerulean, ICON_PHONE, CARDS_TECH, 13, &ATLAS_TECH },
-  { "In der K" "\xc3" "\xbc" "che", "\xe5" "\x8e" "\xa8" "\xe6" "\x88" "\xbf", "In the Kitchen", GColorChromeYellow, ICON_FORK, CARDS_KITCHEN, 14, &ATLAS_KITCHEN },
-  { "Verkehr & Weg", "\xe4" "\xba" "\xa4" "\xe9" "\x80" "\x9a", "Traffic & Way", GColorOrange, ICON_CAR, CARDS_TRANSPORT, 15, &ATLAS_TRANSPORT },
-  { "Im Restaurant", "\xe9" "\xa4" "\x90" "\xe5" "\x8e" "\x85", "At the Restaurant", GColorOrange, ICON_FORK, CARDS_RESTAURANT, 13, &ATLAS_RESTAURANT },
-  { "Beim Arzt", "\xe7" "\x9c" "\x8b" "\xe5" "\x8c" "\xbb" "\xe7" "\x94" "\x9f", "At the Doctor", GColorRed, ICON_PLUS, CARDS_HEALTH, 12, &ATLAS_HEALTH },
-  { "S" "\xc3" "\xa4" "tze 2", "\xe4" "\xbc" "\x9a" "\xe8" "\xaf" "\x9d", "Phrases 2", GColorMagenta, ICON_SPEECH, CARDS_PHRASE2, 14, &ATLAS_PHRASE2 },
-  { "Redewendungen", "\xe5" "\xb8" "\xb8" "\xe7" "\x94" "\xa8" "\xe8" "\xaf" "\xad", "Expressions", GColorVividCerulean, ICON_SPEECH, CARDS_IDIOM, 12, &ATLAS_IDIOM },
-  { "Im B" "\xc3" "\xbc" "ro", "\xe5" "\x8a" "\x9e" "\xe5" "\x85" "\xac", "At the Office", GColorKellyGreen, ICON_BOOK, CARDS_OFFICE, 14, &ATLAS_OFFICE },
-  { "Meinung", "\xe7" "\x9c" "\x8b" "\xe6" "\xb3" "\x95", "Opinions", GColorPurple, ICON_SPEECH, CARDS_OPINION, 12, &ATLAS_OPINION },
-  { "Notfall", "\xe7" "\xb4" "\xa7" "\xe6" "\x80" "\xa5", "Emergency", GColorRed, ICON_WARNING, CARDS_EMERGENCY, 12, &ATLAS_EMERGENCY },
-  { "L" "\xc3" "\xa4" "nder & Sprachen", "\xe5" "\x9b" "\xbd" "\xe5" "\xae" "\xb6", "Countries & Languages", GColorVividCerulean, ICON_GLOBE, CARDS_COUNTRY, 16, &ATLAS_COUNTRY },
-  { "In der Stadt", "\xe5" "\x9f" "\x8e" "\xe5" "\xb8" "\x82", "In the City", GColorRajah, ICON_BUILDING, CARDS_CITY, 13, &ATLAS_CITY },
-  { "Spielplatz", "\xe6" "\xb8" "\xb8" "\xe4" "\xb9" "\x90" "\xe5" "\x9c" "\xba", "Playground", GColorBrilliantRose, ICON_BALL, CARDS_PLAY, 14, &ATLAS_PLAY },
-  { "Bewegung", "\xe5" "\x8a" "\xa8" "\xe4" "\xbd" "\x9c", "Movement", GColorGreen, ICON_RUN, CARDS_MOVE, 14, &ATLAS_MOVE },
-  { "Aussehen", "\xe5" "\xa4" "\x96" "\xe8" "\xb2" "\x8c", "Appearance", GColorMagenta, ICON_PEOPLE, CARDS_LOOK, 14, &ATLAS_LOOK },
-  { "Haustiere", "\xe5" "\xae" "\xa0" "\xe7" "\x89" "\xa9", "Pets", GColorChromeYellow, ICON_PAW, CARDS_PET, 14, &ATLAS_PET },
-  { "Zimmer & M" "\xc3" "\xb6" "bel", "\xe6" "\x88" "\xbf" "\xe9" "\x97" "\xb4", "Rooms & Furniture", GColorSpringBud, ICON_HOUSE, CARDS_ROOM, 15, &ATLAS_ROOM },
-  { "Dinge im Haus", "\xe7" "\x89" "\xa9" "\xe5" "\x93" "\x81", "Things at Home", GColorMintGreen, ICON_BOX, CARDS_THING, 16, &ATLAS_THING },
+  { "Erste Worte", "\xe5" "\x85" "\xa5" "\xe9" "\x97" "\xa8", "First Words", GColorYellow, ICON_WAVE, 0, 496, 18, &ATLAS_GREET },
+  { "Zahlen", "\xe6" "\x95" "\xb0" "\xe5" "\xad" "\x97", "Numbers", GColorVividCerulean, ICON_NUM, 496, 305, 17, &ATLAS_NUM },
+  { "Menschen", "\xe4" "\xba" "\xba", "People", GColorBrilliantRose, ICON_PEOPLE, 801, 381, 18, &ATLAS_PEOPLE },
+  { "Essen & Trinken", "\xe9" "\xa5" "\xae" "\xe9" "\xa3" "\x9f", "Food & Drink", GColorOrange, ICON_CUP, 1182, 437, 20, &ATLAS_FOOD },
+  { "Alltag", "\xe6" "\x97" "\xa5" "\xe5" "\xb8" "\xb8", "Everyday", GColorGreen, ICON_SUN, 1619, 426, 21, &ATLAS_DAILY },
+  { "S" "\xc3" "\xa4" "tze", "\xe5" "\x8f" "\xa5" "\xe5" "\xad" "\x90", "Phrases", GColorPurple, ICON_SPEECH, 2045, 795, 18, &ATLAS_PHRASE },
+  { "Farben", "\xe9" "\xa2" "\x9c" "\xe8" "\x89" "\xb2", "Colours", GColorMagenta, ICON_PALETTE, 2840, 272, 14, &ATLAS_COLOR },
+  { "K" "\xc3" "\xb6" "rper", "\xe8" "\xba" "\xab" "\xe4" "\xbd" "\x93", "Body", GColorFolly, ICON_PEOPLE, 3112, 488, 22, &ATLAS_BODY },
+  { "Tiere", "\xe5" "\x8a" "\xa8" "\xe7" "\x89" "\xa9", "Animals", GColorChromeYellow, ICON_PAW, 3600, 327, 15, &ATLAS_ANIMAL },
+  { "Kleidung", "\xe8" "\xa1" "\xa3" "\xe6" "\x9c" "\x8d", "Clothes", GColorCyan, ICON_SHIRT, 3927, 556, 22, &ATLAS_CLOTHES },
+  { "Zuhause", "\xe5" "\xae" "\xb6", "Home", GColorSpringBud, ICON_HOUSE, 4483, 305, 13, &ATLAS_HOME },
+  { "Zeit & Tag", "\xe6" "\x97" "\xb6" "\xe9" "\x97" "\xb4", "Time & Day", GColorMintGreen, ICON_CLOCK, 4788, 394, 17, &ATLAS_TIME },
+  { "Jahreszeiten", "\xe5" "\xad" "\xa3" "\xe8" "\x8a" "\x82", "Seasons & Nature", GColorSpringBud, ICON_LEAF, 5182, 336, 14, &ATLAS_SEASON },
+  { "Hobbys & Sport", "\xe7" "\x88" "\xb1" "\xe5" "\xa5" "\xbd", "Hobbies & Sport", GColorBrilliantRose, ICON_BALL, 5518, 660, 22, &ATLAS_HOBBY },
+  { "Datum & Monate", "\xe6" "\x97" "\xa5" "\xe6" "\x9c" "\x9f", "Dates & Months", GColorVividCerulean, ICON_CALENDAR, 6178, 327, 14, &ATLAS_DATE },
+  { "Wetter", "\xe5" "\xa4" "\xa9" "\xe6" "\xb0" "\x94", "Weather", GColorPictonBlue, ICON_CLOUD, 6505, 271, 14, &ATLAS_WEATHER },
+  { "Stadt & Reisen", "\xe6" "\x97" "\x85" "\xe8" "\xa1" "\x8c", "City & Travel", GColorRajah, ICON_PLANE, 6776, 362, 15, &ATLAS_TRAVEL },
+  { "Gef" "\xc3" "\xbc" "hle", "\xe6" "\x84" "\x9f" "\xe8" "\xa7" "\x89", "Feelings", GColorBrilliantRose, ICON_HEART, 7138, 294, 16, &ATLAS_FEELING },
+  { "Arbeit & Schule", "\xe5" "\xb7" "\xa5" "\xe4" "\xbd" "\x9c", "Work & School", GColorKellyGreen, ICON_BOOK, 7432, 348, 14, &ATLAS_WORK },
+  { "Verben 2", "\xe5" "\x8a" "\xa8" "\xe8" "\xaf" "\x8d", "More Verbs", GColorCyan, ICON_SUN, 7780, 377, 16, &ATLAS_VERB2 },
+  { "Einkaufen & Geld", "\xe8" "\xb4" "\xad" "\xe7" "\x89" "\xa9", "Shopping & Money", GColorMelon, ICON_BAG, 8157, 295, 12, &ATLAS_SHOP },
+  { "Technik", "\xe7" "\xa7" "\x91" "\xe6" "\x8a" "\x80", "Technology", GColorVividCerulean, ICON_PHONE, 8452, 366, 13, &ATLAS_TECH },
+  { "In der K" "\xc3" "\xbc" "che", "\xe5" "\x8e" "\xa8" "\xe6" "\x88" "\xbf", "In the Kitchen", GColorChromeYellow, ICON_FORK, 8818, 335, 14, &ATLAS_KITCHEN },
+  { "Verkehr & Weg", "\xe4" "\xba" "\xa4" "\xe9" "\x80" "\x9a", "Traffic & Way", GColorOrange, ICON_CAR, 9153, 401, 15, &ATLAS_TRANSPORT },
+  { "Im Restaurant", "\xe9" "\xa4" "\x90" "\xe5" "\x8e" "\x85", "At the Restaurant", GColorOrange, ICON_FORK, 9554, 488, 13, &ATLAS_RESTAURANT },
+  { "Beim Arzt", "\xe7" "\x9c" "\x8b" "\xe5" "\x8c" "\xbb" "\xe7" "\x94" "\x9f", "At the Doctor", GColorRed, ICON_PLUS, 10042, 465, 12, &ATLAS_HEALTH },
+  { "S" "\xc3" "\xa4" "tze 2", "\xe4" "\xbc" "\x9a" "\xe8" "\xaf" "\x9d", "Phrases 2", GColorMagenta, ICON_SPEECH, 10507, 631, 14, &ATLAS_PHRASE2 },
+  { "Redewendungen", "\xe5" "\xb8" "\xb8" "\xe7" "\x94" "\xa8" "\xe8" "\xaf" "\xad", "Expressions", GColorVividCerulean, ICON_SPEECH, 11138, 445, 12, &ATLAS_IDIOM },
+  { "Im B" "\xc3" "\xbc" "ro", "\xe5" "\x8a" "\x9e" "\xe5" "\x85" "\xac", "At the Office", GColorKellyGreen, ICON_BOOK, 11583, 377, 14, &ATLAS_OFFICE },
+  { "Meinung", "\xe7" "\x9c" "\x8b" "\xe6" "\xb3" "\x95", "Opinions", GColorPurple, ICON_SPEECH, 11960, 525, 12, &ATLAS_OPINION },
+  { "Notfall", "\xe7" "\xb4" "\xa7" "\xe6" "\x80" "\xa5", "Emergency", GColorRed, ICON_WARNING, 12485, 455, 12, &ATLAS_EMERGENCY },
+  { "L" "\xc3" "\xa4" "nder & Sprachen", "\xe5" "\x9b" "\xbd" "\xe5" "\xae" "\xb6", "Countries & Languages", GColorVividCerulean, ICON_GLOBE, 12940, 444, 16, &ATLAS_COUNTRY },
+  { "In der Stadt", "\xe5" "\x9f" "\x8e" "\xe5" "\xb8" "\x82", "In the City", GColorRajah, ICON_BUILDING, 13384, 403, 13, &ATLAS_CITY },
+  { "Spielplatz", "\xe6" "\xb8" "\xb8" "\xe4" "\xb9" "\x90" "\xe5" "\x9c" "\xba", "Playground", GColorBrilliantRose, ICON_BALL, 13787, 495, 14, &ATLAS_PLAY },
+  { "Bewegung", "\xe5" "\x8a" "\xa8" "\xe4" "\xbd" "\x9c", "Movement", GColorGreen, ICON_RUN, 14282, 299, 14, &ATLAS_MOVE },
+  { "Aussehen", "\xe5" "\xa4" "\x96" "\xe8" "\xb2" "\x8c", "Appearance", GColorMagenta, ICON_PEOPLE, 14581, 350, 14, &ATLAS_LOOK },
+  { "Haustiere", "\xe5" "\xae" "\xa0" "\xe7" "\x89" "\xa9", "Pets", GColorChromeYellow, ICON_PAW, 14931, 388, 14, &ATLAS_PET },
+  { "Zimmer & M" "\xc3" "\xb6" "bel", "\xe6" "\x88" "\xbf" "\xe9" "\x97" "\xb4", "Rooms & Furniture", GColorSpringBud, ICON_HOUSE, 15319, 472, 15, &ATLAS_ROOM },
+  { "Dinge im Haus", "\xe7" "\x89" "\xa9" "\xe5" "\x93" "\x81", "Things at Home", GColorMintGreen, ICON_BOX, 15791, 469, 16, &ATLAS_THING },
+  { "Fragew" "\xc3" "\xb6" "rter", "\xe9" "\x97" "\xae" "\xe5" "\x8f" "\xa5", "Question Words", GColorYellow, ICON_SPEECH, 16260, 331, 14, &ATLAS_ASK },
+  { "Verben 1", "\xe5" "\x9f" "\xba" "\xe6" "\x9c" "\xac", "Basic Verbs", GColorGreen, ICON_RUN, 16591, 366, 16, &ATLAS_VERB1 },
+  { "Gegens" "\xc3" "\xa4" "tze", "\xe5" "\x8f" "\x8d" "\xe4" "\xb9" "\x89", "Opposites", GColorVividCerulean, ICON_BOX, 16957, 324, 16, &ATLAS_OPPOSITE },
+  { "Kleine W" "\xc3" "\xb6" "rter", "\xe8" "\x99" "\x9a" "\xe8" "\xaf" "\x8d", "Little Words", GColorPurple, ICON_BOOK, 17281, 297, 16, &ATLAS_WORD },
+  { "Sei h" "\xc3" "\xb6" "flich", "\xe5" "\xae" "\xa2" "\xe6" "\xb0" "\x94", "Be Polite", GColorBrilliantRose, ICON_WAVE, 17578, 507, 12, &ATLAS_POLITE },
+  { "Z" "\xc3" "\xa4" "hlen", "\xe5" "\xba" "\x8f" "\xe6" "\x95" "\xb0", "Counting", GColorOrange, ICON_NUM, 18085, 373, 16, &ATLAS_COUNTING },
+  { "Familie", "\xe5" "\xae" "\xb6" "\xe5" "\xba" "\xad", "Family", GColorFolly, ICON_PEOPLE, 18458, 511, 16, &ATLAS_FAMILY2 },
+  { "Obst", "\xe6" "\xb0" "\xb4" "\xe6" "\x9e" "\x9c", "Fruits", GColorChromeYellow, ICON_CUP, 18969, 427, 16, &ATLAS_FRUIT },
+  { "Gem" "\xc3" "\xbc" "se", "\xe8" "\x94" "\xac" "\xe8" "\x8f" "\x9c", "Vegetables", GColorSpringBud, ICON_LEAF, 19396, 437, 16, &ATLAS_VEG },
+  { "Getr" "\xc3" "\xa4" "nke", "\xe9" "\xa5" "\xae" "\xe6" "\x96" "\x99", "Drinks", GColorPictonBlue, ICON_CUP, 19833, 457, 14, &ATLAS_DRINK },
+  { "Berufe", "\xe8" "\x81" "\x8c" "\xe4" "\xb8" "\x9a", "Jobs", GColorRajah, ICON_PEOPLE, 20290, 499, 16, &ATLAS_JOB },
+  { "Schulf" "\xc3" "\xa4" "cher", "\xe7" "\xa7" "\x91" "\xe7" "\x9b" "\xae", "School Subjects", GColorKellyGreen, ICON_BOOK, 20789, 407, 14, &ATLAS_SUBJECT },
+  { "Instrumente", "\xe4" "\xb9" "\x90" "\xe5" "\x99" "\xa8", "Instruments", GColorMagenta, ICON_PALETTE, 21196, 414, 14, &ATLAS_MUSIC },
+  { "Sportarten", "\xe4" "\xbd" "\x93" "\xe8" "\x82" "\xb2", "Sports", GColorGreen, ICON_BALL, 21610, 476, 16, &ATLAS_SPORTART },
+  { "Im Garten", "\xe8" "\x8a" "\xb1" "\xe5" "\x9b" "\xad", "In the Garden", GColorKellyGreen, ICON_LEAF, 22086, 340, 14, &ATLAS_GARDEN },
+  { "Formen", "\xe5" "\xbd" "\xa2" "\xe7" "\x8a" "\xb6", "Shapes", GColorCyan, ICON_BOX, 22426, 310, 12, &ATLAS_SHAPE },
+  { "Im Bad", "\xe6" "\xb5" "\xb4" "\xe5" "\xae" "\xa4", "In the Bathroom", GColorPictonBlue, ICON_HOUSE, 22736, 411, 14, &ATLAS_BATH },
+  { "Geburtstag", "\xe7" "\x94" "\x9f" "\xe6" "\x97" "\xa5", "Birthday", GColorBrilliantRose, ICON_HEART, 23147, 435, 14, &ATLAS_BIRTHDAY },
+  { "Beim B" "\xc3" "\xa4" "cker", "\xe7" "\x83" "\x98" "\xe7" "\x84" "\x99", "At the Bakery", GColorOrange, ICON_CUP, 23582, 480, 14, &ATLAS_BAKERY },
+  { "K" "\xc3" "\xb6" "rper 2", "\xe8" "\xba" "\xab" "\xe4" "\xbd" "\x93", "Body 2", GColorFolly, ICON_PEOPLE, 24062, 380, 16, &ATLAS_BODY2 },
+  { "Landschaft", "\xe9" "\xa3" "\x8e" "\xe6" "\x99" "\xaf", "Landscape", GColorGreen, ICON_LEAF, 24442, 389, 16, &ATLAS_NATURE },
+  { "Der Weg", "\xe6" "\x96" "\xb9" "\xe5" "\x90" "\x91", "Directions", GColorVividCerulean, ICON_PLANE, 24831, 636, 12, &ATLAS_DIRECTION },
+  { "Charakter", "\xe6" "\x80" "\xa7" "\xe6" "\xa0" "\xbc", "Personality", GColorPurple, ICON_PEOPLE, 25467, 416, 16, &ATLAS_CHARACTER },
+  { "Umwelt", "\xe7" "\x8e" "\xaf" "\xe5" "\xa2" "\x83", "Environment", GColorKellyGreen, ICON_LEAF, 25883, 482, 14, &ATLAS_ENVIRON },
+  { "Im Hotel", "\xe9" "\x85" "\x92" "\xe5" "\xba" "\x97", "At the Hotel", GColorRajah, ICON_HOUSE, 26365, 490, 12, &ATLAS_HOTEL },
+  { "Am Flughafen", "\xe6" "\x9c" "\xba" "\xe5" "\x9c" "\xba", "At the Airport", GColorPictonBlue, ICON_PLANE, 26855, 462, 14, &ATLAS_AIRPORT },
+  { "Bank & Geld", "\xe9" "\x93" "\xb6" "\xe8" "\xa1" "\x8c", "Bank & Money", GColorMintGreen, ICON_BAG, 27317, 430, 14, &ATLAS_MONEY },
+  { "Hausarbeit", "\xe5" "\xae" "\xb6" "\xe5" "\x8a" "\xa1", "Housework", GColorOrange, ICON_HOUSE, 27747, 393, 14, &ATLAS_CHORE },
+  { "Medien", "\xe5" "\xaa" "\x92" "\xe4" "\xbd" "\x93", "Media", GColorVividCerulean, ICON_PHONE, 28140, 435, 14, &ATLAS_MEDIA },
+  { "Wetter 2", "\xe6" "\xb0" "\x94" "\xe5" "\x80" "\x99", "Weather 2", GColorPictonBlue, ICON_CLOUD, 28575, 422, 16, &ATLAS_WEATHER2 },
+  { "Beschreiben", "\xe6" "\x8f" "\x8f" "\xe8" "\xbf" "\xb0", "Describing", GColorMagenta, ICON_PALETTE, 28997, 367, 16, &ATLAS_DESCRIBE },
+  { "Mengen", "\xe6" "\x95" "\xb0" "\xe9" "\x87" "\x8f", "Quantities", GColorCyan, ICON_NUM, 29364, 367, 16, &ATLAS_QUANTITY },
+  { "Gef" "\xc3" "\xbc" "hle 2", "\xe6" "\x83" "\x85" "\xe7" "\xbb" "\xaa", "Feelings 2", GColorBrilliantRose, ICON_HEART, 29731, 490, 16, &ATLAS_FEEL2 },
+  { "Oft & Selten", "\xe9" "\xa2" "\x91" "\xe7" "\x8e" "\x87", "Frequency", GColorMintGreen, ICON_CLOCK, 30221, 417, 16, &ATLAS_ADVERB },
+  { "Bewerbung", "\xe6" "\xb1" "\x82" "\xe8" "\x81" "\x8c", "Job Interview", GColorKellyGreen, ICON_BOOK, 30638, 650, 13, &ATLAS_INTERVIEW },
+  { "Am Telefon", "\xe7" "\x94" "\xb5" "\xe8" "\xaf" "\x9d", "On the Phone", GColorVividCerulean, ICON_PHONE, 31288, 698, 12, &ATLAS_TELEFON },
+  { "Termine", "\xe7" "\xba" "\xa6" "\xe4" "\xbc" "\x9a", "Appointments", GColorOrange, ICON_CALENDAR, 31986, 695, 12, &ATLAS_APPOINTMENT },
+  { "Beschwerden", "\xe6" "\x8a" "\x95" "\xe8" "\xaf" "\x89", "Complaints", GColorRed, ICON_WARNING, 32681, 678, 12, &ATLAS_COMPLAINT },
+  { "Small Talk", "\xe9" "\x97" "\xb2" "\xe8" "\x81" "\x8a", "Small Talk", GColorMagenta, ICON_SPEECH, 33359, 780, 12, &ATLAS_SMALLTALK },
+  { "Reisen 2", "\xe6" "\x97" "\x85" "\xe6" "\xb8" "\xb8", "Travel 2", GColorRajah, ICON_PLANE, 34139, 813, 12, &ATLAS_TRAVEL2 },
+  { "Gesch" "\xc3" "\xa4" "ftlich", "\xe5" "\x95" "\x86" "\xe5" "\x8a" "\xa1", "Business", GColorKellyGreen, ICON_BOOK, 34952, 446, 14, &ATLAS_BUSINESS },
+  { "Ideen", "\xe8" "\xa7" "\x82" "\xe5" "\xbf" "\xb5", "Abstract Ideas", GColorPurple, ICON_BOOK, 35398, 419, 16, &ATLAS_ABSTRACT },
 };
-const int g_group_count = 39;
+const int g_group_count = 81;
 
-static const int TIER_DECKS_0[] = { 0, 1, 2, 3, 4, 5 };
-static const int TIER_DECKS_1[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14, 31, 33, 36, 37 };
-static const int TIER_DECKS_2[] = { 15, 16, 17, 18, 19, 20, 21, 22, 23, 32, 34, 35, 38 };
-static const int TIER_DECKS_3[] = { 24, 25, 26, 27, 28, 29, 30 };
+static const int TIER_DECKS_0[] = { 0, 1, 2, 3, 4, 5, 39, 40, 41, 42, 43, 44, 45 };
+static const int TIER_DECKS_1[] = { 6, 7, 8, 9, 10, 11, 12, 13, 14, 31, 33, 36, 37, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58 };
+static const int TIER_DECKS_2[] = { 15, 16, 17, 18, 19, 20, 21, 22, 23, 32, 34, 35, 38, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72 };
+static const int TIER_DECKS_3[] = { 24, 25, 26, 27, 28, 29, 30, 73, 74, 75, 76, 77, 78, 79, 80 };
 const Tier g_tiers[] = {
-  { "Anf" "\xc3" "\xa4" "nger", "\xe5" "\x88" "\x9d" "\xe7" "\xba" "\xa7", "Beginner", GColorGreen, TIER_DECKS_0, 6 },
-  { "Grundstufe", "\xe5" "\x9f" "\xba" "\xe7" "\xa1" "\x80", "Elementary", GColorVividCerulean, TIER_DECKS_1, 13 },
-  { "Mittelstufe", "\xe4" "\xb8" "\xad" "\xe7" "\xba" "\xa7", "Intermediate", GColorOrange, TIER_DECKS_2, 13 },
-  { "Fortgeschritten", "\xe9" "\xab" "\x98" "\xe7" "\xba" "\xa7", "Advanced", GColorBrilliantRose, TIER_DECKS_3, 7 },
+  { "Anf" "\xc3" "\xa4" "nger", "\xe5" "\x88" "\x9d" "\xe7" "\xba" "\xa7", "Beginner", GColorGreen, TIER_DECKS_0, 13 },
+  { "Grundstufe", "\xe5" "\x9f" "\xba" "\xe7" "\xa1" "\x80", "Elementary", GColorVividCerulean, TIER_DECKS_1, 26 },
+  { "Mittelstufe", "\xe4" "\xb8" "\xad" "\xe7" "\xba" "\xa7", "Intermediate", GColorOrange, TIER_DECKS_2, 27 },
+  { "Fortgeschritten", "\xe9" "\xab" "\x98" "\xe7" "\xba" "\xa7", "Advanced", GColorBrilliantRose, TIER_DECKS_3, 15 },
 };
 const int g_tier_count = 4;
 

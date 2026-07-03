@@ -64,14 +64,14 @@ Auf der Rückseite steht zusätzlich ein kleiner englischer Hinweis.
 
 ## 词库 · Der Wortschatz
 
-**4 个难度 · 39 组 · 599 个词** — 4 Stufen · 39 Sets · 599 Wörter
+**4 个难度 · 81 组 · 1204 个词** — 4 Stufen · 81 Sets · 1204 Wörter
 
 | 难度 · Stufe | 词组 · Sets |
 |------|-------|
-| **Anfänger** 初级 | Erste Worte 入门 · Zahlen 数字 · Menschen 人 · Essen & Trinken 饮食 · Alltag 日常 · Sätze 句子 |
-| **Grundstufe** 基础 | Farben 颜色 · Körper 身体 · Tiere 动物 · Kleidung 衣服 · Zuhause 家 · Zeit & Tag 时间 · Jahreszeiten 季节 · Hobbys & Sport 爱好 · Datum & Monate 日期 · Länder & Sprachen 国家 · Spielplatz 游乐场 · Haustiere 宠物 · Zimmer & Möbel 房间 |
-| **Mittelstufe** 中级 | Wetter 天气 · Stadt & Reisen 旅行 · Gefühle 感觉 · Arbeit & Schule 工作 · Verben 2 动词 · Einkaufen & Geld 购物 · Technik 科技 · In der Küche 厨房 · Verkehr & Weg 交通 · In der Stadt 城市 · Bewegung 动作 · Aussehen 外貌 · Dinge im Haus 物品 |
-| **Fortgeschritten** 高级 | Im Restaurant 餐厅 · Beim Arzt 看医生 · Sätze 2 会话 · Redewendungen 常用语 · Im Büro 办公 · Meinung 看法 · Notfall 紧急 |
+| **Anfänger** 初级 | Erste Worte 入门 · Zahlen 数字 · Menschen 人 · Essen & Trinken 饮食 · Alltag 日常 · Sätze 句子 · Fragewörter 问句 · Verben 1 基本 · Gegensätze 反义 · Kleine Wörter 虚词 · Sei höflich 客气 · Zählen 序数 · Familie 家庭 |
+| **Grundstufe** 基础 | Farben 颜色 · Körper 身体 · Tiere 动物 · Kleidung 衣服 · Zuhause 家 · Zeit & Tag 时间 · Jahreszeiten 季节 · Hobbys & Sport 爱好 · Datum & Monate 日期 · Länder & Sprachen 国家 · Spielplatz 游乐场 · Haustiere 宠物 · Zimmer & Möbel 房间 · Obst 水果 · Gemüse 蔬菜 · Getränke 饮料 · Berufe 职业 · Schulfächer 科目 · Instrumente 乐器 · Sportarten 体育 · Im Garten 花园 · Formen 形状 · Im Bad 浴室 · Geburtstag 生日 · Beim Bäcker 烘焙 · Körper 2 身体 |
+| **Mittelstufe** 中级 | Wetter 天气 · Stadt & Reisen 旅行 · Gefühle 感觉 · Arbeit & Schule 工作 · Verben 2 动词 · Einkaufen & Geld 购物 · Technik 科技 · In der Küche 厨房 · Verkehr & Weg 交通 · In der Stadt 城市 · Bewegung 动作 · Aussehen 外貌 · Dinge im Haus 物品 · Landschaft 风景 · Der Weg 方向 · Charakter 性格 · Umwelt 环境 · Im Hotel 酒店 · Am Flughafen 机场 · Bank & Geld 银行 · Hausarbeit 家务 · Medien 媒体 · Wetter 2 气候 · Beschreiben 描述 · Mengen 数量 · Gefühle 2 情绪 · Oft & Selten 频率 |
+| **Fortgeschritten** 高级 | Im Restaurant 餐厅 · Beim Arzt 看医生 · Sätze 2 会话 · Redewendungen 常用语 · Im Büro 办公 · Meinung 看法 · Notfall 紧急 · Bewerbung 求职 · Am Telefon 电话 · Termine 约会 · Beschwerden 投诉 · Small Talk 闲聊 · Reisen 2 旅游 · Geschäftlich 商务 · Ideen 观念 |
 
 ## 安装 · Installation
 

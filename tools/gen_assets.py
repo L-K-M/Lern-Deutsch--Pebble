@@ -42,7 +42,12 @@ SS = 3              # supersampling factor for cleaner 1-bit edges
 THRESHOLD = 116     # 0..255 cut-off when flattening grey -> 1-bit
 
 IMG_DIR = os.path.join(ROOT, "resources", "images")
+DATA_DIR = os.path.join(ROOT, "resources", "data")
 GEN_C = os.path.join(ROOT, "src", "c", "vocab_gen.c")
+
+# Must match study.c's CARDBUF: the fixed buffer one deck's packed cards are
+# loaded into. 64 cards (MAXCARDS) of the longest allowed strings fit in 8 KB.
+CARDBUF = 8000
 
 GENDER = {"": 0, "m": 1, "f": 2, "n": 3}
 ICONS = {"wave": "ICON_WAVE", "num": "ICON_NUM", "people": "ICON_PEOPLE",
@@ -134,7 +139,8 @@ def write_package_json(atlases):
     with open(PKG, encoding="utf-8") as f:
         pkg = json.load(f)
     media = [{"type": "png", "name": "IMAGE_MENU_ICON",
-              "file": "images/menu_icon.png", "menuIcon": True}]
+              "file": "images/menu_icon.png", "menuIcon": True},
+             {"type": "raw", "name": "CARDS", "file": "data/cards.bin"}]
     for key, res, _ in atlases:
         media.append({"type": "bitmap", "name": res, "file": "images/han_%s.png" % key})
     pkg["pebble"]["resources"]["media"] = media
@@ -186,21 +192,37 @@ def main():
             % (key.upper(), res, key.upper(), len(cps), COLS, CELL, CELL))
     L.append("\n")
 
-    # cards + group table
+    # cards: packed into ONE raw resource (data/cards.bin) instead of the app
+    # binary. Per card: [gender:1][de\0][zh\0][en\0], UTF-8. Each deck records
+    # its (offset, length) span so study.c can load just that slice at run time.
+    # Keeping the strings + their relocations out of the binary is what lets the
+    # word list grow past Pebble's 64 KB app-image limit.
+    blob = bytearray()
+    spans = []                                   # (offset, length) per deck
     for g in vocab.GROUPS:
-        L.append("static const Card CARDS_%s[] = {\n" % g["key"].upper())
+        off = len(blob)
         for de, zh, en, gen in g["cards"]:
-            L.append("  { %s, %s, %s, %d },\n"
-                     % (c_string(de), c_string(zh), c_string(en), GENDER[gen]))
-        L.append("};\n")
-    L.append("\n")
+            blob.append(GENDER[gen])
+            blob += de.encode("utf-8") + b"\x00"
+            blob += zh.encode("utf-8") + b"\x00"
+            blob += en.encode("utf-8") + b"\x00"
+        spans.append((off, len(blob) - off))
+    max_span = max(l for _, l in spans)
+    # study.c parses a deck into a fixed CARDBUF buffer; keep them in sync.
+    if max_span > CARDBUF:
+        sys.exit("largest deck packs to %d bytes > study.c CARDBUF (%d) — raise both"
+                 % (max_span, CARDBUF))
+    os.makedirs(DATA_DIR, exist_ok=True)
+    with open(os.path.join(DATA_DIR, "cards.bin"), "wb") as f:
+        f.write(bytes(blob))
 
     L.append("const Group g_groups[] = {\n")
-    for g in vocab.GROUPS:
+    for i, g in enumerate(vocab.GROUPS):
+        off, ln = spans[i]
         L.append(
-            "  { %s, %s, %s, GColor%s, %s, CARDS_%s, %d, &ATLAS_%s },\n"
+            "  { %s, %s, %s, GColor%s, %s, %d, %d, %d, &ATLAS_%s },\n"
             % (c_string(g["de"]), c_string(g["zh"]), c_string(g["en"]),
-               g["accent"], ICONS[g["icon"]], g["key"].upper(),
+               g["accent"], ICONS[g["icon"]], off, ln,
                len(g["cards"]), g["key"].upper()))
     L.append("};\n")
     L.append("const int g_group_count = %d;\n\n" % len(vocab.GROUPS))
@@ -243,7 +265,10 @@ def main():
         print("  atlas %-11s %3d glyphs  %3dx%-4d  %s"
               % (key, ncp, w, h, os.path.relpath(path, ROOT)))
     print("  wrote", os.path.relpath(GEN_C, ROOT))
-    print("  updated", os.path.relpath(PKG, ROOT), "(%d atlases)" % len(atlases))
+    print("  cards  %d bytes packed (largest deck %d B / %d B buffer)  %s"
+          % (len(blob), max_span, CARDBUF,
+             os.path.relpath(os.path.join(DATA_DIR, "cards.bin"), ROOT)))
+    print("  updated", os.path.relpath(PKG, ROOT), "(%d atlases + cards)" % len(atlases))
 
 
 if __name__ == "__main__":

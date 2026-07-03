@@ -18,6 +18,12 @@
 // One flashcard. `zh` is UTF-8 Chinese; `de`/`en` are Latin (system fonts).
 // gender colour-codes the German article as a learning aid:
 //   0 = none, 1 = der (m), 2 = die (f), 3 = das (n)
+//
+// Cards no longer live in the app binary: the whole word list is packed into a
+// single raw resource (RESOURCE_ID_CARDS) and a deck's slice is loaded into RAM
+// at study time (study.c), then parsed into these structs whose pointers refer
+// into that buffer. Keeping ~1200 cards' worth of strings + relocations out of
+// the binary is what lets the vocabulary grow past Pebble's 64 KB app-image cap.
 typedef struct {
   const char *de;
   const char *zh;
@@ -46,13 +52,17 @@ typedef enum {
 } IconId;
 
 // A difficulty group: a themed deck of cards with its own glyph atlas.
+// `cards_off`/`cards_len` locate this deck's packed card blob inside the shared
+// RESOURCE_ID_CARDS resource (see the Card comment above); study.c loads that
+// byte range and parses it into Card structs on demand.
 typedef struct {
   const char     *de;          // group title (German)
   const char     *zh;          // group title (Chinese, lives in the UI atlas)
   const char     *en;          // group title (English)
   GColor          accent;
   uint8_t         icon;        // IconId
-  const Card     *cards;
+  uint32_t        cards_off;   // byte offset of this deck's cards in RESOURCE_ID_CARDS
+  uint16_t        cards_len;   // byte length of this deck's packed card blob
   int             card_count;
   const HanAtlas *atlas;       // glyph atlas for this group's answers
 } Group;

@@ -14,7 +14,8 @@ src/c/
 ├── lg.h           shared framework: data model, renderer + helper APIs
 ├── lg_common.c    persistence, the cat mascot, icons, stars, gender colours
 ├── hanzi.c        the custom Chinese bitmap-font renderer
-├── vocab_gen.c    GENERATED — cards, decks, codepoint tables (from vocab.py)
+├── vocab_gen.c    GENERATED — decks, codepoint tables (from vocab.py); the
+│                  card text itself is packed into resources/data/cards.bin
 ├── main.c         the scrolling menu + app lifecycle
 └── study.c        the flashcard session: flip, self-grade, score, summary
 tools/
@@ -84,7 +85,7 @@ python3 -m venv .venv && .venv/bin/pip install pillow
 # fetch the font used to bake the glyphs (OFL, not committed):
 curl -fsSL -o tools/fonts/NotoSansSC-Regular.otf \
   https://github.com/notofonts/noto-cjk/raw/main/Sans/SubsetOTF/SC/NotoSansSC-Regular.otf
-.venv/bin/python tools/gen_assets.py     # rewrites resources/images/han_*.png + src/c/vocab_gen.c
+.venv/bin/python tools/gen_assets.py     # rewrites han_*.png + cards.bin + vocab_gen.c
 pebble build
 ```
 
@@ -93,6 +94,13 @@ pebble build
 `gen_assets.py` figures out exactly which Chinese characters the word list
 uses and bakes only those, so the app stays tiny no matter how big the
 dictionary feels. It also maintains the resource list in `package.json`.
+
+The card text (German/Chinese/English) is packed into a single raw resource,
+`resources/data/cards.bin`, rather than compiled into the app binary: each deck
+records a byte offset+length into it, and `study.c` loads just that slice into
+RAM when you open the deck. That keeps ~1200 cards' worth of strings out of the
+binary, which otherwise hits Pebble's hard 64 KB app-image limit (resources get
+their own, roomier 256 KB budget). Deck *titles* still live in the binary.
 
 `tools/validate_vocab.py` sanity-checks the word list against the app's real
 constraints (gender ↔ article, deck sizes, characters the renderer can draw…).
@@ -109,8 +117,9 @@ standalone: `python3 tools/validate_vocab.py`.
   (`"m"`/`"f"`/`"n"`) only drives the article colour-coding (der = blue,
   die = pink, das = green).
 * Spelling follows **Swiss usage**: always *ss*, never *ß*.
-* Don't edit `src/c/vocab_gen.c` or `resources/images/han_*.png` by hand —
-  they're generated. New Chinese characters are fine; they get baked into the
+* Don't edit `src/c/vocab_gen.c`, `resources/data/cards.bin`, or
+  `resources/images/han_*.png` by hand — they're generated. New Chinese
+  characters are fine; they get baked into the
   deck's atlas on the next `gen_assets.py` run.
 
 ## The interesting bit: drawing Chinese on a Pebble

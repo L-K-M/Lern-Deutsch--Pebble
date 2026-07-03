@@ -30,11 +30,39 @@ static HanFont s_ui;     // praise / nudge / flip glyphs
 static HanFont s_grp;    // this group's answer glyphs
 
 #define MAXCARDS  64     // largest a single deck may grow to
+#define CARDBUF   8000   // bytes one deck's packed cards load into (gen_assets.py CARDBUF)
 static int   s_queue[MAXQ];
 static int   s_qhead, s_qtail;
 static int   s_attempts[MAXCARDS];
 static int   s_total, s_mastered, s_first_correct;
 static int   s_cur;
+
+// This deck's cards, loaded from RESOURCE_ID_CARDS at window load. The Card
+// pointers refer into s_cardbuf, so the buffer must outlive them (both are
+// static and live for the whole session).
+static Card    s_cards[MAXCARDS];
+static int     s_ncards;
+static uint8_t s_cardbuf[CARDBUF];
+
+// Load this group's packed card blob (see lg.h / gen_assets.py) and parse it
+// into s_cards[]. Format per card: [gender:1][de\0][zh\0][en\0], UTF-8.
+static void load_cards(void) {
+  s_ncards = s_g->card_count;
+  if (s_ncards > MAXCARDS) s_ncards = MAXCARDS;
+  int n = s_g->cards_len;
+  if (n > CARDBUF) n = CARDBUF;
+  ResHandle h = resource_get_handle(RESOURCE_ID_CARDS);
+  resource_load_byte_range(h, s_g->cards_off, s_cardbuf, n);
+  char *p = (char *)s_cardbuf, *end = (char *)s_cardbuf + n;
+  int i = 0;
+  for (; i < s_ncards && p < end; i++) {
+    s_cards[i].gender = (uint8_t)*p++;
+    s_cards[i].de = p; p += strlen(p) + 1;
+    s_cards[i].zh = p; p += strlen(p) + 1;
+    s_cards[i].en = p; p += strlen(p) + 1;
+  }
+  s_ncards = i;                      // however many actually fit
+}
 
 static Phase s_phase;
 static int   s_prev_best;        // best stars before this round (for "Rekord!")
@@ -54,8 +82,7 @@ static void q_pop(void)   { s_qhead++; }
 
 // ---- session lifecycle -----------------------------------------------------
 static void start_session(void) {
-  s_total = s_g->card_count;
-  if (s_total > MAXCARDS) s_total = MAXCARDS;
+  s_total = s_ncards;                 // cards were loaded + capped in load_cards()
   int order[MAXCARDS];
   for (int i = 0; i < s_total; i++) order[i] = i;
   for (int i = s_total - 1; i > 0; i--) {        // Fisher–Yates shuffle
@@ -383,7 +410,7 @@ static void render(Layer *layer, GContext *ctx) {
   if (s_flip && p.size.w < panel.size.w * 6 / 10) return;
 
   GRect content = GRect(p.origin.x + 7, p.origin.y + 5, p.size.w - 14, p.size.h - 10);
-  const Card *c = &s_g->cards[s_cur];
+  const Card *c = &s_cards[s_cur];
 
   if (!showing_back) {
     draw_face(ctx, c, german_face, content, on_dark);            // front: the prompt
@@ -497,6 +524,7 @@ static void win_load(Window *window) {
   han_load(&s_ui, &ATLAS_UI);
   han_load(&s_grp, s_g->atlas);
   accel_tap_service_subscribe(tap_handler);   // flick the wrist to flip the card
+  load_cards();                               // pull this deck out of RESOURCE_ID_CARDS
   start_session();
 }
 static void win_appear(Window *window) {

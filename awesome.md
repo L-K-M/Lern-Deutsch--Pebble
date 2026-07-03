@@ -64,12 +64,12 @@ calls were doing nothing for these shapes.)
 `study.c::advance()` calls `lg_learned_add(s_total)` **every** time a round
 completes — including replays of a deck you've already mastered. The README
 promises the Stats page counts „学过的单词" (words you've learned), which is
-naturally capped at the 599 words that exist; instead the counter grows without
+naturally capped at the 1204 words that exist; instead the counter grows without
 bound and stops meaning anything.
 
 **Fix:** count a deck's words exactly once, on its *first* completion (when its
 best-star slot is still 0). The stat becomes honest and consistent with the
-neighbouring „Decks x/39" stat.
+neighbouring „Decks x/81" stat.
 
 ### 1.4 Latent: `utf8_next()` can read past the end of a truncated string
 
