@@ -1,5 +1,8 @@
 # 🐱 Lern Deutsch · 学德语
 
+> [!IMPORTANT]
+> LLM disclosure: This codebase was written with substantial help from large language models: AI coding agents working from the [`AGENTS.md`](AGENTS.md) brief in this repo.
+
 一个 **Pebble Time 2** 手表上的**德语 ⇄ 中文单词卡** app，专为中文母语的学习者设计。
 翻卡片、看答案、自己打分，小猫为你加油。
 
