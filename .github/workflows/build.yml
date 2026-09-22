@@ -30,7 +30,7 @@ jobs:
           # for a manual backfill, build the tag's source, not the branch head
           ref: ${{ github.event.inputs.release_tag || github.ref }}
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
