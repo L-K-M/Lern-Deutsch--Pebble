@@ -25,7 +25,7 @@ jobs:
     permissions:
       contents: write   # lets the release step attach the .pbw to a release
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # for a manual backfill, build the tag's source, not the branch head
           ref: ${{ github.event.inputs.release_tag || github.ref }}
